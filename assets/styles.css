@@ -451,7 +451,7 @@ span.CodeMirror-selectedtext {
     border-radius: 8px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    padding: 10px;
+    padding: 16px;
     z-index: 1
 }
 
@@ -644,7 +644,7 @@ span.CodeMirror-selectedtext {
 
 .editor-preview,
 .editor-preview-side {
-    padding: 10px;
+    padding: 16px;
     background: rgb(0, 0, 0);
     overflow: auto;
     display: none;
@@ -699,8 +699,13 @@ span.CodeMirror-selectedtext {
 
 .editor-preview pre,
 .editor-preview-side pre {
-    background: #eee;
-    margin-bottom: 10px
+    background: #2e2e2e;
+    margin: 8px;
+    margin-bottom: 10px ;
+    padding: 8px;
+    border-radius: 8px;
+    border: 2px solid rgb(80, 80, 80);
+    font-size: 16px !important;
 }
 
 .editor-preview table td,
