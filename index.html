@@ -14,9 +14,12 @@
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
     body {
+        margin: 0;
+        padding: 0;
         position: static;
-        height: 86.25vh;
+        height: 100dvh;
         background-color: #1b1b1b;
+        overflow: hidden;
     }
 
     p img {
@@ -33,16 +36,23 @@
         z-index: -5;
         opacity: 0.25;
     }
+    a.fa:nth-child(13),
+    a.fa:nth-child(14) {
+        display: none;
+    }
+    /* look im sorry okay 😭 */
+
 </style>
 
 <body>
 
     <!-- actual input stuff -->
-
-    <textarea id="notepad"></textarea>
+    <div class="notepad-real">
+        <textarea id="notepad"></textarea>
     <img src="https://github.com/Cookiaria/otorrinolaringologia/blob/main/assets/ralcheer.png?raw=true" class="garb"> 
     <script>
         var simplemde = new SimpleMDE({
+            hideIcons: ["columns", "table"],
             autoDownloadFontAwesome: true,
             spellChecker: true,
             autosave: {
@@ -52,6 +62,7 @@
             }
         })
     </script>
+    </div>
 
     <!-- actual input stuff -->
 
