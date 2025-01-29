@@ -18,6 +18,21 @@
         height: 86.5vh;
         background-color: #1b1b1b;
     }
+
+    p img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 360px;
+    }
+    .serotonin {
+        position: fixed;
+        bottom: 48px;
+        right: 16px;
+        width: 256px;
+        z-index: -5;
+        opacity: 0.25;
+    }
 </style>
 
 <body>
@@ -25,13 +40,15 @@
     <!-- actual input stuff -->
 
     <textarea id="notepad"></textarea>
-
+    <img src="https://github.com/Cookiaria/otorrinolaringologia/blob/main/assets/ralcheer.png?raw=true" class="serotonin"> 
     <script>
         var simplemde = new SimpleMDE({
             autoDownloadFontAwesome: true,
-            spellChecker: false,
-            renderingConfig: {
-                codeSyntaxHighlighting: true,
+            spellChecker: true,
+            autosave: {
+                enabled: true,
+                uniqueID: "otorrinolaringologia",
+                delay: 30000,
             }
         })
     </script>
