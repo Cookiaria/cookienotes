@@ -1,66 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>otorrinolaringologia</title>
+    <meta name="viewport" , initial-scale="1.0">
+    <title>AWESOME NOTES</title>
 </head>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
-        body {
-            position: absolute;
-            background-color: black;
-            margin: 0;
-            padding: 0;
-            width: -webkit-fill-available;
-            height: -webkit-fill-available;
-        }
+<link rel="stylesheet" href="./assets/style.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 
-        textarea {
-            background-color: rgba(0,0,0,0);
-            margin: 8px;
-            padding: 8px;
-            width: -webkit-fill-available;
-            height: -webkit-fill-available;
-            resize: none;
-            border: 2px solid rgb(63, 63, 63);
-            border-radius: 8px;
-        }
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
-        textarea:focus { 
-            outline: none;
-        }
+    body {
+        position: static;
+        height: 86.5vh;
+        background-color: #1b1b1b;
+    }
+</style>
 
-        .text {
-            font-family: "Roboto Mono", serif;
-            font-weight: bold;
-            font-size: 18px;
-            color: white
-        }
-
-        .watermark {
-            position: fixed;
-            bottom: 8px;
-            left: 8px ;
-            margin: 0;
-            padding: 0;
-            pointer-events: none;
-            /* transform:scaleX(-1); */
-            opacity: 0.25;
-            z-index: -100;
-        }
-
-        .watermark img {
-            width: auto;
-            height: 256px;
-            /* image-rendering: pixelated; */
-        }
-    </style>
 <body>
-    <textarea class="text"></textarea>
-    <div class="watermark">
-        <img src="https://github.com/Cookiaria/otorrinolaringologia/blob/main/assets/garb.png?raw=true">
-    </div>
+
+    <!-- actual input stuff -->
+
+    <textarea id="notepad"></textarea>
+
+    <script>
+        var simplemde = new SimpleMDE({
+            autoDownloadFontAwesome: true,
+            spellChecker: false,
+            renderingConfig: {
+                codeSyntaxHighlighting: true,
+            }
+        })
+    </script>
+
+    <!-- actual input stuff -->
+
 </body>
+    
 </html>
