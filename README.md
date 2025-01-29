@@ -2,4 +2,4 @@
 the movie
 
 - shoutout to [simplemdm](https://github.com/sparksuite/simplemde-markdown-editor) (massive)
-- credits to alsoangle for art :3
+- credits to [alsoangle](https://bsky.app/profile/alsoangle.bsky.social) for art :3
