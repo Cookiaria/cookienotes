@@ -776,3 +776,16 @@ span.CodeMirror-selectedtext {
 .CodeMirror .cm-spell-error:not(.cm-url):not(.cm-comment):not(.cm-tag):not(.cm-word) {
     background: rgba(255, 0, 0, .15)
 }
+
+blockquote {
+    border-left: 4px solid rgb(80, 80, 80);
+    border-radius: 2px;
+    margin-left: 8px;
+    padding: 2px;
+    padding-left: 8px;
+    padding-right: 0px;
+}
+
+blockquote p {
+    padding-left: 8px;
+}
