@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+.notepad-real {
+    height: 100dvh;
+}
+
 .CodeMirror {
     color: white
 }
@@ -253,7 +257,8 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
     right: 0;
     top: 0;
     overflow-x: hidden;
-    overflow-y: scroll
+    overflow-y: scroll;
+    display: none;
 }
 
 .CodeMirror-hscrollbar {
@@ -446,7 +451,7 @@ span.CodeMirror-selectedtext {
 .CodeMirror {
     font-family: "Ubuntu Mono", serif;
     font-size: 18px;
-    height: 100%;
+    height: 87%;
     border: 1px solid #4f4f4f;
     border-radius: 8px;
     border-top-left-radius: 0;
