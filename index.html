@@ -29,6 +29,11 @@
         margin-right: auto;
         width: 360px;
     }
+
+    a {
+        color: #f80
+    }
+
     .serotonin {
         position: fixed;
         bottom: 32px;
@@ -75,7 +80,7 @@
     <script>
         // Function to toggle transparency
         function toggleTransparency() {
-          const spans = document.querySelectorAll('div.CodeMirror-code > pre > span');
+          const spans = document.querySelectorAll('div.CodeMirror-code > pre > span, span[class^="cm-"]');
     
           spans.forEach(span => {
             if (span.style.color === 'transparent') {
