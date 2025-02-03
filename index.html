@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" , initial-scale="1.0">
     <title>aweomse noets</title>
-    <link rel="icon" type="image/x-icon" href="./assets/icon.png">
+    <link rel="icon" type="image/x-icon" href="/assets//icon.png">
 </head>
 
 <link rel="stylesheet" href="./assets/styles.css">
@@ -17,10 +17,10 @@
     body {
         margin: 0;
         padding: 0;
-        position: static;
-        height: 100dvh;
+        display: block;
+        height: 100%;
         background-color: #1b1b1b;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     p img {
@@ -29,13 +29,14 @@
         margin-right: auto;
         width: 360px;
     }
-    .garb {
+    .serotonin {
         position: fixed;
-        bottom: 48px;
+        bottom: 32px;
         right: 16px;
         width: 256px;
         z-index: -5;
         opacity: 0.25;
+
     }
     a.fa:nth-child(13),
     a.fa:nth-child(14) {
@@ -43,6 +44,17 @@
     }
     /* look im sorry okay 😭 */
 
+    /* making this shit actually work properly */
+    .notepad-real {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 28px);
+    }
+
+    .CodeMirror {
+        flex: 1;
+        min-height: 0;
+    }
 </style>
 
 <body>
@@ -50,20 +62,33 @@
     <!-- actual input stuff -->
     <div class="notepad-real">
         <textarea id="notepad"></textarea>
-    <img src="./assets/ralcheer.png" class="garb"> 
+    <img src="./assets/ralcheer.png" class="serotonin"> 
     <script>
         var simplemde = new SimpleMDE({
             hideIcons: ["columns", "table"],
             autoDownloadFontAwesome: true,
-            spellChecker: true,
-            autosave: {
-                enabled: true,
-                uniqueID: "otorrinolaringologia",
-                delay: 30000,
-            }
+            spellChecker: false
         })
     </script>
     </div>
+
+    <script>
+        // Function to toggle transparency
+        function toggleTransparency() {
+          const spans = document.querySelectorAll('div.CodeMirror-code > pre > span');
+    
+          spans.forEach(span => {
+            if (span.style.color === 'transparent') {
+              span.style.color = ''; // Reset to default
+            } else {
+              span.style.color = 'transparent'; // Make text invisible
+            }
+          });
+        }
+    
+        // Attach event listener to the <a> element
+        document.querySelector('.fa-eye').addEventListener('click', toggleTransparency);
+      </script>    
 
     <!-- actual input stuff -->
 

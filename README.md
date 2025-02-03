@@ -1,5 +1,11 @@
-# WHY DON'T I HAVE ACCESS TO NOTEPAD ?!??
-the movie
+# free notepad hack
+stupid project ive started on an electron app that had access to dev tools and editing the html like that which later became this ; an actual website to host this thing because holy shit why do i not have access to notepad
 
-- shoutout to [simplemdm](https://github.com/sparksuite/simplemde-markdown-editor) (massive)
-- credits to [alsoangle](https://bsky.app/profile/alsoangle.bsky.social) for art :3
+im still mad about that but i think this thing is way better anyway :3
+
+<img src="https://github.com/Cookiaria/otorrinolaringologia/blob/main/assets/garb.png?raw=true" alt="garb" style="display: block; margin: auto; width:256px">
+<div style="display: block; margin: auto; text-align:center;"><p>garb</p></div>
+
+## CREDITS:
+- [simplemde](https://github.com/sparksuite/simplemde-markdown-editor) (massive)
+- [alsoangle](https://bsky.app/profile/alsoangle.bsky.social) for art :3
