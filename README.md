@@ -1,4 +1,4 @@
-# free notepad hack
+# free notepad real
 stupid project ive started on an electron app that had access to dev tools and editing the html like that which later became this ; an actual website to host this thing because holy shit why do i not have access to notepad
 
 im still mad about that but i think this thing is way better anyway :3
