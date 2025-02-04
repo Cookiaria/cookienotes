@@ -1,10 +1,20 @@
-# free notepad real
+# OTORRINOLARINGOLOGIA
+yes, im naming this that
+
 stupid project ive started on an electron app that had access to dev tools and editing the html like that which later became this ; an actual website to host this thing because holy shit why do i not have access to notepad
 
-im still mad about that but i think this thing is way better anyway :3
+im still mad about that but i think this thing is way better anyway
 
-<img src="https://github.com/Cookiaria/otorrinolaringologia/blob/main/assets/garb.png?raw=true" alt="garb" style="display: block; margin: auto; width:256px">
-<div style="display: block; margin: auto; text-align:center;"><p>garb</p></div>
+## wtf does otorrinolaringologia mean
+stupid word a classmate and i came up with while he was watching me fuck around in html
+
+## WARNING: scary jumpscare: 
+
+![garb](https://github.com/Cookiaria/otorrinolaringologia/blob/main/assets/garb.png?raw=true)
+
+garb
+
+
 
 ## CREDITS:
 - [simplemde](https://github.com/sparksuite/simplemde-markdown-editor) (HUGE)
