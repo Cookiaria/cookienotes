@@ -486,7 +486,6 @@ span.CodeMirror-selectedtext {
     user-select: none;
     padding: 0 10px;
     border: 1px solid #4f4f4f;
-    border-bottom: 0 solid white;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }

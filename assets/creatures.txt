@@ -1,0 +1,18 @@
+/assets/creatures/ralcheer.png
+/assets/creatures/garb.png
+/assets/creatures/niko-vibe.gif
+/assets/creatures/don.png
+/assets/creatures/blob.gif
+/assets/creatures/spam.gif
+/assets/creatures/totem.png
+/assets/creatures/cmon.png
+/assets/creatures/bingle.webp
+/assets/creatures/boingus.png
+* /assets/creatures/nya.gif
+* /assets/creatures/ralheal.gif
+/assets/creatures/neko.gif
+/assets/creatures/rotation.gif
+/assets/creatures/niko-stand.gif
+/assets/creatures/niko-stare.gif
+* /assets/creatures/hello.png
+/assets/creatures/bulb.png

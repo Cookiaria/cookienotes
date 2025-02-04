@@ -1,102 +1,210 @@
+<!--
+
+Hello Foundever!
+
+Just in case any of you IT guys are seeing this (if you actually do), this is not "malware" or anything bad! This project is made by me (you can see its "source code" here: https://github.com/Cookiaria/otorrinolaringologia and more details about what it uses in README.md) and doesn't send anything anywhere- nor does it save locally on a computer. just downloads some assets (fonts, images, javascript for text rendering).
+
+It is never my intention to send anything anywhere, I just want to make my job easier and more efficient, with some silly comfort characters at the bottom right.
+
+Thanks for reading!
+
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" , initial-scale="1.0">
-    <title>aweomse noets</title>
-    <link rel="icon" type="image/x-icon" href="/assets//icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>awesm ntose</title>
+    <link rel="icon" type="image/x-icon" href="/assets/icon.png">
+    <link rel="stylesheet" href="/assets/styles.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: block;
+            height: 100%;
+            background-color: #1b1b1b;
+            overflow-x: hidden;
+        }
+
+        p img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 360px;
+        }
+
+        a {
+            color: #f80;
+        }
+
+        .serotonin {
+            position: fixed;
+            bottom: 29px;
+            right: 1px;
+            width: 200px;
+            z-index: -5;
+            opacity: 0.25;
+            image-rendering: pixelated;
+        }
+
+        .notepad-real {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 28px);
+        }
+
+        .CodeMirror {
+            flex: 1;
+            min-height: 0;
+        }
+
+        /* Tab Styles */
+        .tab-container {
+            display: flex;
+            background-color: #1B1B1B;
+            padding: 8px 8px 0 8px;
+        }
+
+
+        a.fa:nth-child(13),
+        a.fa:nth-child(14) {
+            display: none;
+        }
+
+        .tab {
+            font-family: "Ubuntu Mono", serif;
+            padding: 4px 16px;
+            cursor: pointer;
+            background-color: #1B1B1B;
+            color: #fff;
+            margin-right: 4px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border: 1px solid #4f4f4f;
+            border-bottom: 0 solid white;
+        }
+
+        .tab.active {
+            background-color: rgb(46, 46, 46);
+            font-weight: bold;
+            color: #f80;
+            border: 1px solid #4f4f4f;
+            border-bottom: 0 solid white;
+        }
+
+        .tab:hover {
+            background-color: #555;
+        }
+    </style>
+
 </head>
-
-<link rel="stylesheet" href="./assets/styles.css">
-<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
-
-    body {
-        margin: 0;
-        padding: 0;
-        display: block;
-        height: 100%;
-        background-color: #1b1b1b;
-        overflow-x: hidden;
-    }
-
-    p img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 360px;
-    }
-
-    a {
-        color: #f80
-    }
-
-    .serotonin {
-        position: fixed;
-        bottom: 32px;
-        right: 16px;
-        width: 256px;
-        z-index: -5;
-        opacity: 0.25;
-
-    }
-    a.fa:nth-child(13),
-    a.fa:nth-child(14) {
-        display: none;
-    }
-    /* look im sorry okay 😭 */
-
-    /* making this shit actually work properly */
-    .notepad-real {
-        display: flex;
-        flex-direction: column;
-        height: calc(100vh - 28px);
-    }
-
-    .CodeMirror {
-        flex: 1;
-        min-height: 0;
-    }
-</style>
 
 <body>
 
-    <!-- actual input stuff -->
+    <!-- editroe -->
+
     <div class="notepad-real">
+        <div class="tab-container" id="tab-container">
+            <div class="tab active" data-tab="1">scripts</div>
+            <div class="tab" data-tab="2">general</div>
+            <div class="tab" data-tab="3">season</div>
+            <div class="tab" data-tab="4">call</div>
+        </div>
         <textarea id="notepad"></textarea>
-    <img src="./assets/ralcheer.png" class="serotonin"> 
+        <img src="/assets/creatures/garb.png" id="creature" class="serotonin">
+    </div>
+
+    <!-- deepseek is not real -->
+
     <script>
+        // Initialize SimpleMDE
         var simplemde = new SimpleMDE({
             hideIcons: ["columns", "table"],
             autoDownloadFontAwesome: true,
-            spellChecker: false
-        })
+            spellChecker: false,
+            autosave: {
+                enabled: true,
+                uniqueId: "tab1", // Default unique ID for the first tab
+                delay: 10000,
+            },
+        });
+
+        // Store content for each tab
+        const tabContent = {
+            1: localStorage.getItem("tab1") || "",
+            2: localStorage.getItem("tab2") || "",
+            3: localStorage.getItem("tab3") || "",
+            4: localStorage.getItem("tab4") || "",
+        };
+
+        // Initialize the first tab's content
+        simplemde.value(tabContent[1]);
+
+        // Tab Management
+        const tabs = document.querySelectorAll('.tab');
+
+        // Function to switch tabs
+        function switchTab(event) {
+            const tab = event.target;
+            const tabId = tab.getAttribute('data-tab');
+
+            // Save current content to localStorage before switching
+            const currentTabId = document.querySelector('.tab.active').getAttribute('data-tab');
+            localStorage.setItem(`tab${currentTabId}`, simplemde.value());
+
+            // Update active tab
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Load new content
+            simplemde.value(tabContent[tabId] || "");
+
+            // Update autosave uniqueId for the new tab
+            simplemde.options.autosave.uniqueId = `tab${tabId}`;
+        }
+
+        // Attach event listeners to tabs
+        tabs.forEach(tab => tab.addEventListener('click', switchTab));
     </script>
-    </div>
 
     <script>
-        // Function to toggle transparency
-        function toggleTransparency() {
-          const spans = document.querySelectorAll('div.CodeMirror-code > pre > span, span[class^="cm-"]');
-    
-          spans.forEach(span => {
-            if (span.style.color === 'transparent') {
-              span.style.color = ''; // Reset to default
-            } else {
-              span.style.color = 'transparent'; // Make text invisible
+        async function setRandomCreatureImage() {
+            try {
+                const response = await fetch('/assets/creatures.txt');
+                if (!response.ok) throw new Error('Failed to fetch creature list');
+
+                const text = await response.text();
+                const urls = text.split('\n').map(line => line.trim()).filter(line => line);
+
+                if (urls.length === 0) throw new Error('No valid image URLs found');
+
+                const randomEntry = urls[Math.floor(Math.random() * urls.length)];
+                let flip = false;
+                let imageUrl = randomEntry;
+
+                if (randomEntry.startsWith('*') || randomEntry.startsWith('!')) {
+                    flip = true;
+                    imageUrl = randomEntry.substring(1).trim();
+                }
+
+                const imgElement = document.getElementById('creature');
+                imgElement.src = imageUrl;
+                imgElement.style.transform = flip ? 'scaleX(-1)' : 'scaleX(1)';
+            } catch (error) {
+                console.error('Error:', error.message);
             }
-          });
         }
-    
-        // Attach event listener to the <a> element
-        document.querySelector('.fa-eye').addEventListener('click', toggleTransparency);
-      </script>    
 
-    <!-- actual input stuff -->
-
+        // Run the function when the page loads
+        document.addEventListener('DOMContentLoaded', setRandomCreatureImage);
+    </script>
 </body>
-    
+
 </html>

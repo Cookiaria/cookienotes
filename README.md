@@ -7,5 +7,10 @@ im still mad about that but i think this thing is way better anyway :3
 <div style="display: block; margin: auto; text-align:center;"><p>garb</p></div>
 
 ## CREDITS:
-- [simplemde](https://github.com/sparksuite/simplemde-markdown-editor) (massive)
+- [simplemde](https://github.com/sparksuite/simplemde-markdown-editor) (HUGE)
 - [alsoangle](https://bsky.app/profile/alsoangle.bsky.social) for art :3
+- tobyfox for ralsei assets
+- nightmargin for niko assets
+- googl
+- cats
+- fernando (he gave me the idea to do all this bullshit)
