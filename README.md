@@ -8,13 +8,10 @@ im still mad about that but i think this thing is way better anyway
 ## wtf does otorrinolaringologia mean
 stupid word a classmate and i came up with while he was watching me fuck around in html
 
-## WARNING: scary jumpscare: 
-
-![garb](https://github.com/Cookiaria/otorrinolaringologia/blob/main/assets/garb.png?raw=true)
-
-garb
-
-
+## issues atm:
+- preview button is not working as it should when switching tabs
+- some css colors being all over the place for now
+- mobile does not look right (i will not fix this since this is not intended for mobile anyway)
 
 ## CREDITS:
 - [simplemde](https://github.com/sparksuite/simplemde-markdown-editor) (HUGE)
