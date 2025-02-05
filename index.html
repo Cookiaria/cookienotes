@@ -23,6 +23,14 @@ Thanks for reading!
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+        
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.25);
+            border-radius: 3px;
+        }
 
         body {
             margin: 0;
@@ -125,7 +133,7 @@ Thanks for reading!
 
     <script>
         // Initialize SimpleMDE
-        var simplemde = new SimpleMDE({
+        var simplemde = new SimpleMDE({ 
             hideIcons: ["columns", "table"],
             autoDownloadFontAwesome: true,
             spellChecker: false,
