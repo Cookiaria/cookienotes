@@ -88,6 +88,7 @@
             border-top-right-radius: 4px;
             border: 1px solid #4f4f4f;
             border-bottom: 0 solid white;
+            transition: background-color 0.2s;
         }
 
         .tab.active {
@@ -101,6 +102,36 @@
         .tab:hover {
             background-color: #555;
         }
+
+        .tab-close {
+            margin-left: 8px;
+            cursor: pointer;
+            color: #fff;
+            transition: color 0.2s;
+        }
+
+        .tab-close:hover {
+            color: #f80;
+        }
+
+        .add-tab {
+            font-family: "Ubuntu Mono", serif;
+            padding: 4px 16px;
+            cursor: pointer;
+            background-color: #1B1B1B;
+            color: #fff;
+            margin-right: 4px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border: 1px solid #4f4f4f;
+            border-bottom: 0 solid white;
+            transition: background-color 0.2s;
+        }
+
+        .add-tab:hover {
+            background-color: #555;
+        }
+
 
         .creature-selector {
             user-select: none;
@@ -120,14 +151,14 @@
     <div class="notepad-real">
 
         <div class="tab-container" id="tab-container">
-            <div class="tab active" data-tab="1" id="tabbing">scripts</div>
-            <div class="tab" data-tab="2" id="tabbing">general</div>
-            <div class="tab" data-tab="3" id="tabbing">reminders</div>
-            <div class="tab" data-tab="4" id="tabbing">notes</div>
+            <div class="tab active" data-tab="1">
+                <span>Tab 1</span>
+            </div>
+            <div class="add-tab" id="add-tab">+</div>
         </div>
 
         <textarea id="notepad"></textarea>
-        
+
         <div class="creature-selector" id="randomizer" title="randomize your creature">🔄</div>
 
         <img src="/assets/creatures/garb.png" id="creature" class="serotonin">
@@ -136,7 +167,7 @@
 
     </div>
 
-    <script src="/assets/js/simplemde-loader.js"></script>
+    <script src="/assets/js/simplemde-loader.beta.js"></script>
     <script scr="/assets/js/preview-tabswitching.js"></script>
 
 </body>

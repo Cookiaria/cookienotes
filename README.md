@@ -9,7 +9,7 @@ im still mad about that but i think this thing is way better anyway
 stupid word a classmate and i came up with while he was watching me fuck around in html
 
 ## issues atm:
-- preview button is not working as it should when switching tabs
+- preview button not working at ALL (i will fix i promise)
 - some css colors being all over the place for now
 - mobile does not look right (i will not fix this since this is not intended for mobile anyway)
 
