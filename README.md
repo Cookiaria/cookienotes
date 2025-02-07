@@ -6,17 +6,25 @@ stupid project ive started on an electron app that had access to dev tools and e
 im still mad about that but i think this thing is way better anyway
 
 ---
-### disclaimer:
-this does not store anything anywhere except your pc with localstorage
+
+### ⚠️ disclamer:
+
+- this does not store anything anywhere except your pc with localstorage
 if you clear site data and cookies, your saved notes are gone
 
-i don't have anywhere to store anything anyway lol
+- i cannot guarantee that it will actually save so dont get mad at me if it doesn't
 
-## wtf does otorrinolaringologia mean
-stupid word a classmate and i came up with while he was watching me fuck around in html
+## FEATURES:
+- REALTIME MARKDOWN
+- autosaving every second
+- creatures
+- TAB CREATION!
+- TAB RENAMING! (right click them)
+- garb
 
-## issues atm:
+## known issues atm:
 - preview button not working at ALL (i will fix i promise)
+- autosave not working if you type, not create another tab and switch, then refresh
 - some css colors being all over the place for now
 - mobile does not look right (i will not fix this since this is not intended for mobile anyway)
 
@@ -28,3 +36,10 @@ stupid word a classmate and i came up with while he was watching me fuck around 
 - googl
 - cats
 - fernando (he gave me the idea to do all this bullshit)
+
+---
+
+### wtf does otorrinolaringologia mean ⁉️
+stupid word a workmate and i came up with while he was watching me fuck around with html
+
+i might give it another name probably perhaps until i think of something funnier
