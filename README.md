@@ -5,6 +5,13 @@ stupid project ive started on an electron app that had access to dev tools and e
 
 im still mad about that but i think this thing is way better anyway
 
+---
+### disclaimer:
+this does not store anything anywhere except your pc with localstorage
+if you clear site data and cookies, your saved notes are gone
+
+i don't have anywhere to store anything anyway lol
+
 ## wtf does otorrinolaringologia mean
 stupid word a classmate and i came up with while he was watching me fuck around in html
 
