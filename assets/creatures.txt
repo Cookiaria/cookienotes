@@ -4,7 +4,7 @@
 /assets/creatures/don.png
 < /assets/creatures/blob.gif
 /assets/creatures/cmon.png
-/assets/creatures/bingle.webp
+< /assets/creatures/bingle.webp
 /assets/creatures/boingus.png
 <* /assets/creatures/nya.gif
 <* /assets/creatures/ralheal.gif
