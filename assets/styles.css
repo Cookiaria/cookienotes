@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+ul {
+    padding-left: 30px
+}
+
 .CodeMirror {
     color: white
 }
@@ -660,6 +664,8 @@ span.CodeMirror-selectedtext {
 
 .editor-preview h1 {
     font-size: 42px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     border-bottom: 1px solid #313131;
 }
 
@@ -741,17 +747,17 @@ span.CodeMirror-selectedtext {
 
 .CodeMirror .CodeMirror-code .cm-header-1 {
     font-size: 200%;
-    line-height: 200%
+    line-height: 110%
 }
 
 .CodeMirror .CodeMirror-code .cm-header-2 {
     font-size: 160%;
-    line-height: 160%
+    line-height: 110%
 }
 
 .CodeMirror .CodeMirror-code .cm-header-3 {
     font-size: 125%;
-    line-height: 125%
+    line-height: 110%
 }
 
 .CodeMirror .CodeMirror-code .cm-header-4 {
