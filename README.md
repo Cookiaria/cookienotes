@@ -9,8 +9,7 @@ im still mad about that but i think this thing is way better anyway
 
 ### ⚠️ disclamer:
 
-- this does not store anything anywhere except your pc with localstorage
-if you clear site data and cookies, your saved notes are gone
+- this does not store anything anywhere except your pc with localstorage, if you clear site data and cookies, your saved notes will be gone
 
 - i cannot guarantee that it will actually save so dont get mad at me if it doesn't
 
