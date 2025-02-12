@@ -9,9 +9,9 @@ var simplemde = new SimpleMDE({
     },
 });
 
-// Store tabs and their content
+// Store tabs and their content along with editor state
 let tabs = JSON.parse(localStorage.getItem("tabs")) || [
-    { id: "1", name: "Tab 1", content: localStorage.getItem("tab1") || "" },
+    { id: "1", name: "Tab 1", content: localStorage.getItem("tab1") || "", history: null },
 ];
 
 // Initialize the first tab's content
@@ -67,21 +67,27 @@ function renderTabs() {
 
 // Switch tabs
 function switchTab(tabId) {
-    // Save current content
+    // Save current content and history
     const currentTabId = document.querySelector(".tab.active")?.getAttribute("data-tab");
     if (currentTabId) {
         const currentTab = tabs.find((tab) => tab.id === currentTabId);
-        if (currentTab) currentTab.content = simplemde.value();
+        if (currentTab) {
+            currentTab.content = simplemde.value();
+            currentTab.history = simplemde.codemirror.getHistory();
+        }
     }
 
     // Update active tab
     document.querySelectorAll(".tab").forEach((tab) => tab.classList.remove("active"));
     document.querySelector(`.tab[data-tab="${tabId}"]`)?.classList.add("active");
 
-    // Load new content
+    // Load new content and history
     const newTab = tabs.find((tab) => tab.id === tabId);
     if (newTab) {
         simplemde.value(newTab.content || "");
+        if (newTab.history) {
+            simplemde.codemirror.setHistory(newTab.history);
+        }
         simplemde.options.autosave.uniqueId = `tab${tabId}`;
         simplemde.codemirror.refresh();
     }
@@ -90,7 +96,7 @@ function switchTab(tabId) {
 // Add new tab
 function addNewTab() {
     const newTabId = String(Date.now()); // Unique ID
-    tabs.push({ id: newTabId, name: `Tab ${tabs.length + 1}`, content: "" });
+    tabs.push({ id: newTabId, name: `tab${tabs.length + 1}`, content: "", history: null });
     localStorage.setItem("tabs", JSON.stringify(tabs));
     renderTabs();
     switchTab(newTabId);
@@ -113,11 +119,22 @@ function closeTab(tabId) {
     }
 }
 
-
 // Rename tab
 function renameTab(tabId) {
     const newName = prompt("Enter a new name for the tab:");
     if (newName) {
+        if (newName.toLowerCase() === "begone") {
+            const shouldDelete = confirm("this will remove EVERYTHING, and there is no going back. are you sure?");
+            if (shouldDelete) {
+                // Clear all tabs and local storage
+                tabs = [{ id: "1", name: "Tab 1", content: "", history: null }];
+                localStorage.clear();
+                renderTabs();
+                switchTab("1");
+                return;
+            }
+        }
+
         const tab = tabs.find((tab) => tab.id === tabId);
         if (tab) tab.name = newName;
         localStorage.setItem("tabs", JSON.stringify(tabs));
@@ -130,7 +147,10 @@ window.addEventListener("beforeunload", () => {
     const currentTabId = document.querySelector(".tab.active")?.getAttribute("data-tab");
     if (currentTabId) {
         const currentTab = tabs.find((tab) => tab.id === currentTabId);
-        if (currentTab) currentTab.content = simplemde.value();
+        if (currentTab) {
+            currentTab.content = simplemde.value();
+            currentTab.history = simplemde.codemirror.getHistory();
+        }
     }
     localStorage.setItem("tabs", JSON.stringify(tabs));
 });
