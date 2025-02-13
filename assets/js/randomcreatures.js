@@ -62,6 +62,21 @@ async function showCreatureList(event) {
     listContainer.style.bottom = `${window.innerHeight - event.clientY + 10}px`; // Position above the cursor
     listContainer.style.left = `${event.clientX}px`;
 
+    // --- Add a "Randomize" option at the top ---
+    const randomizeItem = document.createElement('div');
+    randomizeItem.textContent = 'randomize';
+    randomizeItem.classList.add('ca-creature-item'); // Style similar to other items
+    randomizeItem.addEventListener('click', () => {
+        // Remove any saved creature to enable randomization
+        localStorage.removeItem('selectedCreature');
+        // Set a new random creature image
+        setRandomCreatureImage();
+        // Remove the list after selection
+        listContainer.remove();
+    });
+    listContainer.appendChild(randomizeItem);
+    // --- End "Randomize" option ---
+
     // Add each creature to the list
     urls.forEach(url => {
         const fileName = url.split('/').pop().split('.')[0]; // Extract file name without extension
@@ -71,7 +86,7 @@ async function showCreatureList(event) {
         listItem.addEventListener('click', () => {
             const imgElement = document.getElementById('creature');
 
-            // Process the URL to handle "^", "<", and "*"
+            // Process the URL to handle "^", "<", "*", and "!"
             let processedUrl = url;
             let mirror = false;
             let scaleDown = false;
@@ -94,6 +109,7 @@ async function showCreatureList(event) {
             }
             
             if (processedUrl.includes('!')) {
+                transparent = true;
                 processedUrl = processedUrl.replace('!', '').trim();
             }
 
@@ -102,6 +118,15 @@ async function showCreatureList(event) {
             imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
             imgElement.style.opacity = transparent ? '0' : '0.25';
             imgElement.src = processedUrl;
+
+            // Save the selected creature to localStorage
+            localStorage.setItem('selectedCreature', JSON.stringify({
+                url: processedUrl,
+                mirror,
+                scaleDown,
+                scaleUp,
+                transparent,
+            }));
 
             listContainer.remove(); // Remove the list after selection
         });
@@ -120,6 +145,28 @@ async function showCreatureList(event) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', setRandomCreatureImage);
+
+// Load the saved creature from localStorage on page load
+function loadSavedCreature() {
+    const savedCreature = localStorage.getItem('selectedCreature');
+    if (savedCreature) {
+        const { url, mirror, scaleDown, scaleUp, transparent } = JSON.parse(savedCreature);
+        const imgElement = document.getElementById('creature');
+        imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
+        imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
+        imgElement.style.opacity = transparent ? '0' : '0.25';
+        imgElement.src = url;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // If there's a saved creature, load it; otherwise, randomize.
+    if (localStorage.getItem('selectedCreature')) {
+         loadSavedCreature();
+    } else {
+         setRandomCreatureImage();
+    }
+});
+
 document.getElementById("randomizer").addEventListener("click", setRandomCreatureImage);
 document.getElementById("randomizer").addEventListener("contextmenu", showCreatureList);

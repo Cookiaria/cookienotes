@@ -41,6 +41,11 @@ im still mad about that but i think this thing is way better anyway
 - garb
 
 # CHANGELOG:
+### v6 - last minute changes lol
+- forgot to make the preview actually hide the creature (non transparent bg)
+- added creature saving functionality
+  - creature now saves if you choose one, but you can always go back to a random one for everytime you visit if you select "randomize"
+
 ### v6 - Feb 13, 2025
 - CREATURE PICKER
   - you can now right click on the creature randomizer and choose your creature manually, it does not save still
