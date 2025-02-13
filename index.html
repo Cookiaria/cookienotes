@@ -4,161 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>awesm ntose</title>
+    <title>awesome notes</title>
     <link rel="icon" type="image/x-icon" href="/assets/icon.png">
-    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="/assets/css/simplemde.style.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/creaturelist.css">
     <script src="/assets/js/simplemde.js"></script>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
-
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-            position: fixed;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.25);
-            border-radius: 3px;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            display: block;
-            height: 100%;
-            background-color: #1b1b1b;
-            overflow-x: hidden;
-        }
-
-        p img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 360px;
-        }
-
-        a {
-            color: #f80;
-        }
-
-        .serotonin {
-            position: fixed;
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-end;
-            bottom: 29px;
-            right: 1px;
-            width: 240px;
-            z-index: -5;
-            opacity: 0.30;
-            image-rendering: pixelated;
-        }
-
-        .notepad-real {
-            display: flex;
-            flex-direction: column;
-            height: calc(100vh - 28px);
-        }
-
-        .CodeMirror {
-            flex: 1;
-            min-height: 0;
-        }
-
-        a.fa:nth-child(13),
-        a.fa:nth-child(14) {
-            display: none;
-        }
-
-        .tab-container {
-            user-select: none;
-            display: flex;
-            background-color: #1B1B1B;
-            padding: 8px 8px 0 8px;
-            overflow-x: auto;
-            flex-wrap: nowrap;
-            white-space: nowrap;
-        }
-
-        .tab {
-            font-family: "Ubuntu Mono", serif;
-            padding: 6px 8px;
-            cursor: pointer;
-            background-color: #1B1B1B;
-            color: #fff;
-            margin-right: 4px;
-            border-top-left-radius: 4px;
-            border-top-right-radius: 4px;
-            border: 1px solid #4f4f4f;
-            border-bottom: 0 solid white;
-            transition: background-color 0.2s;
-            flex-shrink: 0;
-        }
-
-        .tab.active {
-            background-color: rgb(46, 46, 46);
-            font-weight: bold;
-            color: #f80;
-            border: 1px solid #4f4f4f;
-            border-bottom: 0 solid white;
-        }
-
-        .tab:hover {
-            background-color: #555;
-        }
-
-        .tab-close {
-            display: inline-block;
-            text-align: center;
-            margin-left: 8px;
-            cursor: pointer;
-            color: #ffa4a4;
-            background: #770000;
-            border-radius: 2px;
-            width: 12px;
-        }
-
-        .tab-close:hover {
-            color: rgb(0, 0, 0);
-            background-color: #ff4f4f;
-        }
-
-        .add-tab {
-            display: inline-block;
-            text-align: center;
-            align-items: center;
-            font-family: "Ubuntu Mono", serif;
-            padding: 4px 4px;
-            cursor: pointer;
-            font-weight: bold;
-            background-color: #1B1B1B;
-            color: #fff;
-            margin-right: 4px;
-            border-top-left-radius: 4px;
-            border-top-right-radius: 4px;
-            border: 1px solid #4f4f4f;
-            border-bottom: 0 solid white;
-            flex-shrink: 0;
-        }
-
-        .add-tab:hover {
-            background-color: #555;
-        }
-
-
-        .creature-selector {
-            user-select: none;
-            position: fixed;
-            right: 10px;
-            top: 45px;
-            font-size: 25px;
-            opacity: 0.25;
-            cursor: pointer;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -168,13 +19,14 @@
         <div class="tab-container" id="tab-container">
             <div class="add-tab" id="add-tab">+</div>
             <div class="tab active" data-tab="1">
-                <span>Tab 1</span>
+                <span>tab1</span>
             </div>
         </div>
 
         <textarea id="notepad"></textarea>
 
         <div class="creature-selector" id="randomizer" title="randomize your creature">🔄</div>
+        <div class="notes-version"  title="grapejuice">v6 - grapejuice</div>
 
         <img src="/assets/creatures/garb.png" id="creature" class="serotonin">
 
@@ -184,6 +36,7 @@
 
     <script src="/assets/js/simplemde-loader.beta.js"></script>
     <script scr="/assets/js/preview-tabswitching.js"></script>
+    <script src="/assets/js/cmd.js"></script>
 
 </body>
 

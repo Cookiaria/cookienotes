@@ -124,17 +124,31 @@ function renameTab(tabId) {
     const newName = prompt("Enter a new name for the tab:");
     if (newName) {
         if (newName.toLowerCase() === "begone") {
-            const shouldDelete = confirm("this will remove EVERYTHING, and there is no going back. are you sure?");
+            const shouldDelete = confirm("This will remove EVERYTHING, and there is no going back. Are you sure?");
             if (shouldDelete) {
                 // Clear all tabs and local storage
-                tabs = [{ id: "1", name: "Tab 1", content: "", history: null }];
+                tabs = [{ id: "1", name: "tab1", content: "", history: null }];
                 localStorage.clear();
+
+                // Reset the editor's content to an empty string
+                simplemde.value("");
+
+                // Render the tabs and switch to the first tab
                 renderTabs();
                 switchTab("1");
                 return;
             }
         }
+        
+        if (newName === "nyan") {
+            const imgElement = document.getElementById('creature');
+            imgElement.style.transform =  'scaleX(-1)';
+            imgElement.style.width = '160px';
+            imgElement.src = '/assets/creatures/nya.gif';
+        }
 
+
+        // If the name is not "begone", proceed with renaming the tab
         const tab = tabs.find((tab) => tab.id === tabId);
         if (tab) tab.name = newName;
         localStorage.setItem("tabs", JSON.stringify(tabs));
