@@ -3,28 +3,42 @@
 // * = mirror
 // ^ = grow
 // 
+// furry creatures:
+// ocs:
+// stupid ass cats:
 ! /assets/creatures/nothing.png
-* /assets/creatures/seeker.png
+
+
 <* /assets/creatures/ralsei_heal.gif
 /assets/creatures/ralsei_cheer.png
-<* /assets/creatures/nyancat.gif
+^ /assets/creatures/ralsei_cake.png
+* /assets/creatures/ralsei_gdcat.png
 * /assets/creatures/niko_yippie.png
 < /assets/creatures/niko_vibe.gif
 < /assets/creatures/niko_stand.gif
 < /assets/creatures/niko_looking.gif
-/assets/creatures/niko_af.png
-< /assets/creatures/neko.gif
-/assets/creatures/garb.png
-/assets/creatures/fox_rotation.gif
-/assets/creatures/don.png
-/assets/creatures/cmon.png
-/assets/creatures/cheems.png
-/assets/creatures/boingus.png
-< /assets/creatures/blob.gif
-< /assets/creatures/bingle.webp
-< /assets/creatures/bean.png
-< /assets/creatures/pukeko.png
-^ /assets/creatures/ralsei_cake.png
-* /assets/creatures/ralsei_gdcat.png
 /assets/creatures/niko_bulb.png
+/assets/creatures/niko_af.png
+<* /assets/creatures/nyancat.gif
+< /assets/creatures/neko.gif
+< /assets/creatures/bingle.webp
+/assets/creatures/don.png
+/assets/creatures/don_2.png
 < /assets/creatures/cheez.png
+< /assets/creatures/blob.gif
+/assets/creatures/gato_parachute.png
+
+< /assets/creatures/maxi.webp
+/assets/creatures/mint_NEAR.png
+/assets/creatures/ca-bean.png
+/assets/creatures/ca-dead.png
+/assets/creatures/ca-april.png
+
+/assets/creatures/cmon.png
+/assets/creatures/boingus.png
+/assets/creatures/cheems.png
+* /assets/creatures/seeker.png
+< /assets/creatures/pukeko.png
+/assets/creatures/garb.png
+
+

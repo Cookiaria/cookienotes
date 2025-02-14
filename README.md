@@ -9,44 +9,58 @@ im still mad about that but i think this thing is way better anyway
 
 ### ⚠️ disclamer:
 
-- this does not store anything anywhere except your pc with localstorage, if you clear site data and cookies, your saved notes will be gone
+- this does not store anything anywhere except your pc with localstorage, if you clear site data and cookies, your saved notes will be gone ... if you're fast enough lol
 
 - i cannot guarantee that it will actually save so dont get mad at me if it doesn't
 
 # FEATURES:
 - REALTIME MARKDOWN
 - autosaving every second
-- creatures
+- creatures ‼️
 - TAB CREATION!
 - TAB RENAMING! (right click them)
+- TAB SAVING!
+- CMD LINE to export/backup your notes and tabs !! 
+  - accessable with `CTRL` + `ALT` + `Q`, and typing "export" for backup, "import" for restore
 - garb
-
-# known issues atm:
-- preview button not working at ALL (i will fix i promise)
-- autosave not working if you type, not create another tab and switch, then refresh
-- some css colors being all over the place for now
-- mobile does not look right (i will not fix this since this is not intended for mobile anyway)
 
 # CREDITS:
 - [simplemde](https://github.com/sparksuite/simplemde-markdown-editor) (HUGE)
 - [alsoangle](https://bsky.app/profile/alsoangle.bsky.social) for ralsei art
 - [jadedholiday](https://x.com/jadedholiday) for ralsei art
-- [IcyMaxi](https://bsky.app/profile/maximaxi.cookiaria.lol) for art of my oc
+- [IcyMaxi](https://bsky.app/profile/maximaxi.cookiaria.lol) for art of my oc and themselves
 - merad01 - for ralsei art comm
 - Chikn Nuggit - for Cheezborger asset
-- tobyfox for ralsei assets 
+- tobyfox/ for ralsei assets 
 - nightmargin for niko assets
 - cats
 - pukeko
 - garb
 
 # CHANGELOG:
-### v6.1 - last minute changes lol
+### v7-strawberry-pie - feb 14, 2025 
+- improved codeblock coloring
+- improved html coloring
+- remade the tab renaming to be more integrated instead of a fullscreen browser popup
+- renaming a tab "begone" no longer deletes everything, it was moved to the CMD (be careful because it has no confirmation this time!!)
+- version on the bottom left including a food because why not ...
+- customized the toolbar a lil bit
+  - bold, italics and strikethrough are now first
+  - all 3 header options (though i might remove 2 and 3...)
+  - preview button
+  - dedicated button for creatures on the toolbar !!
+  - switched from using fontawesome to [nerdfonts](https://www.nerdfonts.com/) because fontawesome stinky
+- creature menu no longer in the bottom left
+- more creatures, removed one (fox rotation)
+- fixed an issue where if you deleted a tab it didn't actually delete its contents from local storage oopsies
+- removed old.html
+
+### v6.1-grapejuice - last minute changes lol
 - forgot to make the preview actually hide the creature (non transparent bg)
 - added creature saving functionality
   - creature now saves if you choose one, but you can always go back to a random one for everytime you visit if you select "randomize"
 
-### v6 - Feb 13, 2025
+### v6-grapejuice Feb 13, 2025
 - CREATURE PICKER
   - you can now right click on the creature randomizer and choose your creature manually, it does not save still
   - creature picker has been moved from the top right to the bottom left

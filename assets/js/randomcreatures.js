@@ -16,17 +16,17 @@ async function setRandomCreatureImage() {
 
         if (randomCreature.includes('*')) {
             mirror = true;
-            randomCreature = randomCreature.replace('*', '').trim(); 
+            randomCreature = randomCreature.replace('*', '').trim();
         }
 
         if (randomCreature.includes('<')) {
             scaleDown = true;
-            randomCreature = randomCreature.replace('<', '').trim(); 
+            randomCreature = randomCreature.replace('<', '').trim();
         }
 
         if (randomCreature.includes('^')) {
             scaleUp = true;
-            randomCreature = randomCreature.replace('^', '').trim(); 
+            randomCreature = randomCreature.replace('^', '').trim();
         }
 
         if (randomCreature.includes('!')) {
@@ -35,7 +35,7 @@ async function setRandomCreatureImage() {
         }
 
         const imgElement = document.getElementById('creature');
-        
+
         imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
         imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
         imgElement.style.opacity = transparent ? '0' : '0.25';
@@ -46,105 +46,97 @@ async function setRandomCreatureImage() {
     }
 }
 
+let lastMousePosition = { x: 0, y: 0 };
+document.addEventListener('mousemove', (e) => {
+    lastMousePosition.x = e.clientX;
+    lastMousePosition.y = e.clientY;
+});
+
 async function showCreatureList(event) {
-    event.preventDefault(); // Prevent the default right-click menu
+    let x, y;
+    if (event) {
+        event.preventDefault(); // For right-click context menu prevention
+        x = event.clientX;
+        y = event.clientY;
+    } else {
+        x = lastMousePosition.x;
+        y = lastMousePosition.y;
+    }
 
-    const response = await fetch('/assets/creatures.txt');
-    const text = await response.text();
-    const urls = text.split('\n')
-        .map(line => line.trim()) // Trim whitespace
-        .filter(line => line && !line.startsWith('//')); // Ignore empty lines and comments
+    try {
+        const response = await fetch('/assets/creatures.txt');
+        if (!response.ok) throw new Error('Failed to load creatures');
+        const text = await response.text();
+        const urls = text.split('\n')
+            .map(line => line.trim())
+            .filter(line => line && !line.startsWith('//'));
 
-    // Create a container for the list
-    const listContainer = document.createElement('div');
-    listContainer.classList.add('ca-creature-list'); // Add the class for styling
-    listContainer.style.position = 'absolute';
-    listContainer.style.bottom = `${window.innerHeight - event.clientY + 10}px`; // Position above the cursor
-    listContainer.style.left = `${event.clientX}px`;
+        const listContainer = document.createElement('div');
+        listContainer.classList.add('ca-creature-list');
+        listContainer.style.position = 'absolute';
+        listContainer.style.top = `${y + 10}px`; // Position below cursor
+        listContainer.style.left = `${x}px`;
 
-    // --- Add a "Randomize" option at the top ---
-    const randomizeItem = document.createElement('div');
-    randomizeItem.textContent = 'randomize';
-    randomizeItem.classList.add('ca-creature-item'); // Style similar to other items
-    randomizeItem.addEventListener('click', () => {
-        // Remove any saved creature to enable randomization
-        localStorage.removeItem('selectedCreature');
-        // Set a new random creature image
-        setRandomCreatureImage();
-        // Remove the list after selection
-        listContainer.remove();
-    });
-    listContainer.appendChild(randomizeItem);
-    // --- End "Randomize" option ---
-
-    // Add each creature to the list
-    urls.forEach(url => {
-        const fileName = url.split('/').pop().split('.')[0]; // Extract file name without extension
-        const listItem = document.createElement('div');
-        listItem.textContent = fileName;
-        listItem.classList.add('ca-creature-item'); // Add a class for list items
-        listItem.addEventListener('click', () => {
-            const imgElement = document.getElementById('creature');
-
-            // Process the URL to handle "^", "<", "*", and "!"
-            let processedUrl = url;
-            let mirror = false;
-            let scaleDown = false;
-            let scaleUp = false;
-            let transparent = false;
-
-            if (processedUrl.includes('*')) {
-                mirror = true;
-                processedUrl = processedUrl.replace('*', '').trim();
-            }
-
-            if (processedUrl.includes('<')) {
-                scaleDown = true;
-                processedUrl = processedUrl.replace('<', '').trim();
-            }
-
-            if (processedUrl.includes('^')) {
-                scaleUp = true;
-                processedUrl = processedUrl.replace('^', '').trim();
-            }
-            
-            if (processedUrl.includes('!')) {
-                transparent = true;
-                processedUrl = processedUrl.replace('!', '').trim();
-            }
-
-            // Apply styles and set the image source
-            imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
-            imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
-            imgElement.style.opacity = transparent ? '0' : '0.25';
-            imgElement.src = processedUrl;
-
-            // Save the selected creature to localStorage
-            localStorage.setItem('selectedCreature', JSON.stringify({
-                url: processedUrl,
-                mirror,
-                scaleDown,
-                scaleUp,
-                transparent,
-            }));
-
-            listContainer.remove(); // Remove the list after selection
-        });
-        listContainer.appendChild(listItem);
-    });
-
-    // Add the list to the body
-    document.body.appendChild(listContainer);
-
-    // Remove the list if clicked outside
-    document.addEventListener('click', function onClickOutside(event) {
-        if (!listContainer.contains(event.target)) {
+        // Add Randomize option
+        const randomizeItem = document.createElement('div');
+        randomizeItem.textContent = 'randomize';
+        randomizeItem.classList.add('ca-creature-item');
+        randomizeItem.addEventListener('click', () => {
+            localStorage.removeItem('selectedCreature');
+            setRandomCreatureImage();
             listContainer.remove();
-            document.removeEventListener('click', onClickOutside);
-        }
-    });
-}
+        });
+        listContainer.appendChild(randomizeItem);
 
+        // Add creature items
+        urls.forEach(url => {
+            const fileName = url.split('/').pop().split('.')[0];
+            const listItem = document.createElement('div');
+            listItem.textContent = fileName;
+            listItem.classList.add('ca-creature-item');
+            listItem.addEventListener('click', () => {
+                const imgElement = document.getElementById('creature');
+                let processedUrl = url;
+                let mirror = processedUrl.includes('*');
+                let scaleDown = processedUrl.includes('<');
+                let scaleUp = processedUrl.includes('^');
+                let transparent = processedUrl.includes('!');
+
+                processedUrl = processedUrl.replace(/[*<^!]/g, '').trim();
+
+                imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
+                imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
+                imgElement.style.opacity = transparent ? '0' : '0.25';
+                imgElement.src = processedUrl;
+
+                // Save to localStorage
+                localStorage.setItem('selectedCreature', JSON.stringify({
+                    url: processedUrl,
+                    mirror,
+                    scaleDown,
+                    scaleUp,
+                    transparent,
+                }));
+
+                listContainer.remove();
+            });
+            listContainer.appendChild(listItem);
+        });
+
+        document.body.appendChild(listContainer);
+
+        // Remove list on outside click
+        document.addEventListener('click', function onClickOutside(e) {
+            if (!listContainer.contains(e.target)) {
+                listContainer.remove();
+                document.removeEventListener('click', onClickOutside);
+            }
+        });
+
+    } catch (error) {
+        console.error('Error:', error.message);
+    }
+}
 
 // Load the saved creature from localStorage on page load
 function loadSavedCreature() {
@@ -162,11 +154,8 @@ function loadSavedCreature() {
 document.addEventListener('DOMContentLoaded', () => {
     // If there's a saved creature, load it; otherwise, randomize.
     if (localStorage.getItem('selectedCreature')) {
-         loadSavedCreature();
+        loadSavedCreature();
     } else {
-         setRandomCreatureImage();
+        setRandomCreatureImage();
     }
 });
-
-document.getElementById("randomizer").addEventListener("click", setRandomCreatureImage);
-document.getElementById("randomizer").addEventListener("contextmenu", showCreatureList);

@@ -12,10 +12,6 @@ ul {
     padding: 4px 0
 }
 
-.CodeMirror pre {
-    padding: 0 4px
-}
-
 .CodeMirror-gutter-filler,
 .CodeMirror-scrollbar-filler {
     background-color: #ffffff
@@ -444,8 +440,8 @@ div.CodeMirror-dragcursors {
 
 span.CodeMirror-selectedtext {
     background: 0 0;
-    color: black;
-    background-color: white;
+    color: rgb(255, 255, 255);
+    background-color: rgb(185, 98, 73);
 }
 
 .CodeMirror {
@@ -490,6 +486,7 @@ span.CodeMirror-selectedtext {
     user-select: none;
     padding: 0 10px;
     border: 1px solid #4f4f4f;
+    border-bottom: 0 solid white;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
@@ -712,13 +709,9 @@ span.CodeMirror-selectedtext {
 
 .editor-preview pre,
 .editor-preview-side pre {
-    background: rgba(255,255,255,0.025);
     margin: 8px;
     margin-bottom: 10px ;
-    padding: 8px;
-    border-radius: 8px;
-    border: 2px solid rgba(255,255,255,0.1);
-    font-size: 16px !important;
+    font-size: 14px !important;
 }
 
 p code {
@@ -739,19 +732,19 @@ p code {
 }
 
 .CodeMirror .CodeMirror-code .cm-tag {
-    color: #63a35c
+    color: #5fc753
 }
 
 .CodeMirror .CodeMirror-code .cm-attribute {
-    color: #795da3
+    color: #a181c8
 }
 
 .CodeMirror .CodeMirror-code .cm-string {
-    color: #183691
+    color: #698dff
 }
 
 .CodeMirror .CodeMirror-selected {
-    background: #d9d9d9
+    background: rgb(185, 98, 73)
 }
 
 .CodeMirror .CodeMirror-code .cm-header-1 {
@@ -775,7 +768,7 @@ p code {
 }
 
 .CodeMirror .CodeMirror-code .cm-comment {
-    background: rgba(0, 0, 0, .05);
+    background: trabsparent;
     border-radius: 2px
 }
 
@@ -800,14 +793,18 @@ p code {
 }
 
 blockquote {
-    border-left: 4px solid rgb(80, 80, 80);
-    border-radius: 2px;
-    margin-left: 8px;
+    border-left: 6px solid #f86;
+    border-radius: 4px;
+    margin: 4px 0 16px 0;
     padding: 2px;
     padding-left: 8px;
     padding-right: 0px;
+    background-color: rgba(27, 27, 27,0.5);
+    max-width: fit-content;
 }
 
 blockquote p {
     padding-left: 8px;
+    padding-right: 16px;
+    margin: 4px 0
 }

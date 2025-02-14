@@ -2,7 +2,7 @@ document.addEventListener('keydown', function (event) {
     if (event.ctrlKey && event.altKey && event.code === 'KeyQ') {
         event.stopPropagation();
         if (document.activeElement.id === 'command-line') {
-            console.log('goodbye');
+            console.log('goodbye!');
             document.getElementById('command-line').remove();
         } else {
             openCommandLine();
@@ -14,7 +14,7 @@ document.addEventListener('click', function (event) {
     if (!event.target.closest('#command-line')) {
         const commandLine = document.getElementById('command-line');
         if (commandLine) {
-            console.log('goodbye');
+            console.log('goodbye!');
             commandLine.remove();
         }
     }
@@ -95,7 +95,7 @@ function importLocalStorage() {
 }
 
 function openCommandLine() {
-    console.log('hello!');
+    console.log('hello! summoning command line...');
     let commandLine = document.getElementById('command-line');
 
     if (!commandLine) {
@@ -117,7 +117,7 @@ function openCommandLine() {
                     console.log(`Unknown: ${command}. type "help" for a list`);
                 }
 
-                console.log('goodbye');
+                console.log('goodbye!');
                 commandLine.remove();
             }
         });
@@ -138,5 +138,13 @@ const commands = {
     // list commands
     help: () => {
         console.log('Available commands:', Object.keys(commands).join(', '));
+    },
+    // begone
+    begone: () => {
+        localStorage.clear();
+        tabs = [{ id: "1", name: "tab1", content: "", history: null }];
+        simplemde.value("");
+        renderTabs();
+        switchTab("1");
     }
 };

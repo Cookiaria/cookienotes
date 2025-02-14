@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://www.nerdfonts.com/assets/css/webfont.css');
+
+.nf {
+    font-size: 18px;
+}
 
 ::-webkit-scrollbar {
     width: 6px;
@@ -81,14 +86,13 @@ a.fa:nth-child(14) {
     border-top-right-radius: 4px;
     border: 1px solid #4f4f4f;
     border-bottom: 0 solid white;
-    transition: background-color 0.2s;
     flex-shrink: 0;
 }
 
 .tab.active {
     background-color: rgb(46, 46, 46);
     font-weight: bold;
-    color: #f80;
+    color: #f86;
     border: 1px solid #4f4f4f;
     border-bottom: 0 solid white;
 }
@@ -114,11 +118,13 @@ a.fa:nth-child(14) {
 }
 
 .add-tab {
+    position: fixed;
+    top: 8px;
+    height: 22px;
     display: inline-block;
     text-align: center;
-    align-items: center;
     font-family: "Ubuntu Mono", serif;
-    padding: 4px 4px;
+    padding: 4px 8px;
     cursor: pointer;
     font-weight: bold;
     background-color: #1B1B1B;
@@ -128,22 +134,14 @@ a.fa:nth-child(14) {
     border-top-right-radius: 4px;
     border: 1px solid #4f4f4f;
     border-bottom: 0 solid white;
-    flex-shrink: 0;
-    order: -1;
+}
+
+div.tab:nth-child(1) {
+    margin-left: 30px;
 }
 
 .add-tab:hover {
     background-color: #555;
-}
-
-.creature-selector {
-    user-select: none;
-    position: fixed;
-    bottom: 5px;
-    left: 5px;
-    font-size: 16px;
-    opacity: 0.25;
-    cursor: pointer;
 }
 
 .notes-version {
@@ -151,10 +149,17 @@ a.fa:nth-child(14) {
     color: #959694;
     user-select: none;
     position: fixed;
-    bottom: 7px;
-    left: 32px;
-    font-size: 16px;
-    opacity: 0.5;
+    bottom: 8px;
+    left: 8px;
+    font-size: 12px;
+    opacity: 0.75;
+    a {
+        text-decoration: none ;
+        color: inherit
+    }
+    a:hover {
+        text-decoration: underline
+    }
 }
 
 #command-line {
@@ -181,3 +186,21 @@ a.fa:nth-child(14) {
     overflow-y: auto;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+.ca-tab-renamer {
+    font-family: "Ubuntu Mono", serif;
+    font-size: inherit;
+    color: white;
+    width: min-content;
+    background-color: #353535;
+    border: 0 solid white;
+    padding: 0 4px;
+    z-index: 1000;
+    height: 1em;
+    overflow-y: auto;
+}
+
+.ca-tab-renamer:focus {
+    outline: none;
+}
+
