@@ -21,7 +21,7 @@ body {
     padding: 0;
     display: block;
     height: 100%;
-    background-color: #1b1b1b;
+    background-color: #17171A;
     overflow-x: hidden;
 }
 
@@ -37,12 +37,12 @@ a {
 }
 
 .serotonin {
-    position: fixed;
+    position: absolute;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    bottom: 29px;
-    right: 1px;
+    bottom: 0px;
+    right: 0px;
     width: 240px;
     z-index: -5;
     opacity: 0.30;
@@ -50,9 +50,12 @@ a {
 }
 
 .notepad-real {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: calc(100vh - 28px);
+    max-width: 1024px;
+    margin: 0 auto;
 }
 
 .CodeMirror {
@@ -68,7 +71,7 @@ a.fa:nth-child(14) {
 .tab-container {
     user-select: none;
     display: flex;
-    background-color: #1B1B1B;
+    background-color: #17171A;
     padding: 8px 8px 0 8px;
     overflow-x: auto;
     flex-wrap: nowrap;
@@ -76,9 +79,9 @@ a.fa:nth-child(14) {
 }
 
 .tab {
+    cursor: grab;
     font-family: "Ubuntu Mono", serif;
     padding: 6px 8px;
-    cursor: pointer;
     background-color: #1B1B1B;
     color: #fff;
     margin-right: 4px;
@@ -87,6 +90,14 @@ a.fa:nth-child(14) {
     border: 1px solid #4f4f4f;
     border-bottom: 0 solid white;
     flex-shrink: 0;
+}
+
+.tab.dragging {
+    opacity: 0.5;
+}
+
+.tab:active {
+    cursor: grabbing;
 }
 
 .tab.active {
@@ -145,11 +156,11 @@ div.tab:nth-child(1) {
 }
 
 .notes-version {
+    position: absolute;
     font-family: "Ubuntu Mono", serif;
     color: #959694;
     user-select: none;
-    position: fixed;
-    bottom: 8px;
+    bottom: -20px;
     left: 8px;
     font-size: 12px;
     opacity: 0.75;
@@ -164,14 +175,21 @@ div.tab:nth-child(1) {
 
 #command-line {
     font-family: "Ubuntu Mono", serif;
-    position: fixed;
-    bottom: 32px;
-    right: 3px;
+    font-weight: bold;
+    font-size: 16px;
+    position: absolute;
+    top: 6px;
+    right: 8px;
     z-index: 100;
     background: #131313;
     color: white;
     border: 1px solid #1A1A1A;
     padding: 4px;
+    min-width: 200px;
+}
+
+#command-line input:focus {
+    outline: none;
 }
 
 .ca-creature-list {
@@ -204,3 +222,8 @@ div.tab:nth-child(1) {
     outline: none;
 }
 
+.ca-clock {
+    font-size: 64px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}

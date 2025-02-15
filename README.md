@@ -17,10 +17,11 @@ im still mad about that but i think this thing is way better anyway
 - REALTIME MARKDOWN
 - autosaving every second
 - creatures ‼️
-- TAB CREATION!
-- TAB RENAMING! (right click them)
-- TAB SAVING!
-- CMD LINE to export/backup your notes and tabs !! 
+  - selectable via the paw button in the toolbar
+- TABS
+  - renaming (with right click)
+  - re-ordering with drag n drop
+- "CMD LINE" to export/backup your notes and tabs !! 
   - accessable with `CTRL` + `ALT` + `Q`, and typing "export" for backup, "import" for restore
 - garb
 
@@ -38,6 +39,16 @@ im still mad about that but i think this thing is way better anyway
 - garb
 
 # CHANGELOG:
+### v8-orange-carrotjuice - feb 15, 2025 
+- you can now re-order tabs by drag and drop !!!!
+- made tabs save preview state even when restarting
+- added a clock button on the toolbar. it adds a clock \<p> element (that only works with preview on) 
+- removed H2, H3 buttons from toolbar
+- first tab is now removeable, will make a new one if there are no more tabs
+- removed middleclick functionality (mfw i didn't remember that i had to middleclick to autoscroll)
+- simplemde container now has a maximum width and will center on the page (it looks so off when its fullscreen for me, idk)
+- more creatures
+
 ### v7-strawberry-pie - feb 14, 2025 
 - improved codeblock coloring
 - improved html coloring
@@ -106,7 +117,7 @@ this)
 - trying to make the height actually the same as the browser window
 - ultrakill reference
 
-## wtf does otorrinolaringologia mean ⁉️
-stupid word a workmate and i came up with while he was watching me fuck around with html
-
-i might give it another name probably perhaps until i think of something funnier
+##  Checklist <span style="font-size:0.75em">of things i wanna add in the future</span>
+- [ ] preview making the creature Invisible 
+- [ ] a button to automatically upload an image to catbox and insert it
+- [ ] garb removal (will never happen, hes too powerful)

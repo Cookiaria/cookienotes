@@ -6,6 +6,9 @@ creatures_file = './assets/creatures.txt'
 def normalize_path(path):
     return path.lstrip('!*<^ ')
 
+def is_valid_file(filename):
+    return not filename.endswith('~')  # Ignore files ending with ~
+
 existing_lines = []
 if os.path.exists(creatures_file):
     with open(creatures_file, 'r') as file:
@@ -18,7 +21,7 @@ existing_paths = set(normalize_path(line.strip()) for line in file_entries if li
 
 new_files = set()
 for filename in os.listdir(creatures_dir):
-    if os.path.isfile(os.path.join(creatures_dir, filename)):
+    if is_valid_file(filename) and os.path.isfile(os.path.join(creatures_dir, filename)):
         full_path = os.path.join('/assets/creatures', filename).replace('\\', '/')
         new_files.add(full_path)
 

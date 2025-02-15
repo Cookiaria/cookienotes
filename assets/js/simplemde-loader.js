@@ -39,18 +39,6 @@ var simplemde = new SimpleMDE({
         className: "nf nf-md-format_header_1",
         title: "Heading 1"
     },
-    {
-        name: "Heading 2",
-        action: SimpleMDE.toggleHeading2,
-        className: "nf nf-md-format_header_2",
-        title: "Heading 2"
-    },
-    {
-        name: "Heading 3",
-        action: SimpleMDE.toggleHeading3,
-        className: "nf nf-md-format_header_3",
-        title: "Heading 3"
-    },
     "|",
     {
         name: "Preview",
@@ -66,58 +54,76 @@ var simplemde = new SimpleMDE({
         },
         className: "nf nf-fa-paw",
         title: "creatures"
+    },
+    {
+        name: "Clock",
+        action: function (editor) {
+            const cm = editor.codemirror;
+            const doc = cm.getDoc();
+            const cursor = doc.getCursor();
+            doc.replaceRange('<p class="ca-clock"></p>', cursor);
+        },
+        className: "nf nf-fa-clock",
+        title: "Insert clock"
     }
     ]
 });
 
 let tabs = JSON.parse(localStorage.getItem("tabs")) || [
-    { id: "1", name: "Tab 1", content: localStorage.getItem("tab1") || "", history: null },
+    { id: "1", name: "Tab 1", content: localStorage.getItem("tab1") || "", history: null, previewState: false },
 ];
 
+
+tabs = tabs.map(tab => ({
+    ...tab,
+    previewState: tab.previewState !== undefined ? tab.previewState : false,
+}));
+
 simplemde.value(tabs[0].content);
+
+localStorage.setItem("tabs", JSON.stringify(tabs));
 
 function renderTabs() {
     const tabContainer = document.getElementById("tab-container");
     tabContainer.innerHTML = "";
-    tabs.forEach((tab, index) => {
+    tabs.forEach((tab) => {
         const tabElement = document.createElement("div");
         tabElement.className = "tab";
         tabElement.setAttribute("data-tab", tab.id);
+        tabElement.draggable = true; // Make the tab draggable
 
         // Create a span for the tab name
         const tabName = document.createElement("span");
         tabName.textContent = tab.name;
         tabElement.appendChild(tabName);
 
-        // Add close button for non-first tabs
-        if (index !== 0) {
-            const closeButton = document.createElement("span");
-            closeButton.className = "tab-close";
-            closeButton.textContent = "x";
-            closeButton.addEventListener("click", (e) => {
-                e.stopPropagation();
-                closeTab(tab.id);
-            });
-            tabElement.appendChild(closeButton);
-        }
+        // Add close button for all tabs
+        const closeButton = document.createElement("span");
+        closeButton.className = "tab-close";
+        closeButton.textContent = "x";
+        closeButton.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeTab(tab.id);
+        });
+        tabElement.appendChild(closeButton);
 
         // Right-click to make the tab name editable
         tabElement.addEventListener("contextmenu", (e) => {
-            e.preventDefault(); // Prevent the default right-click menu
+            e.preventDefault();
             makeTabNameEditable(tabName, tab.id);
         });
 
         // Left-click to switch tab
         tabElement.addEventListener("click", () => switchTab(tab.id));
 
-        // Middle-click to close tab (without confirmation)
-        tabElement.addEventListener("mousedown", (e) => {
-            if (e.button === 1) { // Middle-click is button 1
-                e.preventDefault();
-                if (tab.id !== "1") { // Prevent closing the first tab
-                    closeTabWithoutConfirmation(tab.id);
-                }
-            }
+        // Drag-and-drop event listeners
+        tabElement.addEventListener("dragstart", (e) => {
+            e.dataTransfer.setData("text/plain", tab.id); // Store the tab ID being dragged
+            e.currentTarget.classList.add("dragging");
+        });
+
+        tabElement.addEventListener("dragend", (e) => {
+            e.currentTarget.classList.remove("dragging");
         });
 
         tabContainer.appendChild(tabElement);
@@ -133,6 +139,35 @@ function renderTabs() {
     // Highlight the active tab
     const activeTab = document.querySelector(`.tab[data-tab="${simplemde.options.autosave.uniqueId.replace("tab", "")}"]`);
     if (activeTab) activeTab.classList.add("active");
+
+    // Add drag-and-drop listeners to the tab container
+    tabContainer.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        const draggingElement = document.querySelector(".dragging");
+        const closestElement = getClosestElement(tabContainer, e.clientX);
+        if (closestElement) {
+            tabContainer.insertBefore(draggingElement, closestElement);
+        }
+    });
+
+    tabContainer.addEventListener("drop", (e) => {
+        e.preventDefault();
+        const draggedTabId = e.dataTransfer.getData("text/plain");
+        const draggedTab = tabs.find((tab) => tab.id === draggedTabId);
+        const newIndex = Array.from(tabContainer.children).findIndex((child) => child.getAttribute("data-tab") === draggedTabId);
+
+        // Remove the dragged tab from the array
+        tabs = tabs.filter((tab) => tab.id !== draggedTabId);
+
+        // Insert the dragged tab at the new position
+        tabs.splice(newIndex, 0, draggedTab);
+
+        // Save the updated tabs array to localStorage
+        localStorage.setItem("tabs", JSON.stringify(tabs));
+
+        // Re-render the tabs to reflect the new order
+        renderTabs();
+    });
 }
 
 function makeTabNameEditable(tabNameElement, tabId) {
@@ -203,21 +238,6 @@ function makeTabNameEditable(tabNameElement, tabId) {
     input.addEventListener("blur", saveName);
 }
 
-function closeTabWithoutConfirmation(tabId) {
-    if (tabId === "1") return; // Prevent closing the first tab
-
-    // Remove the tab from the tabs array
-    tabs = tabs.filter((tab) => tab.id !== tabId);
-    localStorage.setItem("tabs", JSON.stringify(tabs));
-
-    // Remove the autosaved content for the closed tab
-    localStorage.removeItem(`smde_tab${tabId}`);
-
-    // Re-render the tabs and switch to the first tab
-    renderTabs();
-    switchTab("1");
-}
-
 function switchTab(tabId) {
     const currentTabId = document.querySelector(".tab.active")?.getAttribute("data-tab");
     if (currentTabId) {
@@ -225,6 +245,7 @@ function switchTab(tabId) {
         if (currentTab) {
             currentTab.content = simplemde.value();
             currentTab.history = simplemde.codemirror.getHistory();
+            currentTab.previewState = simplemde.isPreviewActive(); // Save preview state
         }
     }
 
@@ -243,19 +264,23 @@ function switchTab(tabId) {
         }
         simplemde.options.autosave.uniqueId = `tab${tabId}`;
         simplemde.codemirror.refresh();
+
+        // Restore preview state
+        if (newTab.previewState) {
+            simplemde.togglePreview();
+        }
     }
 }
 
 function addNewTab() {
     const newTabId = String(Date.now());
-    tabs.push({ id: newTabId, name: `tab${tabs.length + 1}`, content: "", history: null });
+    tabs.push({ id: newTabId, name: `tab${tabs.length + 1}`, content: "", history: null, previewState: false });
     localStorage.setItem("tabs", JSON.stringify(tabs));
     renderTabs();
     switchTab(newTabId);
 }
 
 function closeTab(tabId) {
-    if (tabId === "1") return; // Prevent closing the first tab
     const shouldClose = window.confirm("Are you sure you want to close this tab?");
     if (shouldClose) {
         // Remove the tab from the tabs array
@@ -263,11 +288,16 @@ function closeTab(tabId) {
         localStorage.setItem("tabs", JSON.stringify(tabs));
 
         // Remove the autosaved content for the closed tab
-        localStorage.removeItem(`smde_tab${tabId}`); // Add this line
+        localStorage.removeItem(`smde_tab${tabId}`);
 
-        // Re-render the tabs and switch to the first tab
-        renderTabs();
-        switchTab("1");
+        // If no tabs are left, create a new one
+        if (tabs.length === 0) {
+            addNewTab();
+        } else {
+            // Re-render the tabs and switch to the first tab
+            renderTabs();
+            switchTab(tabs[0].id);
+        }
     }
 }
 
@@ -298,6 +328,21 @@ function renameTab(tabId) {
     }
 }
 
+// Helper function to find the closest element during drag-and-drop
+function getClosestElement(container, x) {
+    const elements = Array.from(container.querySelectorAll(".tab:not(.dragging)"));
+    return elements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = x - box.left - box.width / 2;
+        if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+        } else {
+            return closest;
+        }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+
 window.addEventListener("beforeunload", () => {
     const currentTabId = document.querySelector(".tab.active")?.getAttribute("data-tab");
     if (currentTabId) {
@@ -305,15 +350,15 @@ window.addEventListener("beforeunload", () => {
         if (currentTab) {
             currentTab.content = simplemde.value();
             currentTab.history = simplemde.codemirror.getHistory();
+            currentTab.previewState = simplemde.isPreviewActive(); // Save preview state
         }
     }
     localStorage.setItem("tabs", JSON.stringify(tabs));
 });
 
-renderTabs();
 
+
+renderTabs();
 if (tabs.length > 0) {
     switchTab(tabs[0].id);
 }
-
-//UPDATE PLEASE
