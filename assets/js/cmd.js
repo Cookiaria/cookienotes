@@ -1,5 +1,5 @@
 document.addEventListener('keydown', function (event) {
-    if (event.ctrlKey && event.altKey && event.code === 'KeyQ') {
+    if (event.ctrlKey && event.shiftKey && event.code === 'KeyQ') {
         event.stopPropagation();
         if (document.activeElement.id === 'command-line') {
             console.log('goodbye!');
@@ -19,10 +19,6 @@ document.addEventListener('click', function (event) {
         }
     }
 });
-
-// creatures
-
-// [ creatures here ] //
 
 // exporting .oto storage
 
@@ -114,7 +110,7 @@ function openCommandLine() {
                 if (commands[command]) {
                     commands[command](args);
                 } else {
-                    console.log(`Unknown: ${command}. type "help" for a list`);
+                    alert(`unknown command: "${command}". type "help" for a list`);
                 }
 
                 console.log('goodbye!');
@@ -137,14 +133,31 @@ const commands = {
 
     // list commands
     help: () => {
-        console.log('Available commands:', Object.keys(commands).join(', '));
+        alert('Available commands: ' + Object.keys(commands).join(', '));
     },
     // begone
     begone: () => {
-        localStorage.clear();
-        tabs = [{ id: "1", name: "tab1", content: "", history: null }];
-        simplemde.value("");
-        renderTabs();
-        switchTab("1");
-    }
+        const shouldProceed = confirm("This will remove EVERYTHING, and there is no going back. Are you sure?");
+        if (shouldProceed) {
+            localStorage.clear();
+            tabs = [{ id: "1", name: "tab1", content: "", history: null }];
+            simplemde.value("");
+            renderTabs();
+            switchTab("1");
+        }
+    },
+    // calculator real
+    calc: (args) => {
+        const expression = args.join(' ');
+        if (expression === '9+10') {
+            alert('21... you stupid');
+        } else {
+            try {
+                const result = eval(expression);
+                alert(result);
+            } catch (error) {
+                alert('Invalid math expression');
+            }
+        }
+    },
 };

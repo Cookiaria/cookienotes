@@ -1,5 +1,4 @@
-# OTORRINOLARINGOLOGIA
-yes, im naming this that
+# cookienotes
 
 stupid project ive started on an electron app that had access to dev tools and editing the html like that which later became this ; an actual website to host this thing because holy shit why do i not have access to notepad
 
@@ -22,7 +21,7 @@ im still mad about that but i think this thing is way better anyway
   - renaming (with right click)
   - re-ordering with drag n drop
 - "CMD LINE" to export/backup your notes and tabs !! 
-  - accessable with `CTRL` + `ALT` + `Q`, and typing "export" for backup, "import" for restore
+  - accessable with `CTRL` + `SHIFT` + `Q`, and typing "export" for backup, "import" for restore
 - garb
 
 # CREDITS:
@@ -39,6 +38,13 @@ im still mad about that but i think this thing is way better anyway
 - garb
 
 # CHANGELOG:
+### v8.1-orange-carrotjuice - feb 17, 2025 
+- made cmd outputs a browser pop up because Surprise not everyone has the dev console on
+- new command: calc
+  - example usage: `calc 453*12` yeah you get it
+- removed cursor:grab on tabs because that was stupid
+- actually added a creature cant believe i forgor
+
 ### v8-orange-carrotjuice - feb 15, 2025 
 - you can now re-order tabs by drag and drop !!!!
 - made tabs save preview state even when restarting
@@ -77,7 +83,7 @@ im still mad about that but i think this thing is way better anyway
   - creature picker has been moved from the top right to the bottom left
 - more creatures! + credits
 - COMMAND BAR
-  - accessable with `CTRL` + `ALT` + `Q`
+  - accessable with `CTRL` + `SHIFT` + `Q`
   - only commands so far are `export`, `import`, and `help`, will transfer "begone" to this system once i have time
 - EXPORT AND IMPORT FEATURE (command bar only)
 - made a helper script to automatically read from /assets/creatures and apply to creatures.txt if you somehow wanna fork this and add or delete creatures yourself and make the process faster (you need python)

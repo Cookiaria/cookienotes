@@ -30,6 +30,7 @@
 
 < /assets/creatures/maxi.webp
 /assets/creatures/mint_NEAR.png
+/assets/creatures/heart-blank.png
 /assets/creatures/ca-bean.png
 /assets/creatures/ca-dead.png
 /assets/creatures/ca-april.png
@@ -40,5 +41,7 @@
 * /assets/creatures/seeker.png
 < /assets/creatures/pukeko.png
 /assets/creatures/garb.png
+
+
 
 

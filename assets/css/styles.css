@@ -79,7 +79,6 @@ a.fa:nth-child(14) {
 }
 
 .tab {
-    cursor: grab;
     font-family: "Ubuntu Mono", serif;
     padding: 6px 8px;
     background-color: #1B1B1B;
@@ -94,10 +93,6 @@ a.fa:nth-child(14) {
 
 .tab.dragging {
     opacity: 0.5;
-}
-
-.tab:active {
-    cursor: grabbing;
 }
 
 .tab.active {
