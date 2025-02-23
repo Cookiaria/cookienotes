@@ -196,6 +196,7 @@ const commands = {
             }
         }
     },
+    // hi heart
     noclip: () => {
         alert('noclip: true');
     }
