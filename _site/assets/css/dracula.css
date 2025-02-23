@@ -1,0 +1,120 @@
+/* Dracula Theme v1.2.5
+ *
+ * https://github.com/dracula/highlightjs
+ *
+ * Copyright 2016-present, All rights reserved
+ *
+ * Code licensed under the MIT license
+ *
+ * @author Denis Ciccale <dciccale@gmail.com>
+ * @author Zeno Rocha <hi@zenorocha.com>
+ */
+
+ .hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #282a36;
+  color: #f8f8f2;
+}
+
+/* Keywords and control flow */
+.hljs-keyword,
+.hljs-literal,
+.hljs-built_in,
+.hljs-selector-tag,
+.hljs-doctag,
+.hljs-strong {
+  color: #ff79c6;
+  font-weight: bold;
+}
+
+/* Strings, template literals, and attributes */
+.hljs-string,
+.hljs-meta,
+.hljs-attr,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #f1fa8c;
+}
+
+/* Titles and function names */
+.hljs-title,
+.hljs-section,
+.hljs-name {
+  color: #50fa7b;
+}
+
+/* Numbers and constants */
+.hljs-number {
+  color: #bd93f9;
+}
+
+/* Operators and punctuation */
+.hljs-operator {
+  color: #ff79c6;
+}
+
+/* Comments and documentation */
+.hljs-comment,
+.hljs-quote {
+  color: #6272a4;
+  font-style: italic;
+}
+
+/* Types, classes, and CSS selectors */
+.hljs-type,
+.hljs-class,
+.hljs-selector-class,
+.hljs-selector-id {
+  color: #8be9fd;
+  font-weight: bold;
+}
+
+/* Variables and parameters */
+.hljs-variable,
+.hljs-symbol,
+.hljs-parameter {
+  color: #f8f8f2;
+}
+
+/* HTML-specific */
+.hljs-tag {
+  color: #ff79c6;
+}
+
+.hljs-attribute {
+  color: #8be9fd;
+}
+
+.hljs-meta-keyword {
+  color: #50fa7b;
+}
+
+/* CSS-specific */
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #ffb86c;
+}
+
+/* Bash and Shell */
+.hljs-built_in {
+  color: #8be9fd;
+}
+
+/* C#, Java, and similar OOP */
+.hljs-title.function_ {
+  color: #50fa7b;
+  font-style: normal;
+}
+
+/* Mark important code */
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+

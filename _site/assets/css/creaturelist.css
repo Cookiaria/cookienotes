@@ -1,0 +1,23 @@
+.ca-creature-list {
+    background-color: #1A1A1A;
+    border: 1px solid #4f4f4f;
+    padding: 0 4px 0 0;
+    z-index: 1000;
+    max-height: 230px; 
+    overflow-y: auto; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    height: 100%;
+}
+
+.ca-creature-item {
+    cursor: pointer;
+    padding: 3px 8px;
+    min-width: fit-content;
+    font-family: "Ubuntu Mono", serif;
+    color: #c5c5c5; 
+}
+
+.ca-creature-item:hover {
+    background-color: #3F3F3F; 
+}
