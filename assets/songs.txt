@@ -11,3 +11,4 @@ emme | /audio/phononemme.ato
 Virtual Ragnarok Chat | /audio/11virtualragnarokchat.ato
 Elder Hymn | /audio/helblindeomniavanitas02elderhymn.ato
 SPUTNIK-3 | /audio/iilmissionsputnik03sputnik3.ato
+The Homebrew Channel | /audio/wiibrew.ato
