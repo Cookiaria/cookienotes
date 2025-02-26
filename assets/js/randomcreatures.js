@@ -1,3 +1,9 @@
+let lastMousePosition = { x: 0, y: 0 };
+document.addEventListener('mousemove', (e) => {
+    lastMousePosition.x = e.clientX;
+    lastMousePosition.y = e.clientY;
+});
+
 async function setRandomCreatureImage() {
     try {
         const response = await fetch('/assets/creatures.txt');
@@ -13,6 +19,7 @@ async function setRandomCreatureImage() {
         let scaleDown = false;
         let scaleUp = false;
         let transparent = false;
+        let positionFixed = false;
 
         if (randomCreature.includes('*')) {
             mirror = true;
@@ -33,29 +40,43 @@ async function setRandomCreatureImage() {
             transparent = true;
             randomCreature = randomCreature.replace('!', '').trim();
         }
+        
+        if (randomCreature.includes('~')) {
+            positionFixed = true;
+            randomCreature = randomCreature.replace('~', '').trim();
+        }
 
         const imgElement = document.getElementById('creature');
-
         imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
         imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
         imgElement.style.opacity = transparent ? '0' : '0.25';
+        imgElement.style.position = positionFixed ? 'fixed' : '';
+        imgElement.style.bottom = positionFixed ? '16px' : '';
+        imgElement.style.right = positionFixed ? '16px' : '';
         imgElement.src = randomCreature;
-
     } catch (error) {
         console.error('Error:', error.message);
     }
 }
 
-let lastMousePosition = { x: 0, y: 0 };
-document.addEventListener('mousemove', (e) => {
-    lastMousePosition.x = e.clientX;
-    lastMousePosition.y = e.clientY;
-});
+function loadSavedCreature() {
+    const savedCreature = localStorage.getItem('selectedCreature');
+    if (savedCreature) {
+        const { url, mirror, scaleDown, scaleUp, transparent, positionFixed } = JSON.parse(savedCreature);
+        const imgElement = document.getElementById('creature');
+        imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
+        imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
+        imgElement.style.opacity = transparent ? '0' : '0.25';
+        imgElement.style.bottom = positionFixed ? '44px' : '';
+        imgElement.style.right = positionFixed ? '16px' : '';
+        imgElement.src = url;
+    }
+}
 
 async function showCreatureList(event) {
     let x, y;
     if (event) {
-        event.preventDefault(); // For right-click context menu prevention
+        event.preventDefault();
         x = event.clientX;
         y = event.clientY;
     } else {
@@ -66,7 +87,7 @@ async function showCreatureList(event) {
     const listContainer = document.createElement('div');
     listContainer.classList.add('ca-creature-list');
     listContainer.style.position = 'absolute';
-    listContainer.style.top = `${y + 10}px`; // Position below cursor
+    listContainer.style.top = `${y + 10}px`;
     listContainer.style.left = `${x}px`;
     
     const loadingItem = document.createElement('div');
@@ -86,7 +107,6 @@ async function showCreatureList(event) {
 
         listContainer.innerHTML = '';
         
-        // Add Randomize option
         const randomizeItem = document.createElement('div');
         randomizeItem.textContent = 'randomize';
         randomizeItem.classList.add('ca-creature-item');
@@ -97,7 +117,6 @@ async function showCreatureList(event) {
         });
         listContainer.appendChild(randomizeItem);
 
-        // Add creature items
         urls.forEach(url => {
             const fileName = url.split('/').pop().split('.')[0];
             const listItem = document.createElement('div');
@@ -110,21 +129,24 @@ async function showCreatureList(event) {
                 let scaleDown = processedUrl.includes('<');
                 let scaleUp = processedUrl.includes('^');
                 let transparent = processedUrl.includes('!');
+                let positionFixed = processedUrl.includes('~');
 
-                processedUrl = processedUrl.replace(/[*<^!]/g, '').trim();
+                processedUrl = processedUrl.replace(/[*<^!~]/g, '').trim();
 
                 imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
                 imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
                 imgElement.style.opacity = transparent ? '0' : '0.25';
+                imgElement.style.bottom = positionFixed ? '44px' : '';
+                imgElement.style.right = positionFixed ? '16px' : '';
                 imgElement.src = processedUrl;
 
-                // Save to localStorage
                 localStorage.setItem('selectedCreature', JSON.stringify({
                     url: processedUrl,
                     mirror,
                     scaleDown,
                     scaleUp,
                     transparent,
+                    positionFixed
                 }));
 
                 listContainer.remove();
@@ -134,34 +156,18 @@ async function showCreatureList(event) {
 
         document.body.appendChild(listContainer);
 
-        // Remove list on outside click
         document.addEventListener('click', function onClickOutside(e) {
             if (!listContainer.contains(e.target)) {
                 listContainer.remove();
                 document.removeEventListener('click', onClickOutside);
             }
         });
-
     } catch (error) {
         console.error('Error:', error.message);
     }
 }
 
-// Load the saved creature from localStorage on page load
-function loadSavedCreature() {
-    const savedCreature = localStorage.getItem('selectedCreature');
-    if (savedCreature) {
-        const { url, mirror, scaleDown, scaleUp, transparent } = JSON.parse(savedCreature);
-        const imgElement = document.getElementById('creature');
-        imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
-        imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
-        imgElement.style.opacity = transparent ? '0' : '0.25';
-        imgElement.src = url;
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    // If there's a saved creature, load it; otherwise, randomize.
     if (localStorage.getItem('selectedCreature')) {
         loadSavedCreature();
     } else {

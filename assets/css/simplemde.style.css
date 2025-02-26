@@ -221,7 +221,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 
 .CodeMirror {
     position: relative;
-    background: rgb(18, 18, 18)
 }
 
 .CodeMirror-scroll {
@@ -447,17 +446,18 @@ span.CodeMirror-selectedtext {
 .CodeMirror {
     font-family: "Ubuntu Mono", serif;
     font-size: 18px;
-    height: 87%;
     border: 1px solid #4f4f4f;
     border-radius: 8px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+    background: #0F0F0F;
     padding: 10px;
     z-index: 1
 }
 
 .CodeMirror-scroll {
-    min-height: 300px;
+    min-height: calc(100vh - 138px);
+    max-height: calc(100vh - 138px);
     scrollbar-width: none;
 }
 
@@ -484,6 +484,7 @@ span.CodeMirror-selectedtext {
     -o-user-select: none;
     user-select: none;
     padding: 0 10px;
+    background-color: #17171A;
     border: 1px solid #4f4f4f;
     border-bottom: 0 solid white;
     border-top-left-radius: 8px;
@@ -640,7 +641,7 @@ span.CodeMirror-selectedtext {
     color: #959694;
     text-align: right;
     right: 0;
-    bottom: -28px;
+    bottom: 37px;
 }
 
 .editor-statusbar span {
@@ -678,12 +679,13 @@ span.CodeMirror-selectedtext {
 }
 
 .editor-preview {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 7
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 7;
+	border-radius: inherit;
 }
 
 .editor-preview-side {

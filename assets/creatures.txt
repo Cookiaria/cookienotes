@@ -2,6 +2,7 @@
 // < = shrink
 // * = mirror
 // ^ = grow
+// ~ = offset
 
 ! /assets/creatures/nothing.png
 
@@ -17,12 +18,13 @@
 /assets/creatures/niko_af.png
 <* /assets/creatures/nyancat.gif
 < /assets/creatures/neko.gif
-< /assets/creatures/bingle.webp
+<~ /assets/creatures/bingle.webp
 /assets/creatures/don.png
 /assets/creatures/don_2.png
 < /assets/creatures/cheez.png
 < /assets/creatures/blob.gif
 /assets/creatures/gato_parachute.png
+<~ /assets/creatures/stupidhoe.png
 
 < /assets/creatures/maxi.webp
 /assets/creatures/mint_NEAR.png
@@ -31,13 +33,9 @@
 /assets/creatures/ca-dead.png
 /assets/creatures/ca-april.png
 
-/assets/creatures/cmon.png
-/assets/creatures/boingus.png
+~ /assets/creatures/cmon.png
+~ /assets/creatures/boingus.png
 /assets/creatures/cheems.png
-* /assets/creatures/seeker.png
+~* /assets/creatures/seeker.png
 < /assets/creatures/pukeko.png
 /assets/creatures/garb.png
-
-
-
-

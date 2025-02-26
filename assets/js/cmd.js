@@ -26,28 +26,30 @@ function exportLocalStorage() {
     console.log('exporting localstorage');
 
     tabs.forEach((tab) => {
-        if (tab.id === simplemde.options.autosave.uniqueId.replace("tab", "")) {
-            tab.content = simplemde.value();
-            tab.history = simplemde.codemirror.getHistory();
-            tab.previewState = simplemde.isPreviewActive();
+        if (tab.type === "simplemde") {
+            const editor = tabInstances.get(tab.id);
+            if (editor) {
+                tab.content = editor.value();
+                tab.history = editor.codemirror.getHistory();
+                tab.previewState = editor.isPreviewActive();
+            }
+            localStorage.setItem(`smde_tab${tab.id}`, JSON.stringify(tab));
         }
-        localStorage.setItem(`smde_tab${tab.id}`, JSON.stringify(tab));
     });
 
-    // Convert localStorage data to a JSON string
-    const data = JSON.stringify(localStorage);
+    // Backup all localStorage keys (iterating explicitly for reliability)
+    const backupData = {};
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        backupData[key] = localStorage.getItem(key);
+    }
 
-    // Compress the data using gzip
+    const data = JSON.stringify(backupData);
     const compressedData = pako.gzip(data);
-
-    // Convert the compressed data to Base64
     const base64Data = btoa(String.fromCharCode(...compressedData));
-
-    // Create a filename with the current date and time
     const date = new Date();
     const filename = `backup_${date.toLocaleDateString('en-GB').replace(/\//g, '-')}_${date.toLocaleTimeString('en-GB').replace(/:/g, '-')}.oto`;
 
-    // Create a Blob and trigger the download
     const blob = new Blob([base64Data], { type: 'application/octet-stream' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
@@ -56,7 +58,6 @@ function exportLocalStorage() {
 
     console.log(`exported to ${filename}`);
 }
-
 
 // importing .oto storage
 
@@ -74,49 +75,43 @@ function importLocalStorage() {
             reader.onload = function (e) {
                 console.log('reading file...');
                 try {
-                    // Decode Base64 to binary string
                     const base64Data = e.target.result;
                     const binaryString = atob(base64Data);
-
-                    // Convert binary string to Uint8Array
                     const compressedData = new Uint8Array(binaryString.length);
                     for (let i = 0; i < binaryString.length; i++) {
                         compressedData[i] = binaryString.charCodeAt(i);
                     }
-
-                    // Decompress the data using pako
                     const decompressedData = pako.ungzip(compressedData, { to: 'string' });
-
-                    // Parse the decompressed data as JSON
                     const data = JSON.parse(decompressedData);
                     console.log('parsed data:', data);
 
-                    // Clear existing localStorage and restore the imported data
                     localStorage.clear();
                     for (const key in data) {
                         localStorage.setItem(key, data[key]);
                     }
 
-                    // Restore tabs and update the editor
-                    tabs = JSON.parse(localStorage.getItem("tabs")) || [
-                        { 
-                            id: String(Date.now()),
-                            name: "tab 1", 
-                            content: localStorage.getItem("tab1") || "", 
-                            history: null, 
-                            previewState: false
-                        },
-                    ];
+                    tabs = JSON.parse(localStorage.getItem("tabs")) || [{
+                        id: String(Date.now()),
+                        name: "tab1",
+                        type: "simplemde",
+                        content: localStorage.getItem("tab1") || "",
+                        history: null,
+                        previewState: false,
+                    }];
 
-                    simplemde.value(tabs[0].content);
                     renderTabs();
                     switchTab(tabs[0].id);
-                    simplemde.autosave();
+
+                    // Retrieve the editor instance for the active tab
+                    const editor = tabInstances.get(tabs[0].id);
+                    if (editor) {
+                        editor.value(tabs[0].content);
+                    }
 
                     console.log('imported localstorage');
                 } catch (error) {
                     console.error('failed to import localstorage:', error);
-                    alert('failed to import localstorage. the file might be corrupted or invalid.');
+                    alert('Failed to import localstorage. The file might be corrupted or invalid.');
                 }
             };
             reader.readAsText(file);
@@ -124,6 +119,63 @@ function importLocalStorage() {
     });
     fileInput.click();
 }
+
+// Global flag to indicate when a reset is in progress
+let isResetting = false;
+
+// Update beforeunload to check for the reset flag
+window.addEventListener("beforeunload", () => {
+    if (isResetting) return; // Skip saving state if resetting
+
+    const currentTabId = document.querySelector(".tab.active")?.getAttribute("data-tab");
+    if (currentTabId) {
+        const currentTab = tabs.find((tab) => tab.id === currentTabId);
+        if (currentTab && currentTab.type === "simplemde") {
+            const simplemde = tabInstances.get(currentTabId);
+            if (simplemde) {
+                currentTab.content = simplemde.value();
+                currentTab.history = simplemde.codemirror.getHistory();
+                currentTab.previewState = simplemde.isPreviewActive();
+                localStorage.setItem(`smde_tab${currentTabId}`, simplemde.value()); // Explicitly save
+            }
+        }
+    }
+    localStorage.setItem("tabs", JSON.stringify(tabs));
+});
+
+// Updated "factory reset" function
+function begone() {
+    const shouldProceed = confirm("This will remove everything, and there is no going back. Are you sure?");
+    if (shouldProceed) {
+        // Set the flag to bypass beforeunload saving
+        isResetting = true;
+        
+        // Clear all saved data
+        localStorage.clear();
+
+        // Clear content container and tab instances
+        const contentContainer = document.getElementById("ca-tab-content");
+        if (contentContainer) contentContainer.innerHTML = "";
+        tabInstances.clear();
+
+        // Reset tabs to the initial state
+        tabs = [{
+            id: String(Date.now()),
+            name: "tab1",
+            type: "simplemde",
+            content: "",
+            history: null,
+            previewState: false,
+        }];
+
+        renderTabs();
+        switchTab(tabs[0].id);
+
+        // Reload the page to fully cancel any pending autosave timers
+        window.location.reload();
+    }
+}
+
 
 
 function openCommandLine() {
@@ -158,31 +210,18 @@ function openCommandLine() {
     commandLine.focus();
 }
 
-// command list
-
+// Command list
 const commands = {
-    // export backup
-    export: exportLocalStorage,
+    export: exportLocalStorage, 
 
-    // import backup
-    import: importLocalStorage,
+    import: importLocalStorage, 
 
-    // list commands
     help: () => {
         alert('available commands: ' + Object.keys(commands).join(', '));
     },
-    // begone
-    begone: () => {
-        const shouldProceed = confirm("this will remove everything, and there is no going back. are you sure?");
-        if (shouldProceed) {
-            localStorage.clear();
-            tabs = [{ id: "1", name: "tab 1", content: "", history: null }];
-            simplemde.value("");
-            renderTabs();
-            switchTab("1");
-        }
-    },
-    // calculator real
+
+    clear: begone,
+
     calc: (args) => {
         const expression = args.join(' ');
         if (expression === '9+10') {
@@ -196,8 +235,4 @@ const commands = {
             }
         }
     },
-    // hi heart
-    noclip: () => {
-        alert('noclip: true');
-    }
 };

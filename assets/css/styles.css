@@ -16,13 +16,16 @@
     border-radius: 3px;
 }
 
-body {
+html, body {
     margin: 0;
     padding: 0;
     display: block;
     height: 100%;
-    background-color: #17171A;
     overflow-x: hidden;
+}
+
+body {
+    z-index: 0;
 }
 
 p img {
@@ -41,7 +44,7 @@ a {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    bottom: 0px;
+    bottom: 28px;
     right: 0px;
     width: 240px;
     z-index: 999;
@@ -52,18 +55,19 @@ a {
 }
 
 .notepad-real {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 18px;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 28px);
     max-width: 1024px;
     margin: 0 auto;
 }
 
-.CodeMirror {
-    flex: 1;
-    min-height: 0;
-}
+
 
 a.fa:nth-child(13),
 a.fa:nth-child(14) {
@@ -73,7 +77,6 @@ a.fa:nth-child(14) {
 .tab-container {
     user-select: none;
     display: flex;
-    background-color: #17171A;
     padding: 8px 8px 0 8px;
     overflow-x: auto;
     flex-wrap: nowrap;
@@ -153,14 +156,14 @@ div.tab:nth-child(1) {
 }
 
 .notes-version {
-    position: absolute;
-    font-family: "Ubuntu Mono", serif;
-    color: #959694;
-    user-select: none;
-    bottom: -20px;
-    left: 8px;
-    font-size: 12px;
-    opacity: 0.75;
+	position: absolute;
+	font-family: "Ubuntu Mono", serif;
+	color: #959694;
+	user-select: none;
+	bottom: 7px;
+	left: 8px;
+	font-size: 12px;
+	opacity: 0.75;
     a {
         text-decoration: none ;
         color: inherit
@@ -189,19 +192,6 @@ div.tab:nth-child(1) {
     outline: none;
 }
 
-.ca-creature-list {
-    position: absolute;
-    bottom: calc(100vh - 10px);
-    left: 0;
-    background-color: white;
-    border: 1px solid black;
-    padding: 10px;
-    z-index: 1000;
-    max-height: 200px;
-    overflow-y: auto;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
 .ca-tab-renamer {
     font-family: "Ubuntu Mono", serif;
     font-size: inherit;
@@ -225,8 +215,23 @@ div.tab:nth-child(1) {
     margin-bottom: 8px;
 }
 
+.ca-background-image {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    z-index: -100;
+    left: 50%;
+    transform: translateX(-50%);
+    background-size: 100% auto;
+    background-position: center;
+    img {
+        height: 100vh
+    }
+}
 
-
+#autosaved {
+    display: none;
+}
 
 
 
