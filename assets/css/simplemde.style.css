@@ -444,15 +444,15 @@ span.CodeMirror-selectedtext {
 }
 
 .CodeMirror {
-    font-family: "Ubuntu Mono", serif;
-    font-size: 18px;
-    border: 1px solid #4f4f4f;
-    border-radius: 8px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    background: #0F0F0F;
-    padding: 10px;
-    z-index: 1
+	font-family: "Ubuntu Mono", serif;
+	font-size: 18px;
+	border: 1px solid #4f4f4f;
+	border-radius: 8px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	background: #0F0F0FBB;
+	padding: 10px;
+	z-index: 1;
 }
 
 .CodeMirror-scroll {
@@ -632,16 +632,14 @@ span.CodeMirror-selectedtext {
 }
 
 .editor-statusbar {
-    position: absolute;
-    flex-shrink: 0;
-    height: 12px;
-    font-family: "Ubuntu Mono", serif;
-    padding: 8px 10px;
-    font-size: 12px;
-    color: #959694;
-    text-align: right;
-    right: 0;
-    bottom: 37px;
+	font-family: "Ubuntu Mono", serif;
+	position: absolute;
+	user-select: none;
+	font-size: 12px;
+	color: #959694;
+	text-align: right;
+	right: 8px;
+	bottom: -20px;
 }
 
 .editor-statusbar span {

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>schedule stuff</title>
+</head>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+</style>
+
+<style>
+    /* Hide the spinners */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type="number"] {
+        -moz-appearance: textfield;
+        /* do igaf */
+    }
+
+
+    .sched-container {
+        font-family: "Roboto Mono", serif;
+        text-align: center;
+        color: white;
+        margin: 32px 0;
+        user-select: none;
+    }
+
+    .ca-clock {
+        font-size: 100px;
+        margin: 0;
+    }
+
+    .date-cont {
+        font-family: "Fredoka", serif;
+        font-size: 28px;
+        font-weight: 500;
+
+        p {
+            margin: 0
+        }
+    }
+
+    #flavor-text {
+        font-family: "Fredoka", serif;
+        font-weight: 500;
+        font-size: 20px;
+        margin: 32px 0 8px 0;
+        user-select: none;
+        height: 1px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .ca-cookimoji {
+        height: 1.4em;
+        padding-left: 3px;
+        padding-right: 3px;
+        margin-top: -4px;
+        margin-bottom: -4px;
+    }
+
+    .sched-customalarms {
+        max-width: 330px;
+        margin: 0 auto;
+        text-align: unset;
+        margin-top: 64px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        & input {
+            font-family: "Roboto Mono", serif;
+            background-color: #313131;
+            border: transparent;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            padding: 0 8px;
+            width: 24px;
+            height: 24px;
+        }
+
+        & input:focus {
+            outline: none;
+        }
+    }
+
+    .alarm-name-container {
+        text-align: left;
+    }
+
+    .alarm-setup {
+        background-color: #1c1c1c;
+        padding: 8px;
+        border-radius: 8px;
+    }
+
+    @keyframes flash {
+        0% {
+            background-color: #757575; 
+        }
+        100% {
+            background-color: #1c1c1c;
+        }
+    }
+
+    .flashing {
+        animation: flash 1s linear 1;
+    }
+
+    .alarm-remove {
+        position: relative;
+        float: right;
+        cursor: pointer;
+        color: white;
+        background-color: rgb(255, 63, 63);
+        border-radius: 8px;
+        padding: 0 6px;
+    }
+
+    .alarm-add {
+        cursor: pointer;
+        color: white;
+        background-color: rgb(31, 119, 31);
+        border-radius: 8px;
+        margin: 32px 128px;
+        padding: 0 6px;
+    }
+
+    .alarm-status {
+        float: left;
+        font-size: 14px;
+        color: #FFFFFF40;
+        margin-top: -20px;
+    }
+
+    .alarm-selectors {
+        float: left;
+        margin: 12px 0;
+    }
+
+    [id*="alarm-enabled-"] {
+        float: right;
+    }
+</style>
+
+<body>
+    <div class="sched-container">
+        <h1 class="ca-clock"></h1>
+        <div class="date-cont">
+            <p>Today is <span class="ca-date"></span>.</p>
+        </div>
+        <span id="flavor-text" onclick="randomHeader();"></span>
+
+        <div class="sched-customalarms">
+            <!-- alarms go here -->
+            <p class="alarm-add">+</p>
+        </div>
+    </div>
+
+</body>
+
+<script src="./assets/sched.js"></script>
+
+</html>

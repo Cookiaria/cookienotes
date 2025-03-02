@@ -6,7 +6,7 @@ function initializeSimpleMDE(elementId, tabId) {
         spellChecker: false,
         autosave: {
             enabled: true,
-            uniqueId: `tab${tabId}`, 
+            uniqueId: `tab${tabId}`,
             delay: 1000,
         },
         renderingConfig: {
@@ -109,7 +109,6 @@ function renderTabs() {
             contentDiv.id = `tab-content-${tab.id}`;
             contentDiv.style.display = "none";
             contentDiv.style.width = "100%";
-            contentDiv.style.height = "100%";
             contentContainer.appendChild(contentDiv);
 
             if (tab.type === "simplemde") {
@@ -174,8 +173,13 @@ function renderTabs() {
     });
     tabContainer.appendChild(addTab);
 
-    const activeTab = document.querySelector(`.tab[data-tab="${tabs[0].id}"]`);
-    if (activeTab) activeTab.classList.add("active");
+    const activeTabId = document.querySelector(".tab.active")?.getAttribute("data-tab") || tabs[0].id;
+
+    // Ensure the first tab is visible on initial load
+    if (tabs.length > 0) {
+        switchTab(activeTabId); // Keep previously selected tab active
+    }
+
 
     tabContainer.addEventListener("dragover", (e) => {
         e.preventDefault();
@@ -191,11 +195,17 @@ function renderTabs() {
         const newIndex = Array.from(tabContainer.children).findIndex(
             (child) => child.getAttribute("data-tab") === draggedTabId
         );
+    
+        const activeTabId = document.querySelector(".tab.active")?.getAttribute("data-tab");
+    
         tabs = tabs.filter((tab) => tab.id !== draggedTabId);
         tabs.splice(newIndex, 0, draggedTab);
         localStorage.setItem("tabs", JSON.stringify(tabs));
+    
         renderTabs();
+        switchTab(activeTabId); // Restore active tab
     });
+    
 
     // Ensure the first tab is visible on initial load
     if (tabs.length > 0 && !document.querySelector(".tab.active")) {
@@ -267,7 +277,8 @@ function showTabTypeMenu(x, y) {
 
     const options = [
         { name: "cookienotes", type: "simplemde" },
-        { name: "music-test", type: "iframe", content: "/player.html" },
+        { name: "schedule", type: "iframe", content: "/extratabs/scheduler/index.html" },
+        { name: "cookietab", type: "iframe", content: "/extratabs/cookie_test/index.html" },
     ];
 
     options.forEach((option) => {
@@ -341,12 +352,12 @@ function addNewTab(type, content = "") {
     });
     localStorage.setItem("tabs", JSON.stringify(tabs));
     renderTabs();
-    switchTab(newTabId); 
+    switchTab(newTabId);
 }
 
 // Close tab
 function closeTab(tabId) {
-    const shouldClose = window.confirm("Are you sure you want to close this tab?");
+    const shouldClose = window.confirm("are you sure you want to close this tab?");
     if (shouldClose) {
         const tab = tabs.find((t) => t.id === tabId);
         if (tab && tab.type === "simplemde") {

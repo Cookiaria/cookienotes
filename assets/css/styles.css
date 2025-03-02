@@ -40,18 +40,18 @@ a {
 }
 
 .serotonin {
-    position: absolute;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    bottom: 28px;
-    right: 0px;
-    width: 240px;
-    z-index: 999;
-    opacity: 0.30;
-    pointer-events: none;
-    image-rendering: pixelated;
-    mix-blend-mode: difference;
+	position: absolute;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	bottom: 0;
+	right: 0;
+	width: 240px;
+	z-index: 500;
+	pointer-events: none;
+	image-rendering: pixelated;
+	margin-bottom: 29px;
+    border-bottom-right-radius: 8px;
 }
 
 .notepad-real {
@@ -67,8 +67,6 @@ a {
     margin: 0 auto;
 }
 
-
-
 a.fa:nth-child(13),
 a.fa:nth-child(14) {
     display: none;
@@ -81,6 +79,7 @@ a.fa:nth-child(14) {
     overflow-x: auto;
     flex-wrap: nowrap;
     white-space: nowrap;
+    max-height: 36px;
 }
 
 .tab {
@@ -225,7 +224,8 @@ div.tab:nth-child(1) {
     background-size: 100% auto;
     background-position: center;
     img {
-        height: 100vh
+        height: 100vh;
+        user-select: none;
     }
 }
 
@@ -233,6 +233,73 @@ div.tab:nth-child(1) {
     display: none;
 }
 
+/* ------------- CREATURE LISTS ------------- */
 
+.ca-creature-list {
+    background-color: #1A1A1A;
+    border: 1px solid #4f4f4f;
+    padding: 0 4px 0 0;
+    z-index: 1000;
+    max-height: 230px; 
+    overflow-y: auto; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    height: 100%;
+}
 
+.ca-creature-item {
+    cursor: pointer;
+    padding: 3px 8px;
+    min-width: fit-content;
+    font-family: "Ubuntu Mono", serif;
+    color: #c5c5c5; 
+}
+
+.ca-creature-item:hover {
+    background-color: #3F3F3F; 
+}
+
+/* ------------ TAB TYPE MENU ------------- */
+
+.ca-tab-type-menu {
+    background-color: #1A1A1A;
+    border: 1px solid #4f4f4f;
+    padding: 0 4px 0 0;
+    z-index: 1000;
+    max-height: 230px;
+    overflow-y: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.ca-tab-type-item {
+    cursor: pointer;
+    padding: 3px 8px;
+    min-width: fit-content;
+    font-family: "Ubuntu Mono", serif;
+    color: #c5c5c5;
+}
+
+.ca-tab-type-item:hover {
+    background-color: #3F3F3F;
+}
+
+/* ------------ TAB CONTENT ------------- */
+
+#ca-tab-content {
+    height: 100%; 
+    overflow: hidden;
+}
+
+#ca-tab-content > div > iframe {
+	width: calc(100% - 1px);
+	height: calc(100vh - 68px);
+	border-radius: 8px;
+	border: 1px solid #4f4f4f;
+	background: #0f0f0f77;
+}
+#ca-tab-content > div {
+    position: absolute;
+    width: 100%;
+}
 

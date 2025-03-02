@@ -50,7 +50,6 @@ async function setRandomCreatureImage() {
         imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
         imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
         imgElement.style.opacity = transparent ? '0' : '0.25';
-        imgElement.style.position = positionFixed ? 'fixed' : '';
         imgElement.style.bottom = positionFixed ? '16px' : '';
         imgElement.style.right = positionFixed ? '16px' : '';
         imgElement.src = randomCreature;
@@ -67,7 +66,7 @@ function loadSavedCreature() {
         imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
         imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
         imgElement.style.opacity = transparent ? '0' : '0.25';
-        imgElement.style.bottom = positionFixed ? '44px' : '';
+        imgElement.style.bottom = positionFixed ? '16px' : '';
         imgElement.style.right = positionFixed ? '16px' : '';
         imgElement.src = url;
     }
@@ -136,7 +135,7 @@ async function showCreatureList(event) {
                 imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
                 imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
                 imgElement.style.opacity = transparent ? '0' : '0.25';
-                imgElement.style.bottom = positionFixed ? '44px' : '';
+                imgElement.style.bottom = positionFixed ? '16px' : '';
                 imgElement.style.right = positionFixed ? '16px' : '';
                 imgElement.src = processedUrl;
 

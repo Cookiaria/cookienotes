@@ -1,4 +1,15 @@
 # CHANGELOG:
+
+### v11-starfruit-supernova - mar 2, 2025
+- strawberry jam reference
+- removed music player (i don't like pirating music that much)... but this will be revised at some point
+- added a clock tab (huge ass clock... mothafuckin' clock bitch...)
+  - with added "alarm" functionality to better organize my schedule
+  - one issue it has is that it triggers the alarm one second earlier than expected. cant be bothered to fix that im sleepy as fuck and its 1 am 
+- added the cookietab. yeah. click on it and use arrow keys
+- did i mention i added a background in the previous changelog? oopsies
+- attempted to remove garb (unsuccessful)
+
 ### v10-radioactive-banana - feb 26, 2025
 - tab rendering overhaul. is this even a "notes thing" at this point?
   - you are now able to render HTML files in tabs

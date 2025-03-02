@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cookie</title>
+</head>
+
+<style>
+    .thing {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .thing img {
+        width: 720px;
+        image-rendering: pixelated;
+    }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+        const imgElement = document.getElementById("cookianim");
+        let keyPressed = {};
+
+        const images = {
+            "ArrowUp": "./cooki/up.png",
+            "ArrowDown": "./cooki/down.png",
+            "ArrowLeft": "./cooki/left.png",
+            "ArrowRight": "./cooki/right.png"
+        };
+
+        document.addEventListener("keydown", (event) => {
+            if (images[event.key]) {
+                keyPressed[event.key] = true;
+                imgElement.src = images[event.key];
+            }
+        });
+
+        document.addEventListener("keyup", (event) => {
+            if (images[event.key]) {
+                delete keyPressed[event.key];
+                if (Object.keys(keyPressed).length === 0) {
+                    imgElement.src = "./cooki/idle.png";
+                }
+            }
+        });
+    });
+</script>
+
+<body>
+    <div class="thing">
+        <img id="cookianim" src="./cooki/idle.png">
+    </div>
+</body>
+
+</html>
