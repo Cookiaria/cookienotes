@@ -194,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Preload some example alarms (optional, adjust as needed)
     createAlarm(1, 6, 30, 'PM', false);
     createAlarm(2, 6, 30, 'PM', false);
-    createAlarm(3, 6, 30, 'PM', false);
 
     // Function to update the time remaining for each alarm
     function updateAlarmTime(alarm, now) {
