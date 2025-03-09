@@ -1,4 +1,9 @@
 # CHANGELOG:
+### v11.1-starfruit-supernova - mar 9, 2025
+- added webamp LMAO
+- scheduletab changelog:
+  - added more flavor text
+  - removed some flavor text
 
 ### v11-starfruit-supernova - mar 2, 2025
 - strawberry jam reference

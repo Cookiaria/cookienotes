@@ -62,6 +62,14 @@ function initializeSimpleMDE(elementId, tabId) {
                 className: "nf nf-fa-clock",
                 title: "Insert clock",
             },
+            {
+                name: "Winamp",
+                action: function () {
+                    showWinamp();
+                },
+                className: "nf nf-fa-music", 
+                title: "Winamp (why?)",
+            },
             "|",
             {
                 name: "Preview",
@@ -71,10 +79,67 @@ function initializeSimpleMDE(elementId, tabId) {
             },
         ],
     });
-
     return simplemde;
 }
 
+function showWinamp() {
+    // Initialize Webamp
+    const webamp = new Webamp({
+        initialTracks: [
+            {
+                title: 'Toilet 1',
+                url: '/assets/winamp/toilet.mp3',
+            },
+            {
+                title: 'Toilet 2',
+                url: '/assets/winamp/toilet2.mp3',
+            },
+            {
+                title: 'Toilet 3',
+                url: '/assets/winamp/toilet3.mp3',
+            },
+            {
+                title: 'Toilet 4',
+                url: '/assets/winamp/toilet4.mp3',
+            },
+            {
+                title: 'Toilet 5',
+                url: '/assets/winamp/toilet5.mp3',                
+            },
+            {
+                title: 'Toilet 6',
+                url: '/assets/winamp/toilet6.mp3',
+            },
+            {
+                title: 'meek.mp3',
+                url: '/assets/winamp/meek.mp3',
+            },
+            {
+                title: 'kuk.mp3',
+                url: '/assets/winamp/kuk.mp3',
+            },
+            {
+                title: 'hybridsong.mp3',
+                url: '/assets/winamp/hybridsong.mp3',
+            },
+            {
+                title: 'dubmood_-_last_step.mp3',
+                url: '/assets/winamp/dubmood_-_last_step.mp3',
+            },
+            {
+                title: 'badapple.mp3',
+                url: '/assets/winamp/badapple.mp3',
+            },
+            {
+                title: 'wiibrew.mp3',
+                url: '/assets/winamp/wiibrew.mp3',
+            }
+        ]
+    });
+
+    // Append Webamp to the DOM
+    webamp.renderWhenReady(document.getElementById('webamp'))
+}
 
 // Load tabs from localStorage
 let tabs = JSON.parse(localStorage.getItem("tabs")) || [
@@ -278,7 +343,7 @@ function showTabTypeMenu(x, y) {
     const options = [
         { name: "cookienotes", type: "simplemde" },
         { name: "schedule", type: "iframe", content: "/extratabs/scheduler/index.html" },
-        { name: "cookietab", type: "iframe", content: "/extratabs/cookie_test/index.html" },
+        { name: "midi-player", type: "iframe", content: "/extratabs/midi-player/index.html" },
     ];
 
     options.forEach((option) => {
