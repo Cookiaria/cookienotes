@@ -1,5 +1,5 @@
 document.addEventListener('keydown', function (event) {
-    if (event.ctrlKey && event.shiftKey && event.code === 'KeyQ') {
+    if (event.altKey && event.code === 'KeyC') {
         event.stopPropagation();
         if (document.activeElement.id === 'command-line') {
             console.log('goodbye!');
@@ -176,8 +176,6 @@ function begone() {
     }
 }
 
-
-
 function openCommandLine() {
     console.log('hello! summoning command line...');
     let commandLine = document.getElementById('command-line');
@@ -236,5 +234,41 @@ const commands = {
         }
     },
 
+    "creature-opacity": (args) => {
+        let opacity = args [0];
+        const creature = document.getElementById('creature');
+        
+        if (opacity === 'reset') {
+            creature.style.opacity = 0.25;
+            localStorage.setItem('creature-opacity', 0.25);
+            return;
+        }
 
+        let opacityValue = parseFloat(opacity);
+        if (isNaN(opacityValue)) {
+            alert('invalid opacity value. try a number between 0-1, or a percentage (1-100). you can also type "reset"');
+            return;
+        }
+
+        if (opacityValue > 1) {
+            opacityValue /= 100;
+        }
+
+        opacityValue = Math.max(0, Math.min(1, opacityValue));
+
+        creature.style.opacity = opacityValue;
+        localStorage.setItem('creature-opacity', opacityValue);
+    },
+
+    js : (args) => {
+        const expression = args.join(' ');
+        try {
+            const result = eval(expression);
+            if (result !== undefined) {
+                alert(result);
+            }
+        } catch (error) {
+            alert('invalid javascript expression');
+        }
+    }
 };

@@ -1,4 +1,13 @@
 # CHANGELOG:
+
+### v11.2-starfruit-supernova - mar 10, 2025
+- randomcreatures.js rewrite, it now handles json like a Normal Person
+- customizable creature opacity in commands, type `creature-opacity [1-100]%` on the cmd
+- cmd now opens with ALT+C. like a Normal Person
+- cmd now accepts js. go crazy.
+- wider cmd text input
+- new creature
+
 ### v11.1-starfruit-supernova - mar 9, 2025
 - added webamp LMAO
 - scheduletab changelog:

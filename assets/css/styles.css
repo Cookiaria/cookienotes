@@ -39,21 +39,6 @@ a {
     color: #f80;
 }
 
-.serotonin {
-	position: absolute;
-	display: flex;
-	justify-content: flex-end;
-	align-items: flex-end;
-	bottom: 0;
-	right: 0;
-	width: 240px;
-	z-index: 500;
-	pointer-events: none;
-	image-rendering: pixelated;
-	margin-bottom: 29px;
-    border-bottom-right-radius: 8px;
-}
-
 .notepad-real {
     position: fixed;
     top: 0;
@@ -184,7 +169,7 @@ div.tab:nth-child(1) {
     color: white;
     border: 1px solid #1A1A1A;
     padding: 4px;
-    min-width: 200px;
+    min-width: 400px;
 }
 
 #command-line input:focus {

@@ -12,7 +12,10 @@
 </style>
 
 <style>
-    /* Hide the spinners */
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
         -webkit-appearance: none;
@@ -109,8 +112,9 @@
 
     @keyframes flash {
         0% {
-            background-color: #757575; 
+            background-color: #757575;
         }
+
         100% {
             background-color: #1c1c1c;
         }

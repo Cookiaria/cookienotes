@@ -4,55 +4,68 @@ document.addEventListener('mousemove', (e) => {
     lastMousePosition.y = e.clientY;
 });
 
+async function fetchCreatureData() {
+    try {
+        const response = await fetch('/assets/creatures.json');
+        if (!response.ok) throw new Error('Failed to load creature data');
+        return await response.json();
+    } catch (error) {
+        console.error('Error:', error.message);
+        return null;
+    }
+}
+
+function parseCreatureData(data) {
+    const creatures = [];
+
+    data.forEach(category => {
+        if (category.creatures) {
+            creatures.push(...category.creatures.map(creature => ({
+                name: creature.name,
+                image: creature.image,
+                modifiers: creature.modifiers || [] // Default to empty array if no modifiers
+            })));
+        }
+    });
+    return creatures;
+}
+
+function applyModifiers(imgElement, modifiers) {
+    // Reset all modifier classes while keeping the base class
+    imgElement.className = 'serotonin'; // Base class for all creatures
+
+    // Add modifier classes dynamically
+    modifiers.forEach(modifier => {
+        imgElement.classList.add('sero-' + modifier);
+    });
+}
+
 async function setRandomCreatureImage() {
     try {
-        const response = await fetch('/assets/creatures.txt');
-        if (!response.ok) throw new Error('THE PURGE HAS BEGUN');
+        const data = await fetchCreatureData();
+        if (!data) return;
 
-        const text = await response.text();
-        let urls = text.split('\n').map(line => line.trim()).filter(line => line && !line.startsWith('!') && !line.startsWith('//'));
+        const creatures = parseCreatureData(data);
 
-        if (urls.length === 0) throw new Error('No valid image URLs found');
+        // Filter out creatures with the "blank" modifier
+        const validCreatures = creatures.filter(creature => !creature.modifiers.includes('blank'));
 
-        let randomCreature = urls[Math.floor(Math.random() * urls.length)];
-        let mirror = false;
-        let scaleDown = false;
-        let scaleUp = false;
-        let transparent = false;
-        let positionFixed = false;
-
-        if (randomCreature.includes('*')) {
-            mirror = true;
-            randomCreature = randomCreature.replace('*', '').trim();
+        if (validCreatures.length === 0) {
+            console.error('No valid creatures available for randomization.');
+            return;
         }
 
-        if (randomCreature.includes('<')) {
-            scaleDown = true;
-            randomCreature = randomCreature.replace('<', '').trim();
-        }
-
-        if (randomCreature.includes('^')) {
-            scaleUp = true;
-            randomCreature = randomCreature.replace('^', '').trim();
-        }
-
-        if (randomCreature.includes('!')) {
-            transparent = true;
-            randomCreature = randomCreature.replace('!', '').trim();
-        }
-        
-        if (randomCreature.includes('~')) {
-            positionFixed = true;
-            randomCreature = randomCreature.replace('~', '').trim();
-        }
+        // Randomly select a creature from the filtered list
+        const randomCreature = validCreatures[Math.floor(Math.random() * validCreatures.length)];
 
         const imgElement = document.getElementById('creature');
-        imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
-        imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
-        imgElement.style.opacity = transparent ? '0' : '0.25';
-        imgElement.style.bottom = positionFixed ? '16px' : '';
-        imgElement.style.right = positionFixed ? '16px' : '';
-        imgElement.src = randomCreature;
+        imgElement.src = randomCreature.image;
+
+        // Apply modifiers
+        applyModifiers(imgElement, randomCreature.modifiers);
+
+        // Save the "random" state in localStorage
+        localStorage.setItem('isRandom', 'true');
     } catch (error) {
         console.error('Error:', error.message);
     }
@@ -61,14 +74,12 @@ async function setRandomCreatureImage() {
 function loadSavedCreature() {
     const savedCreature = localStorage.getItem('selectedCreature');
     if (savedCreature) {
-        const { url, mirror, scaleDown, scaleUp, transparent, positionFixed } = JSON.parse(savedCreature);
+        const creature = JSON.parse(savedCreature);
         const imgElement = document.getElementById('creature');
-        imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
-        imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
-        imgElement.style.opacity = transparent ? '0' : '0.25';
-        imgElement.style.bottom = positionFixed ? '16px' : '';
-        imgElement.style.right = positionFixed ? '16px' : '';
-        imgElement.src = url;
+        imgElement.src = creature.image;
+
+        // Apply modifiers
+        applyModifiers(imgElement, creature.modifiers);
     }
 }
 
@@ -88,66 +99,49 @@ async function showCreatureList(event) {
     listContainer.style.position = 'absolute';
     listContainer.style.top = `${y + 10}px`;
     listContainer.style.left = `${x}px`;
-    
+
     const loadingItem = document.createElement('div');
-    loadingItem.textContent = 'loading...';
+    loadingItem.textContent = 'Loading...';
     loadingItem.classList.add('ca-creature-item', 'ca-loading');
     loadingItem.style.pointerEvents = 'none';
     listContainer.appendChild(loadingItem);
     document.body.appendChild(listContainer);
 
     try {
-        const response = await fetch('/assets/creatures.txt');
-        if (!response.ok) throw new Error('failed to load creatures');
-        const text = await response.text();
-        const urls = text.split('\n')
-            .map(line => line.trim())
-            .filter(line => line && !line.startsWith('//'));
+        const data = await fetchCreatureData();
+        if (!data) return;
+
+        const creatures = parseCreatureData(data);
 
         listContainer.innerHTML = '';
-        
+
         const randomizeItem = document.createElement('div');
         randomizeItem.textContent = 'randomize';
         randomizeItem.classList.add('ca-creature-item');
         randomizeItem.addEventListener('click', () => {
-            localStorage.removeItem('selectedCreature');
+            // Set the "random" flag in localStorage
+            localStorage.setItem('isRandom', 'true');
+            localStorage.removeItem('selectedCreature'); // Clear any saved creature
             setRandomCreatureImage();
             listContainer.remove();
         });
         listContainer.appendChild(randomizeItem);
 
-        urls.forEach(url => {
-            const fileName = url.split('/').pop().split('.')[0];
+        // Add creatures to the list
+        creatures.forEach(creature => {
             const listItem = document.createElement('div');
-            listItem.textContent = fileName;
+            listItem.textContent = creature.name;
             listItem.classList.add('ca-creature-item');
             listItem.addEventListener('click', () => {
                 const imgElement = document.getElementById('creature');
-                let processedUrl = url;
-                let mirror = processedUrl.includes('*');
-                let scaleDown = processedUrl.includes('<');
-                let scaleUp = processedUrl.includes('^');
-                let transparent = processedUrl.includes('!');
-                let positionFixed = processedUrl.includes('~');
+                imgElement.src = creature.image;
 
-                processedUrl = processedUrl.replace(/[*<^!~]/g, '').trim();
+                // Apply modifiers
+                applyModifiers(imgElement, creature.modifiers);
 
-                imgElement.style.transform = mirror ? 'scaleX(-1)' : 'scaleX(1)';
-                imgElement.style.width = scaleDown ? '160px' : scaleUp ? '300px' : '';
-                imgElement.style.opacity = transparent ? '0' : '0.25';
-                imgElement.style.bottom = positionFixed ? '16px' : '';
-                imgElement.style.right = positionFixed ? '16px' : '';
-                imgElement.src = processedUrl;
-
-                localStorage.setItem('selectedCreature', JSON.stringify({
-                    url: processedUrl,
-                    mirror,
-                    scaleDown,
-                    scaleUp,
-                    transparent,
-                    positionFixed
-                }));
-
+                // Save the selected creature in localStorage and clear the "random" flag
+                localStorage.setItem('selectedCreature', JSON.stringify(creature));
+                localStorage.removeItem('isRandom');
                 listContainer.remove();
             });
             listContainer.appendChild(listItem);
@@ -166,10 +160,27 @@ async function showCreatureList(event) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('selectedCreature')) {
-        loadSavedCreature();
+document.addEventListener('DOMContentLoaded', async () => {
+    const isRandom = localStorage.getItem('isRandom') === 'true';
+
+    if (isRandom) {
+        // If "random" is selected, randomize the creature on every page load
+        await setRandomCreatureImage();
     } else {
-        setRandomCreatureImage();
+        // Otherwise, load the saved creature or randomize if none is saved
+        const savedCreature = localStorage.getItem('selectedCreature');
+        if (savedCreature) {
+            loadSavedCreature();
+        } else {
+            await setRandomCreatureImage();
+        }
     }
 });
+
+const creatureOpacity = localStorage.getItem('creature-opacity');
+const creature = document.getElementById('creature');
+creature.style.opacity = creatureOpacity !== null ? creatureOpacity : 0.25;
+if (creatureOpacity === null) {
+    localStorage.setItem('creature-opacity', 0.25);
+}
+

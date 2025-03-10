@@ -24,7 +24,7 @@ im still mad about that. but if it weren't for that i wouldn't have started this
   - re-ordering with drag n drop
   - TAB TYPES (right click the "+" tab)
 - "CMD LINE" to export/backup your notes and tabs !! 
-  - accessable with `CTRL` + `SHIFT` + `Q`, and typing "export" for backup, "import" for restore. there'res more stuff so you can just type `help` for more
+  - accessable with `ALT` + `C`, and typing "export" for backup, "import" for restore. there's more stuff so you can just type `help` for more
 - garb
 
 # CREDITS:

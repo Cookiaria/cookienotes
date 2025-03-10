@@ -1,0 +1,171 @@
+[
+    {
+        "creatures": [
+            {
+                "name": "nothing",
+                "image": "/assets/creatures/nothing.png",
+                "modifiers": ["blank"]
+            },
+            {
+                "name": "ralseiHeal",
+                "image": "/assets/creatures/ralsei_heal.gif",
+                "modifiers": ["shrink", "mirror"]
+            },
+            {
+                "name": "ralseiCheer",
+                "image": "/assets/creatures/ralsei_cheer.png",
+                "modifiers": []
+            },
+            {
+                "name": "ralseiCake",
+                "image": "/assets/creatures/ralsei_cake.png",
+                "modifiers": ["grow"]
+            },
+            {
+                "name": "ralseiGDCat",
+                "image": "/assets/creatures/ralsei_gdcat.png",
+                "modifiers": ["mirror"]
+            },
+            {
+                "name": "nikoYippie",
+                "image": "/assets/creatures/niko_yippie.png",
+                "modifiers": ["mirror"]
+            },
+            {
+                "name": "nikoVibe",
+                "image": "/assets/creatures/niko_vibe.gif",
+                "modifiers": ["shrink"]
+            },
+            {
+                "name": "nikoStand",
+                "image": "/assets/creatures/niko_stand.gif",
+                "modifiers": ["shrink"]
+            },
+            {
+                "name": "nikoLooking",
+                "image": "/assets/creatures/niko_looking.gif",
+                "modifiers": ["shrink"]
+            },
+            {
+                "name": "nikoBulb",
+                "image": "/assets/creatures/niko_bulb.png",
+                "modifiers": []
+            },
+            {
+                "name": "nikoAf",
+                "image": "/assets/creatures/niko_af.png",
+                "modifiers": []
+            },
+            {
+                "name": "nyan-cat",
+                "image": "/assets/creatures/nyancat.gif",
+                "modifiers": ["mirror"]
+            },
+            {
+                "name": "neko",
+                "image": "/assets/creatures/neko.gif",
+                "modifiers": ["shrink"]
+            },
+            {
+                "name": "don-chan",
+                "image": "/assets/creatures/don.png",
+                "modifiers": []
+            },
+            {
+                "name": "don-chan jr.",
+                "image": "/assets/creatures/don_2.png",
+                "modifiers": []
+            },
+            {
+                "name": "cheez",
+                "image": "/assets/creatures/cheez.png",
+                "modifiers": ["shrink"]
+            },
+            {
+                "name": "blob",
+                "image": "/assets/creatures/blob.gif",
+                "modifiers": ["shrink"]
+            },
+            {
+                "name": "gato",
+                "image": "/assets/creatures/gato_parachute.png",
+                "modifiers": []
+            },
+            {
+                "name": "bingle",
+                "image": "/assets/creatures/bingle.webp",
+                "modifiers": ["offset"]
+            },
+            {
+                "name": "maxiGunga",
+                "image": "/assets/creatures/maxi.webp",
+                "modifiers": ["shrink"]
+            },
+            {
+                "name": "mintNEAR",
+                "image": "/assets/creatures/mint_NEAR.png",
+                "modifiers": []
+            },
+            {
+                "name": "heartBlank",
+                "image": "/assets/creatures/heart-blank.png",
+                "modifiers": []
+            },
+            {
+                "name": "cBean",
+                "image": "/assets/creatures/ca-bean.png",
+                "modifiers": ["grow"]
+            },
+            {
+                "name": "cDead",
+                "image": "/assets/creatures/ca-dead.png",
+                "modifiers": ["offset"]
+            },
+            {
+                "name": "cApril",
+                "image": "/assets/creatures/ca-april.png",
+                "modifiers": ["shrink"]
+            },
+            {
+                "name": "cheems",
+                "image": "/assets/creatures/cheems.png",
+                "modifiers": []
+            },
+            {
+                "name": "pukeko",
+                "image": "/assets/creatures/pukeko.png",
+                "modifiers": ["shrink"]
+            },
+            {
+                "name": "garb",
+                "image": "/assets/creatures/garb.png",
+                "modifiers": []
+            },
+            {
+                "name": "boingus",
+                "image": "/assets/creatures/boingus.png",
+                "modifiers": ["offset"]
+            },
+            {
+                "name": "cmon",
+                "image": "/assets/creatures/cmon.png",
+                "modifiers": ["offset", "shrink"]
+            },
+            {
+                "name": "seeker",
+                "image": "/assets/creatures/seeker.png",
+                "modifiers": ["offset", "mirror", "grow"]
+            },
+            {
+                "name": "wuh",
+                "image": "/assets/creatures/wuh.png",
+                "modifiers": ["mirror"]
+            },
+            {
+                "name": "catDance",
+                "image": "/assets/creatures/cat_dance.gif",
+                "modifiers": ["shrink"]
+            }
+        ]
+    }
+]

@@ -1,0 +1,35 @@
+.serotonin {
+	position: absolute;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	bottom: 0;
+	right: 0;
+	width: 240px;
+	z-index: 500;
+	pointer-events: none;
+	image-rendering: pixelated;
+	margin-bottom: 29px;
+    border-bottom-right-radius: 8px;
+}
+
+.sero-blank {
+    display: none;
+}
+
+.sero-shrink {
+    width: 130px;
+}
+
+.sero-mirror {
+    transform: scaleX(-1);
+}
+
+.sero-grow {
+    width: 300px;
+}
+
+.sero-offset {
+    bottom: 16px;
+    right: 16px;
+}

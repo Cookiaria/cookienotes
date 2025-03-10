@@ -16,6 +16,7 @@ function initializeSimpleMDE(elementId, tabId) {
             toggleFullscreen: null,
             toggleSideBySide: null,
         },
+        initialValue: tabId === 0 ? "" : "# Welcome to cookinotes!",
         toolbar: [
             {
                 name: "Bold",
