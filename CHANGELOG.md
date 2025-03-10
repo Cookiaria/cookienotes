@@ -7,6 +7,8 @@
 - cmd now accepts javascript input. go crazy.
 - wider cmd text input
 - new creature
+- scheduletab changelog:
+  - removed scrollbar
 
 ### v11.1-starfruit-supernova - mar 9, 2025
 - added webamp LMAO
