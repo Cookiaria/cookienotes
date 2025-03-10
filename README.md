@@ -4,14 +4,14 @@ stupid project ive started on an electron app that had access to dev tools and e
 
 im still mad about that. but if it weren't for that i wouldn't have started this and i am afraid there is no going back
 
+[changelog here!](/CHANGELOG.md)
+
 ---
 
 ### ⚠️ disclamer:
 
 - this does not store anything anywhere except your pc with localstorage, if you clear site data and cookies, your saved notes will be gone ... if you're fast enough lol
-
-- i cannot guarantee that it will actually save so dont get mad at me if it doesn't
-
+- i cannot guarantee that it will actually save so dont get mad at me if it doesn't. check permissions with your browser.
 - garb 
 
 # FEATURES:

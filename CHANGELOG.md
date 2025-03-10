@@ -4,7 +4,7 @@
 - randomcreatures.js rewrite, it now handles json like a Normal Person
 - customizable creature opacity in commands, type `creature-opacity [1-100]%` on the cmd
 - cmd now opens with ALT+C. like a Normal Person
-- cmd now accepts js. go crazy.
+- cmd now accepts javascript input. go crazy.
 - wider cmd text input
 - new creature
 
