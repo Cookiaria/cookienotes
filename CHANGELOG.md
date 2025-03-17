@@ -1,4 +1,6 @@
 # CHANGELOG:
+### v12.1-watermelon-kaleidoscope
+- fixed clock oopsies
 
 ### v12.0-watermelon-kaleidoscope
 - added a .0 in the version scheme because why not
