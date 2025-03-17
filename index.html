@@ -16,8 +16,7 @@
 
     <!-- scripts -->
     <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
-    <!-- for exporting/importing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script> <!-- for exporting/importing -->
     <script src="/assets/js/simplemde.js"></script>
 
 </head>
@@ -25,13 +24,23 @@
 <body>
     <div class="notepad-real">
 
-        <div class="tab-container" id="tab-container"></div>
+        <img src="" id="creature" class="serotonin">
+
+        <div id="tabs-wrapper" class="tabswrap">
+            <div id="tab-container" class="tabcontainer"></div>
+            <div id="add-tab" class="add-tab">+</div>
+        </div>
+        <div id="ca-tab-content"></div>
+
+
+        
         <div class="ca-simplemde" id="ca-tab-content"></div>
 
-        <div class="notes-version" title="grapejuice"><a href="https://github.com/Cookiaria/cookienotes"
-                title="source">v11.2-starfruit-supernova</a></div>
+        <div class="notes-version" title="grapejuice">
+            <a href="https://github.com/Cookiaria/cookienotes"
+               title="source" id="cookieversion">v12.0-watermelon-kaleidoscope</a>
+        </div>
 
-        <img src="" id="creature" class="serotonin">
 
     </div>
 
@@ -46,7 +55,6 @@
     <script src="/assets/js/cmd.js"></script>
     <script src="/assets/js/simplemde-loader.js"></script>
     <script src="/assets/js/misc.js"></script>
-
 </body>
 
 </html>

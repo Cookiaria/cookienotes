@@ -1,5 +1,15 @@
 # CHANGELOG:
 
+### v12.0-watermelon-kaleidoscope
+- added a .0 in the version scheme because why not
+- added the ability to add an iframe tab of your own (to enter your own url) ‼️
+- moved the "+" tab to the right
+- tab-creation "overhaul"? tabs now generate with random names ‼️
+- added a button (within simplemde's toolbar) to open the command input
+- moved preview button to the right, also changed the icon for it
+- new super secret clock elements
+- more creatures
+
 ### v11.2-starfruit-supernova - mar 10, 2025
 - randomcreatures.js rewrite, it now handles json like a Normal Person
 - customizable creature opacity in commands, type `creature-opacity [1-100]%` on the cmd

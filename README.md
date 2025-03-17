@@ -12,6 +12,7 @@ im still mad about that. but if it weren't for that i wouldn't have started this
 
 - this does not store anything anywhere except your pc with localstorage, if you clear site data and cookies, your saved notes will be gone ... if you're fast enough lol
 - i cannot guarantee that it will actually save so dont get mad at me if it doesn't. check permissions with your browser.
+- this project is for me to learn javascript. its not really meant to be used to teach or anthing like that since AI tools were used to make (most of) this.
 - garb 
 
 # FEATURES:

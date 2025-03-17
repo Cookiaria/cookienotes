@@ -23,7 +23,7 @@ function parseCreatureData(data) {
             creatures.push(...category.creatures.map(creature => ({
                 name: creature.name,
                 image: creature.image,
-                modifiers: creature.modifiers || [] // Default to empty array if no modifiers
+                modifiers: creature.modifiers || [] 
             })));
         }
     });
@@ -32,9 +32,8 @@ function parseCreatureData(data) {
 
 function applyModifiers(imgElement, modifiers) {
     // Reset all modifier classes while keeping the base class
-    imgElement.className = 'serotonin'; // Base class for all creatures
+    imgElement.className = 'serotonin'; 
 
-    // Add modifier classes dynamically
     modifiers.forEach(modifier => {
         imgElement.classList.add('sero-' + modifier);
     });
@@ -44,24 +43,18 @@ async function setRandomCreatureImage() {
     try {
         const data = await fetchCreatureData();
         if (!data) return;
-
         const creatures = parseCreatureData(data);
-
-        // Filter out creatures with the "blank" modifier
-        const validCreatures = creatures.filter(creature => !creature.modifiers.includes('blank'));
+        const validCreatures = creatures.filter(creature => !creature.modifiers.includes('blank') && !creature.modifiers.includes('no-random'));
 
         if (validCreatures.length === 0) {
             console.error('No valid creatures available for randomization.');
             return;
         }
 
-        // Randomly select a creature from the filtered list
         const randomCreature = validCreatures[Math.floor(Math.random() * validCreatures.length)];
-
         const imgElement = document.getElementById('creature');
         imgElement.src = randomCreature.image;
 
-        // Apply modifiers
         applyModifiers(imgElement, randomCreature.modifiers);
 
         // Save the "random" state in localStorage
@@ -78,7 +71,6 @@ function loadSavedCreature() {
         const imgElement = document.getElementById('creature');
         imgElement.src = creature.image;
 
-        // Apply modifiers
         applyModifiers(imgElement, creature.modifiers);
     }
 }
@@ -121,7 +113,7 @@ async function showCreatureList(event) {
         randomizeItem.addEventListener('click', () => {
             // Set the "random" flag in localStorage
             localStorage.setItem('isRandom', 'true');
-            localStorage.removeItem('selectedCreature'); // Clear any saved creature
+            localStorage.removeItem('selectedCreature'); 
             setRandomCreatureImage();
             listContainer.remove();
         });

@@ -2,12 +2,18 @@ function initializeSimpleMDE(elementId, tabId) {
     const simplemde = new SimpleMDE({
         element: document.getElementById(elementId),
         hideIcons: ["columns", "table"],
+        promptURLs: true,
         autoDownloadFontAwesome: false,
         spellChecker: false,
+        status: [
+            "lines",
+            "words",
+            "cursor",
+        ],
         autosave: {
             enabled: true,
             uniqueId: `tab${tabId}`,
-            delay: 1000,
+            delay: 10000,
         },
         renderingConfig: {
             codeSyntaxHighlighting: true,
@@ -16,7 +22,6 @@ function initializeSimpleMDE(elementId, tabId) {
             toggleFullscreen: null,
             toggleSideBySide: null,
         },
-        initialValue: tabId === 0 ? "" : "# Welcome to cookinotes!",
         toolbar: [
             {
                 name: "Bold",
@@ -43,6 +48,17 @@ function initializeSimpleMDE(elementId, tabId) {
                 className: "nf nf-md-format_header_1",
                 title: "Heading 1",
             },
+            {
+                name: "Link",
+                action: SimpleMDE.drawLink,
+                className: "nf nf-fa-link",
+                title: "Insert Link"
+            },
+            {
+                name: "Code",
+                action: SimpleMDE.toggleCodeBlock,
+                className: "nf nf-fa-code"
+            },
             "|",
             {
                 name: "creatures",
@@ -68,14 +84,21 @@ function initializeSimpleMDE(elementId, tabId) {
                 action: function () {
                     showWinamp();
                 },
-                className: "nf nf-fa-music", 
+                className: "nf nf-fa-music",
                 title: "Winamp (why?)",
             },
-            "|",
+            {
+                name: "Commands",
+                action: function (editor) {
+                    openCommandLine();
+                },
+                className: "nf nf-oct-command_palette",
+                title: "Open command input"
+            },
             {
                 name: "Preview",
                 action: SimpleMDE.togglePreview,
-                className: "nf nf-md-eye",
+                className: "nf nf-cod-open_preview mde-preview",
                 title: "Preview",
             },
         ],
@@ -84,7 +107,6 @@ function initializeSimpleMDE(elementId, tabId) {
 }
 
 function showWinamp() {
-    // Initialize Webamp
     const webamp = new Webamp({
         initialTracks: [
             {
@@ -105,7 +127,7 @@ function showWinamp() {
             },
             {
                 title: 'Toilet 5',
-                url: '/assets/winamp/toilet5.mp3',                
+                url: '/assets/winamp/toilet5.mp3',
             },
             {
                 title: 'Toilet 6',
@@ -137,19 +159,31 @@ function showWinamp() {
             }
         ]
     });
-
-    // Append Webamp to the DOM
     webamp.renderWhenReady(document.getElementById('webamp'))
 }
+
+let cachedTabNames = null;
+
+async function getRandomTabName() {
+    if (!cachedTabNames) {
+        const response = await fetch('/assets/tabnames.json');
+        cachedTabNames = await response.json();
+    }
+
+    const first = cachedTabNames.tabfirst[Math.floor(Math.random() * cachedTabNames.tabfirst.length)];
+    const last = cachedTabNames.tablast[Math.floor(Math.random() * cachedTabNames.tablast.length)];
+    return `${first}-${last}`;
+}
+
+const sessionHistory = new Map();
 
 // Load tabs from localStorage
 let tabs = JSON.parse(localStorage.getItem("tabs")) || [
     {
         id: String(Date.now()),
-        name: "tab1",
+        name: "cookienotes",
         type: "simplemde",
-        content: localStorage.getItem("tab1") || "",
-        history: null,
+        content: localStorage.getItem("cookienotes") || "",
         previewState: false,
     },
 ];
@@ -161,7 +195,7 @@ tabs = tabs.map((tab) => ({
     previewState: tab.previewState !== undefined ? tab.previewState : false,
 }));
 
-let tabInstances = new Map(); // Store instances (e.g., SimpleMDE) for each tab
+let tabInstances = new Map();
 
 // Render tabs and initialize content
 function renderTabs() {
@@ -181,8 +215,8 @@ function renderTabs() {
                 const textarea = document.createElement("textarea");
                 textarea.id = `notepad-${tab.id}`;
                 contentDiv.appendChild(textarea);
-                const simplemde = initializeSimpleMDE(`notepad-${tab.id}`, tab.id); // Pass tab.id
-                simplemde.value(tab.content || localStorage.getItem(`smde_tab${tab.id}`) || ""); // Load autosaved content
+                const simplemde = initializeSimpleMDE(`notepad-${tab.id}`, tab.id);
+                simplemde.value(tab.content || localStorage.getItem(`smde_tab${tab.id}`) || "");
                 if (tab.history) simplemde.codemirror.setHistory(tab.history);
                 tabInstances.set(tab.id, simplemde);
             } else if (tab.type === "iframe") {
@@ -222,6 +256,7 @@ function renderTabs() {
             e.dataTransfer.setData("text/plain", tab.id);
             e.currentTarget.classList.add("dragging");
         });
+
         tabElement.addEventListener("dragend", (e) => {
             e.currentTarget.classList.remove("dragging");
         });
@@ -229,23 +264,11 @@ function renderTabs() {
         tabContainer.appendChild(tabElement);
     });
 
-    const addTab = document.createElement("div");
-    addTab.className = "add-tab";
-    addTab.textContent = "+";
-    addTab.addEventListener("click", () => addNewTab("simplemde"));
-    addTab.addEventListener("contextmenu", (e) => {
-        e.preventDefault();
-        showTabTypeMenu(e.clientX, e.clientY);
-    });
-    tabContainer.appendChild(addTab);
-
-    const activeTabId = document.querySelector(".tab.active")?.getAttribute("data-tab") || tabs[0].id;
-
     // Ensure the first tab is visible on initial load
+    const activeTabId = document.querySelector(".tab.active")?.getAttribute("data-tab") || tabs[0].id;
     if (tabs.length > 0) {
         switchTab(activeTabId); // Keep previously selected tab active
     }
-
 
     tabContainer.addEventListener("dragover", (e) => {
         e.preventDefault();
@@ -261,22 +284,28 @@ function renderTabs() {
         const newIndex = Array.from(tabContainer.children).findIndex(
             (child) => child.getAttribute("data-tab") === draggedTabId
         );
-    
         const activeTabId = document.querySelector(".tab.active")?.getAttribute("data-tab");
-    
         tabs = tabs.filter((tab) => tab.id !== draggedTabId);
         tabs.splice(newIndex, 0, draggedTab);
         localStorage.setItem("tabs", JSON.stringify(tabs));
-    
         renderTabs();
         switchTab(activeTabId); // Restore active tab
     });
-    
 
     // Ensure the first tab is visible on initial load
     if (tabs.length > 0 && !document.querySelector(".tab.active")) {
         switchTab(tabs[0].id);
     }
+}
+
+// Add event listeners to the "+" tab
+const addTab = document.getElementById("add-tab");
+if (addTab) {
+    addTab.addEventListener("click", () => addNewTab("simplemde"));
+    addTab.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        showTabTypeMenu(e.clientX, e.clientY);
+    });
 }
 
 // Function to make tab names editable
@@ -330,7 +359,7 @@ function makeTabNameEditable(tabNameElement, tabId) {
     input.addEventListener("blur", saveName);
 }
 
-// Show tab type selection menu
+// TAB SELECTOR
 function showTabTypeMenu(x, y) {
     const existingMenu = document.querySelector(".ca-tab-type-menu");
     if (existingMenu) existingMenu.remove();
@@ -338,26 +367,40 @@ function showTabTypeMenu(x, y) {
     const menu = document.createElement("div");
     menu.className = "ca-tab-type-menu";
     menu.style.position = "absolute";
-    menu.style.left = `${x}px`;
-    menu.style.top = `${y}px`;
 
     const options = [
         { name: "cookienotes", type: "simplemde" },
         { name: "schedule", type: "iframe", content: "/extratabs/scheduler/index.html" },
-        { name: "midi-player", type: "iframe", content: "/extratabs/midi-player/index.html" },
+        { name: "creature-test", type: "iframe", content: "/extratabs/cookie_test/index.html" },
+        { name: "custom...", type: "custom-iframe" }, 
     ];
-
     options.forEach((option) => {
         const item = document.createElement("div");
         item.className = "ca-tab-type-item";
         item.textContent = option.name;
         item.addEventListener("click", () => {
-            addNewTab(option.type, option.content);
+            if (option.type === "custom-iframe") {
+                const url = prompt("enter the URL for the custom iframe:");
+                if (url) {
+                    addNewTab("iframe", url);
+                }
+            } else {
+                addNewTab(option.type, option.content);
+            }
             menu.remove();
         });
         menu.appendChild(item);
     });
 
+    document.body.appendChild(menu);
+
+    const menuWidth = menu.offsetWidth;
+    const menuHeight = menu.offsetHeight;
+
+    menu.style.left = `${x - menuWidth}px`; 
+    menu.style.top = `${y}px`;
+
+    document.body.removeChild(menu);
     document.body.appendChild(menu);
 
     document.addEventListener("click", function handler(e) {
@@ -372,7 +415,7 @@ function showTabTypeMenu(x, y) {
 let initialLoad = true;
 
 function switchTab(tabId) {
-    // Hide ALL tab content before showing the new one
+    // hide ALL tab content before showing the new one
     document.querySelectorAll("#ca-tab-content > div").forEach((content) => {
         content.style.display = "none";
     });
@@ -406,14 +449,14 @@ function switchTab(tabId) {
 
 
 // Add a new tab
-function addNewTab(type, content = "") {
+async function addNewTab(type, content = "") {
     const newTabId = String(Date.now());
+    const randomName = await getRandomTabName(); // Fetch a random name
     tabs.push({
         id: newTabId,
-        name: `tab${tabs.length + 1}`,
+        name: randomName, // Use the random name instead of an empty string
         type,
         content,
-        history: null,
         previewState: false,
     });
     localStorage.setItem("tabs", JSON.stringify(tabs));
@@ -442,6 +485,7 @@ function closeTab(tabId) {
     }
 }
 
+
 // Helper function for drag-and-drop
 function getClosestElement(container, x) {
     const elements = Array.from(container.querySelectorAll(".tab:not(.dragging)"));
@@ -465,7 +509,7 @@ window.addEventListener("beforeunload", () => {
             const simplemde = tabInstances.get(tab.id);
             if (simplemde) {
                 tab.content = simplemde.value();
-                tab.history = simplemde.codemirror.getHistory();
+                sessionHistory.set(tab.id, simplemde.codemirror.getHistory());
                 tab.previewState = simplemde.isPreviewActive();
                 localStorage.setItem(`smde_tab${tab.id}`, simplemde.value());
             }
@@ -477,5 +521,5 @@ window.addEventListener("beforeunload", () => {
 
 renderTabs();
 if (tabs.length > 0) {
-    switchTab(tabs[0].id); // Explicitly switch to the first tab on load
+    switchTab(tabs[0].id);
 }

@@ -1,3 +1,5 @@
+let isCommandLineOpening = false;
+
 document.addEventListener('keydown', function (event) {
     if (event.altKey && event.code === 'KeyC') {
         event.stopPropagation();
@@ -11,13 +13,14 @@ document.addEventListener('keydown', function (event) {
 });
 
 document.addEventListener('click', function (event) {
-    if (!event.target.closest('#command-line')) {
+    if (!isCommandLineOpening && !event.target.closest('#command-line')) {
         const commandLine = document.getElementById('command-line');
         if (commandLine) {
             console.log('goodbye!');
             commandLine.remove();
         }
     }
+    isCommandLineOpening = false; 
 });
 
 // exporting .oto storage
@@ -92,9 +95,9 @@ function importLocalStorage() {
 
                     tabs = JSON.parse(localStorage.getItem("tabs")) || [{
                         id: String(Date.now()),
-                        name: "tab1",
+                        name: "cookienotes",
                         type: "simplemde",
-                        content: localStorage.getItem("tab1") || "",
+                        content: localStorage.getItem("cookienotes") || "",
                         history: null,
                         previewState: false,
                     }];
@@ -145,33 +148,25 @@ window.addEventListener("beforeunload", () => {
 
 // Updated "factory reset" function
 function begone() {
-    const shouldProceed = confirm("This will remove everything, and there is no going back. Are you sure?");
+    const shouldProceed = confirm("this will remove everything, and there is no going back. are you completely sure?");
     if (shouldProceed) {
-        // Set the flag to bypass beforeunload saving
         isResetting = true;
-        
-        // Clear all saved data
         localStorage.clear();
-
-        // Clear content container and tab instances
         const contentContainer = document.getElementById("ca-tab-content");
         if (contentContainer) contentContainer.innerHTML = "";
         tabInstances.clear();
 
-        // Reset tabs to the initial state
         tabs = [{
             id: String(Date.now()),
-            name: "tab1",
+            name: "cookienotes",
             type: "simplemde",
             content: "",
-            history: null,
             previewState: false,
         }];
 
         renderTabs();
         switchTab(tabs[0].id);
 
-        // Reload the page to fully cancel any pending autosave timers
         window.location.reload();
     }
 }
@@ -181,6 +176,8 @@ function openCommandLine() {
     let commandLine = document.getElementById('command-line');
 
     if (!commandLine) {
+        isCommandLineOpening = true; 
+
         commandLine = document.createElement('input');
         commandLine.id = 'command-line';
         document.body.appendChild(commandLine);
@@ -246,7 +243,7 @@ const commands = {
 
         let opacityValue = parseFloat(opacity);
         if (isNaN(opacityValue)) {
-            alert('invalid opacity value. try a number between 0-1, or a percentage (1-100). you can also type "reset"');
+            alert('invalid opacity value. try a number between 0-100. you can also type "reset"');
             return;
         }
 

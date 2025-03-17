@@ -48,7 +48,8 @@ a {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    max-width: 1024px;
+    max-width: 1216px;
+    min-width: 512px;
     margin: 0 auto;
 }
 
@@ -58,13 +59,7 @@ a.fa:nth-child(14) {
 }
 
 .tab-container {
-    user-select: none;
-    display: flex;
-    padding: 8px 8px 0 8px;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    max-height: 36px;
+
 }
 
 .tab {
@@ -112,32 +107,6 @@ a.fa:nth-child(14) {
     background-color: #ff4f4f;
 }
 
-.add-tab {
-    position: fixed;
-    top: 8px;
-    height: 22px;
-    display: inline-block;
-    text-align: center;
-    font-family: "Ubuntu Mono", serif;
-    padding: 4px 8px;
-    cursor: pointer;
-    font-weight: bold;
-    background-color: #1B1B1B;
-    color: #fff;
-    margin-right: 4px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    border: 1px solid #4f4f4f;
-    border-bottom: 0 solid white;
-}
-
-div.tab:nth-child(1) {
-    margin-left: 30px;
-}
-
-.add-tab:hover {
-    background-color: #555;
-}
 
 .notes-version {
 	position: absolute;
@@ -214,8 +183,8 @@ div.tab:nth-child(1) {
     }
 }
 
-#autosaved {
-    display: none;
+.mde-preview {
+    float: right;
 }
 
 /* ------------- CREATURE LISTS ------------- */
@@ -288,3 +257,51 @@ div.tab:nth-child(1) {
     width: 100%;
 }
 
+/* -------------- TAB STYLES ------------ */
+
+#tabs-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    max-height: 36px;
+}
+
+#tab-container {
+    user-select: none;
+    display: flex;
+    padding: 8px 8px 0 8px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+}
+
+#tab-container::-webkit-scrollbar {
+    display: none;
+}
+
+.add-tab {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+
+    height: 22px;
+    text-align: center;
+    font-family: "Ubuntu Mono", serif;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #1B1B1B;
+    color: #fff;
+    margin-right: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border: 1px solid #4f4f4f;
+    border-bottom: 0 solid white;
+
+    user-select: none;
+}
+
+.add-tab:hover {
+    background-color: #555;
+}

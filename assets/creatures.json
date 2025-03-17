@@ -9,7 +9,7 @@
             {
                 "name": "ralseiHeal",
                 "image": "/assets/creatures/ralsei_heal.gif",
-                "modifiers": ["shrink", "mirror"]
+                "modifiers": ["small", "mirror", "pixel"]
             },
             {
                 "name": "ralseiCheer",
@@ -34,17 +34,17 @@
             {
                 "name": "nikoVibe",
                 "image": "/assets/creatures/niko_vibe.gif",
-                "modifiers": ["shrink"]
+                "modifiers": ["tiny", "pixel"]
             },
             {
                 "name": "nikoStand",
                 "image": "/assets/creatures/niko_stand.gif",
-                "modifiers": ["shrink"]
+                "modifiers": ["tiny", "pixel"]
             },
             {
                 "name": "nikoLooking",
                 "image": "/assets/creatures/niko_looking.gif",
-                "modifiers": ["shrink"]
+                "modifiers": ["tiny", "pixel"]
             },
             {
                 "name": "nikoBulb",
@@ -59,17 +59,17 @@
             {
                 "name": "nyan-cat",
                 "image": "/assets/creatures/nyancat.gif",
-                "modifiers": ["mirror"]
+                "modifiers": ["mirror", "pixel"]
             },
             {
                 "name": "neko",
                 "image": "/assets/creatures/neko.gif",
-                "modifiers": ["shrink"]
+                "modifiers": ["tiny", "pixel"]
             },
             {
                 "name": "don-chan",
                 "image": "/assets/creatures/don.png",
-                "modifiers": []
+                "modifiers": ["pixel"]
             },
             {
                 "name": "don-chan jr.",
@@ -79,12 +79,12 @@
             {
                 "name": "cheez",
                 "image": "/assets/creatures/cheez.png",
-                "modifiers": ["shrink"]
+                "modifiers": ["small"]
             },
             {
                 "name": "blob",
                 "image": "/assets/creatures/blob.gif",
-                "modifiers": ["shrink"]
+                "modifiers": ["tiny"]
             },
             {
                 "name": "gato",
@@ -99,7 +99,7 @@
             {
                 "name": "maxiGunga",
                 "image": "/assets/creatures/maxi.webp",
-                "modifiers": ["shrink"]
+                "modifiers": ["small"]
             },
             {
                 "name": "mintNEAR",
@@ -112,19 +112,29 @@
                 "modifiers": []
             },
             {
+                "name": "sakamotoStare",
+                "image": "/assets/creatures/sakamoto.webp",
+                "modifiers": []
+            },
+            {
                 "name": "cBean",
                 "image": "/assets/creatures/ca-bean.png",
-                "modifiers": ["grow"]
+                "modifiers": ["grow", "no-random"]
             },
             {
                 "name": "cDead",
                 "image": "/assets/creatures/ca-dead.png",
-                "modifiers": ["offset"]
+                "modifiers": ["offset", "no-random"]
             },
             {
                 "name": "cApril",
                 "image": "/assets/creatures/ca-april.png",
-                "modifiers": ["shrink"]
+                "modifiers": ["small", "no-random"]
+            },
+            {
+                "name": "stupidHoe",
+                "image": "/assets/creatures/stupidhoe.png",
+                "modifiers": ["pixel", "offset", "small"]
             },
             {
                 "name": "cheems",
@@ -134,7 +144,7 @@
             {
                 "name": "pukeko",
                 "image": "/assets/creatures/pukeko.png",
-                "modifiers": ["shrink"]
+                "modifiers": ["small"]
             },
             {
                 "name": "garb",
@@ -149,7 +159,7 @@
             {
                 "name": "cmon",
                 "image": "/assets/creatures/cmon.png",
-                "modifiers": ["offset", "shrink"]
+                "modifiers": ["offset", "small"]
             },
             {
                 "name": "seeker",
@@ -164,7 +174,7 @@
             {
                 "name": "catDance",
                 "image": "/assets/creatures/cat_dance.gif",
-                "modifiers": ["shrink"]
+                "modifiers": ["small"]
             }
         ]
     }

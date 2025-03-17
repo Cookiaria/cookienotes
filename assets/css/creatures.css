@@ -8,7 +8,6 @@
 	width: 240px;
 	z-index: 500;
 	pointer-events: none;
-	image-rendering: pixelated;
 	margin-bottom: 29px;
     border-bottom-right-radius: 8px;
 }
@@ -17,7 +16,11 @@
     display: none;
 }
 
-.sero-shrink {
+.sero-small {
+	width: 190px;
+}
+
+.sero-tiny {
     width: 130px;
 }
 
@@ -32,4 +35,8 @@
 .sero-offset {
     bottom: 16px;
     right: 16px;
+}
+
+.sero-pixel {
+	image-rendering: pixelated;
 }
