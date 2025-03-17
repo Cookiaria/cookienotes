@@ -29,7 +29,7 @@ function updateClock() {
 
     // mixed
     const clockElement = document.querySelectorAll('.ca-clock');
-    clockElements.forEach((clock) => {
+    clockElement.forEach((clock) => {
         clock.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
     })
 }
