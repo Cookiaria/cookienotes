@@ -316,3 +316,7 @@ a.fa:nth-child(14) {
 .add-tab:hover {
     background-color: #555;
 }
+
+div.tab:last-child {
+    margin-right: 32px;
+}

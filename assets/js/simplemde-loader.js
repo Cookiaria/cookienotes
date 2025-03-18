@@ -462,9 +462,14 @@ async function addNewTab(type, content = "") {
     localStorage.setItem("tabs", JSON.stringify(tabs));
     renderTabs();
     switchTab(newTabId);
+
+    // scroll to tab when created
+    const tabElement = document.querySelector(`.tab[data-tab="${newTabId}"]`);
+    if (tabElement) {
+        tabElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }
 }
 
-// Close tab
 function closeTab(tabId) {
     const shouldClose = window.confirm("are you sure you want to close this tab?");
     if (shouldClose) {
@@ -485,8 +490,6 @@ function closeTab(tabId) {
     }
 }
 
-
-// Helper function for drag-and-drop
 function getClosestElement(container, x) {
     const elements = Array.from(container.querySelectorAll(".tab:not(.dragging)"));
     return elements.reduce(
@@ -502,7 +505,6 @@ function getClosestElement(container, x) {
     ).element;
 }
 
-// Save state before unload
 window.addEventListener("beforeunload", () => {
     tabs.forEach((tab) => {
         if (tab.type === "simplemde") {
@@ -518,6 +520,24 @@ window.addEventListener("beforeunload", () => {
     localStorage.setItem("tabs", JSON.stringify(tabs));
 });
 
+function cleanupLocalStorage() {
+    console.log('cleaning up localStorage...');
+    const tabIds = new Set(tabs.map(tab => tab.id)); 
+
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith("smde_tab")) {
+            const tabId = key.replace("smde_tab", ""); 
+            if (!tabIds.has(tabId)) {
+                console.log(`deleting orphaned localStorage entry: ${key}`);
+                localStorage.removeItem(key); 
+            }
+        }
+    }
+    console.log('localStorage cleanup complete~');
+}
+
+cleanupLocalStorage();
 
 renderTabs();
 if (tabs.length > 0) {

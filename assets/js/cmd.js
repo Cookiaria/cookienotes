@@ -28,25 +28,29 @@ document.addEventListener('click', function (event) {
 function exportLocalStorage() {
     console.log('exporting localstorage');
 
+    // Update tabs with the latest content, history, and preview state
     tabs.forEach((tab) => {
         if (tab.type === "simplemde") {
             const editor = tabInstances.get(tab.id);
             if (editor) {
-                tab.content = editor.value();
+                tab.content = editor.value(); // Save only the raw Markdown content
                 tab.history = editor.codemirror.getHistory();
                 tab.previewState = editor.isPreviewActive();
             }
-            localStorage.setItem(`smde_tab${tab.id}`, JSON.stringify(tab));
         }
     });
 
-    // Backup all localStorage keys (iterating explicitly for reliability)
+    // Backup all localStorage keys
     const backupData = {};
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         backupData[key] = localStorage.getItem(key);
     }
 
+    // Add the updated tabs array to the backup
+    backupData.tabs = JSON.stringify(tabs);
+
+    // Compress and export the data
     const data = JSON.stringify(backupData);
     const compressedData = pako.gzip(data);
     const base64Data = btoa(String.fromCharCode(...compressedData));
@@ -88,16 +92,18 @@ function importLocalStorage() {
                     const data = JSON.parse(decompressedData);
                     console.log('parsed data:', data);
 
+                    // Clear current localStorage and restore from backup
                     localStorage.clear();
                     for (const key in data) {
                         localStorage.setItem(key, data[key]);
                     }
 
+                    // Restore tabs array
                     tabs = JSON.parse(localStorage.getItem("tabs")) || [{
                         id: String(Date.now()),
                         name: "cookinotes",
                         type: "simplemde",
-                        content: localStorage.getItem("cookinotes") || "",
+                        content: "", // Ensure content is initialized as an empty string
                         history: null,
                         previewState: false,
                     }];
@@ -105,11 +111,15 @@ function importLocalStorage() {
                     renderTabs();
                     switchTab(tabs[0].id);
 
-                    // Retrieve the editor instance for the active tab
-                    const editor = tabInstances.get(tabs[0].id);
-                    if (editor) {
-                        editor.value(tabs[0].content);
-                    }
+                    // Initialize editors with valid content
+                    tabs.forEach((tab) => {
+                        if (tab.type === "simplemde") {
+                            const editor = tabInstances.get(tab.id);
+                            if (editor) {
+                                editor.value(tab.content); // Set the editor content
+                            }
+                        }
+                    });
 
                     console.log('imported localstorage');
                 } catch (error) {
@@ -267,5 +277,7 @@ const commands = {
         } catch (error) {
             alert('invalid javascript expression');
         }
-    }
+    },
+
+    sfx: toggleSFX,
 };

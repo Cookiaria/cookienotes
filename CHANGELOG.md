@@ -1,14 +1,23 @@
 # CHANGELOG:
 
-### v12.2-watermelon-kaleidoscope
+### v12.3-watermelon-kaleidoscope - mar 18, 2025
+- added an sfx toggle. use the command input and type `sfx`
+- added more random tab names
+- simplemde-loader now makes sure to remove all "orphaned" tab contents from localstorage if it failed to actually delete or if your browser somehow saves it after reloading anyway.
+- tabs now scroll automatically as you create them
+- made quoteblocks copyable by clicking
+- fixed importing/exporting issue where importing would import random garbage data or the entire tab's json 
+
+### v12.2-watermelon-kaleidoscope - mar 17, 2025
 - discord embed test
 - added a site description for google robots
 - moved the position of the command input, its now centered and inside the editor
+- fixed ca-clock AGAIN oopsies 
 
-### v12.1-watermelon-kaleidoscope
+### v12.1-watermelon-kaleidoscope - mar 17, 2025
 - fixed clock oopsies
 
-### v12.0-watermelon-kaleidoscope
+### v12.0-watermelon-kaleidoscope - mar 17, 2025
 - added a .0 in the version scheme because why not
 - added the ability to add an iframe tab of your own (to enter your own url) ‼️
 - moved the "+" tab to the right
