@@ -131,14 +131,25 @@ a.fa:nth-child(14) {
     font-weight: bold;
     font-size: 16px;
     position: absolute;
-    top: 6px;
-    right: 8px;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 100;
     background: #131313;
     color: white;
     border: 1px solid #1A1A1A;
     padding: 4px;
-    min-width: 400px;
+    width: calc(100% - 256px);
+    max-width: 512px;
+}
+
+@media (max-width: 768px) {
+    #command-line {
+        left: 0;
+        transform: none;
+        max-width: none;
+        width: 100%
+    }
 }
 
 #command-line input:focus {

@@ -1,4 +1,10 @@
 # CHANGELOG:
+
+### v12.2-watermelon-kaleidoscope
+- discord embed test
+- added a site description for google robots
+- moved the position of the command input, its now centered and inside the editor
+
 ### v12.1-watermelon-kaleidoscope
 - fixed clock oopsies
 

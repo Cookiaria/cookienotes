@@ -46,10 +46,10 @@ const observer = new MutationObserver((mutationsList) => {
         if (mutation.type === 'childList') {
             mutation.addedNodes.forEach((node) => {
                 if (node.nodeType === Node.ELEMENT_NODE && node.matches('.ca-clock')) {
-                    updateClocks(); 
+                    updateClock(); 
                 }
                 if (node.nodeType === Node.ELEMENT_NODE && node.querySelector('.ca-clock')) {
-                    updateClocks(); 
+                    updateClock(); 
                 }
             });
         }
