@@ -181,9 +181,9 @@ const sessionHistory = new Map();
 let tabs = JSON.parse(localStorage.getItem("tabs")) || [
     {
         id: String(Date.now()),
-        name: "cookienotes",
+        name: "cookinotes",
         type: "simplemde",
-        content: localStorage.getItem("cookienotes") || "",
+        content: localStorage.getItem("cookinotes") || "",
         previewState: false,
     },
 ];
@@ -369,7 +369,7 @@ function showTabTypeMenu(x, y) {
     menu.style.position = "absolute";
 
     const options = [
-        { name: "cookienotes", type: "simplemde" },
+        { name: "cookinotes", type: "simplemde" },
         { name: "schedule", type: "iframe", content: "/extratabs/scheduler/index.html" },
         { name: "creature-test", type: "iframe", content: "/extratabs/cookie_test/index.html" },
         { name: "custom...", type: "custom-iframe" }, 

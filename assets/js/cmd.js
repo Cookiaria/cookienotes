@@ -95,9 +95,9 @@ function importLocalStorage() {
 
                     tabs = JSON.parse(localStorage.getItem("tabs")) || [{
                         id: String(Date.now()),
-                        name: "cookienotes",
+                        name: "cookinotes",
                         type: "simplemde",
-                        content: localStorage.getItem("cookienotes") || "",
+                        content: localStorage.getItem("cookinotes") || "",
                         history: null,
                         previewState: false,
                     }];
@@ -158,7 +158,7 @@ function begone() {
 
         tabs = [{
             id: String(Date.now()),
-            name: "cookienotes",
+            name: "cookinotes",
             type: "simplemde",
             content: "",
             previewState: false,
