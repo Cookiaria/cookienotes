@@ -1,4 +1,4 @@
-# cookienotes
+# cookinotes
 
 stupid project ive started on an electron app that had access to dev tools and editing the html like that which later became this ; an actual website to host this thing because holy shit why do i not have access to notepad
 
@@ -16,7 +16,7 @@ im still mad about that. but if it weren't for that i wouldn't have started this
 - garb 
 
 # FEATURES:
-- REALTIME MARKDOWN
+- REALTIME MARKDOWN (and html in preview mode !!1)
 - autosaving every second (real)
 - creatures ‼️
   - selectable via the paw button in the toolbar
@@ -29,19 +29,19 @@ im still mad about that. but if it weren't for that i wouldn't have started this
 - garb
 
 # CREDITS:
-- [simplemde](https://github.com/sparksuite/simplemde-markdown-editor) (HUGE)
+- [simplemde](https://github.com/sparksuite/simplemde-markdown-editor) (the sisyphus of this mess)
+  - licensed under [MIT >](https://github.com/sparksuite/simplemde-markdown-editor?tab=MIT-1-ov-file)
+- [osu-resources](https://github.com/ppy/osu-resources) (for sound effects)
+  - licensed under [CC BY-NC 4.0](https://github.com/ppy/osu-resources?tab=License-1-ov-file)
 - [alsoangle](https://bsky.app/profile/alsoangle.bsky.social) for ralsei art
 - [jadedholiday](https://x.com/jadedholiday) for ralsei art
 - [IcyMaxi](https://bsky.app/profile/maximaxi.cookiaria.lol) for art of my oc and themselves
 - merad01 - for ralsei art comm
 - Chikn Nuggit - for Cheezborger asset
-- tobyfox/ for ralsei assets 
-- nightmargin for niko assets
-- cats
-- pukeko
+- tobyfox - for ralsei assets 
+- nightmargin - for niko assets
+- cats from the internet
+- pukeko (pukeko)
 - garb
 
-##  Checklist <span style="font-size:0.75em">of things i wanna add/fix in the future</span>
-- [x] ~~preview making the creature Invisible~~ fixed kinda?
-- [ ] a button to automatically upload an image to catbox and insert it
-- [ ] garb removal (will never happen, hes too powerful)
+bless this mess 

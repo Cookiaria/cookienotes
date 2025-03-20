@@ -120,8 +120,8 @@ function importLocalStorage() {
                             }
                         }
                     });
-
                     console.log('imported localstorage');
+                    setTimeout(() => window.location.reload(), 500); // delay to refresh so that it also loads the saved creatures and stuff
                 } catch (error) {
                     console.error('failed to import localstorage:', error);
                     alert('Failed to import localstorage. The file might be corrupted or invalid.');

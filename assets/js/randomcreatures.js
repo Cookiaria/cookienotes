@@ -4,11 +4,19 @@ document.addEventListener('mousemove', (e) => {
     lastMousePosition.y = e.clientY;
 });
 
+let creatureListCache = null;
+
 async function fetchCreatureData() {
+    if (creatureListCache) {
+        return creatureListCache;
+    }
+
     try {
         const response = await fetch('/assets/creatures.json');
         if (!response.ok) throw new Error('Failed to load creature data');
-        return await response.json();
+        creatureListCache = await response.json();
+        console.log('creatures are loaded:', creatureListCache);
+        return creatureListCache;
     } catch (error) {
         console.error('Error:', error.message);
         return null;
@@ -31,7 +39,6 @@ function parseCreatureData(data) {
 }
 
 function applyModifiers(imgElement, modifiers) {
-    // Reset all modifier classes while keeping the base class
     imgElement.className = 'serotonin'; 
 
     modifiers.forEach(modifier => {
@@ -76,6 +83,7 @@ function loadSavedCreature() {
 }
 
 async function showCreatureList(event) {
+
     let x, y;
     if (event) {
         event.preventDefault();
@@ -86,14 +94,20 @@ async function showCreatureList(event) {
         y = lastMousePosition.y;
     }
 
-    const listContainer = document.createElement('div');
+
+    let listContainer = document.querySelector('.ca-creature-list');
+    if (listContainer) {
+        listContainer.remove();
+    }
+
+    listContainer = document.createElement('div');
     listContainer.classList.add('ca-creature-list');
     listContainer.style.position = 'absolute';
     listContainer.style.top = `${y + 10}px`;
     listContainer.style.left = `${x}px`;
 
     const loadingItem = document.createElement('div');
-    loadingItem.textContent = 'Loading...';
+    loadingItem.textContent = 'loading...';
     loadingItem.classList.add('ca-creature-item', 'ca-loading');
     loadingItem.style.pointerEvents = 'none';
     listContainer.appendChild(loadingItem);
@@ -101,9 +115,14 @@ async function showCreatureList(event) {
 
     try {
         const data = await fetchCreatureData();
-        if (!data) return;
+        if (!data) {
+            console.error('no data returned');
+            return;
+        }
 
         const creatures = parseCreatureData(data);
+
+        console.log(`total creatures parsed: ${creatures.length}`);
 
         listContainer.innerHTML = '';
 
@@ -111,7 +130,6 @@ async function showCreatureList(event) {
         randomizeItem.textContent = 'randomize';
         randomizeItem.classList.add('ca-creature-item');
         randomizeItem.addEventListener('click', () => {
-            // Set the "random" flag in localStorage
             localStorage.setItem('isRandom', 'true');
             localStorage.removeItem('selectedCreature'); 
             setRandomCreatureImage();
@@ -119,7 +137,6 @@ async function showCreatureList(event) {
         });
         listContainer.appendChild(randomizeItem);
 
-        // Add creatures to the list
         creatures.forEach(creature => {
             const listItem = document.createElement('div');
             listItem.textContent = creature.name;
@@ -127,11 +144,7 @@ async function showCreatureList(event) {
             listItem.addEventListener('click', () => {
                 const imgElement = document.getElementById('creature');
                 imgElement.src = creature.image;
-
-                // Apply modifiers
                 applyModifiers(imgElement, creature.modifiers);
-
-                // Save the selected creature in localStorage and clear the "random" flag
                 localStorage.setItem('selectedCreature', JSON.stringify(creature));
                 localStorage.removeItem('isRandom');
                 listContainer.remove();
@@ -140,15 +153,17 @@ async function showCreatureList(event) {
         });
 
         document.body.appendChild(listContainer);
-
-        document.addEventListener('click', function onClickOutside(e) {
-            if (!listContainer.contains(e.target)) {
-                listContainer.remove();
-                document.removeEventListener('click', onClickOutside);
-            }
+        
+        setTimeout (() => {
+            document.addEventListener('click', function onClickOutside(e) {
+                if (!listContainer.contains(e.target)) {
+                    listContainer.remove();
+                    document.removeEventListener('click', onClickOutside);
+                }
         });
+        }, 0);
     } catch (error) {
-        console.error('Error:', error.message);
+        console.error('Error showing creature list:', error.message);
     }
 }
 
@@ -168,6 +183,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 });
+
 
 const creatureOpacity = localStorage.getItem('creature-opacity');
 const creature = document.getElementById('creature');

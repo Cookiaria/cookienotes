@@ -16,7 +16,8 @@
     border-radius: 3px;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     display: block;
@@ -58,9 +59,7 @@ a.fa:nth-child(14) {
     display: none;
 }
 
-.tab-container {
-
-}
+.tab-container {}
 
 .tab {
     font-family: "Ubuntu Mono", serif;
@@ -109,18 +108,20 @@ a.fa:nth-child(14) {
 
 
 .notes-version {
-	position: absolute;
-	font-family: "Ubuntu Mono", serif;
-	color: #959694;
-	user-select: none;
-	bottom: 7px;
-	left: 8px;
-	font-size: 12px;
-	opacity: 0.75;
+    position: absolute;
+    font-family: "Ubuntu Mono", serif;
+    color: #959694;
+    user-select: none;
+    bottom: 7px;
+    left: 8px;
+    font-size: 12px;
+    opacity: 0.75;
+
     a {
-        text-decoration: none ;
+        text-decoration: none;
         color: inherit
     }
+
     a:hover {
         text-decoration: underline
     }
@@ -188,6 +189,7 @@ a.fa:nth-child(14) {
     transform: translateX(-50%);
     background-size: 100% auto;
     background-position: center;
+
     img {
         height: 100vh;
         user-select: none;
@@ -205,8 +207,8 @@ a.fa:nth-child(14) {
     border: 1px solid #4f4f4f;
     padding: 0 4px 0 0;
     z-index: 1000;
-    max-height: 230px; 
-    overflow-y: auto; 
+    max-height: 230px;
+    overflow-y: auto;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     height: 100%;
@@ -217,11 +219,11 @@ a.fa:nth-child(14) {
     padding: 3px 8px;
     min-width: fit-content;
     font-family: "Ubuntu Mono", serif;
-    color: #c5c5c5; 
+    color: #c5c5c5;
 }
 
 .ca-creature-item:hover {
-    background-color: #3F3F3F; 
+    background-color: #3F3F3F;
 }
 
 /* ------------ TAB TYPE MENU ------------- */
@@ -252,18 +254,19 @@ a.fa:nth-child(14) {
 /* ------------ TAB CONTENT ------------- */
 
 #ca-tab-content {
-    height: 100%; 
+    height: 100%;
     overflow: hidden;
 }
 
-#ca-tab-content > div > iframe {
-	width: calc(100% - 1px);
-	height: calc(100vh - 68px);
-	border-radius: 8px;
-	border: 1px solid #4f4f4f;
-	background: #0f0f0f77;
+#ca-tab-content>div>iframe {
+    width: calc(100% - 1px);
+    height: calc(100vh - 68px);
+    border-radius: 8px;
+    border: 1px solid #4f4f4f;
+    background: #0f0f0f77;
 }
-#ca-tab-content > div {
+
+#ca-tab-content>div {
     position: absolute;
     width: 100%;
 }
@@ -319,4 +322,42 @@ a.fa:nth-child(14) {
 
 div.tab:last-child {
     margin-right: 32px;
+}
+
+/* ------------ blockquotes ------------- */
+
+blockquote {
+    max-width: 650px;
+    width: fit-content;
+    user-select: none;
+    position: relative;
+}
+
+blockquote:hover {
+    background: #232323;
+    cursor: pointer;
+}
+
+blockquote>p {
+    margin: 8px 0;
+    position: relative;
+}
+
+.copied-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(54, 54, 54, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.copied-overlay.visible {
+    opacity: 1;
 }

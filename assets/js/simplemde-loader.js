@@ -359,6 +359,8 @@ function makeTabNameEditable(tabNameElement, tabId) {
     input.addEventListener("blur", saveName);
 }
 
+
+
 // TAB SELECTOR
 function showTabTypeMenu(x, y) {
     const existingMenu = document.querySelector(".ca-tab-type-menu");
@@ -372,7 +374,7 @@ function showTabTypeMenu(x, y) {
         { name: "cookinotes", type: "simplemde" },
         { name: "schedule", type: "iframe", content: "/extratabs/scheduler/index.html" },
         { name: "creature-test", type: "iframe", content: "/extratabs/cookie_test/index.html" },
-        { name: "custom...", type: "custom-iframe" }, 
+        { name: "custom...", type: "custom-iframe" },
     ];
     options.forEach((option) => {
         const item = document.createElement("div");
@@ -380,10 +382,39 @@ function showTabTypeMenu(x, y) {
         item.textContent = option.name;
         item.addEventListener("click", () => {
             if (option.type === "custom-iframe") {
-                const url = prompt("enter the URL for the custom iframe:");
+
+                const blacklistedURLs = [
+                    "https://www.google.com",
+                    "https://www.youtube.com",
+                    "https://www.reddit.com",
+                    "https://notes.cookiaria.lol",
+                ];
+
+                const url = prompt("enter a url:");
+                let normalizedUrl = url.trim().toLowerCase();
+
+                if (normalizedUrl.endsWith("/")) {
+                    normalizedUrl = normalizedUrl.slice(0, -1);
+                    console.log("removed trailing slash:", normalizedUrl);
+                }
+
+                if (blacklistedURLs.includes(normalizedUrl)) {
+                    alert("nuh-uh! ain't letting you do that.");
+                    console.log("blacklisted url:", normalizedUrl);
+                    return
+                }
+
+                if (!normalizedUrl.startsWith("http://") && !normalizedUrl.startsWith("https://")) {
+                    alert('invalid url. must start with "http://" or "https://"!');
+                    console.log("invalid url:", normalizedUrl);
+                    return
+                }
+
                 if (url) {
                     addNewTab("iframe", url);
+                    console.log("added iframe tab:", url);
                 }
+
             } else {
                 addNewTab(option.type, option.content);
             }
@@ -397,7 +428,7 @@ function showTabTypeMenu(x, y) {
     const menuWidth = menu.offsetWidth;
     const menuHeight = menu.offsetHeight;
 
-    menu.style.left = `${x - menuWidth}px`; 
+    menu.style.left = `${x - menuWidth}px`;
     menu.style.top = `${y}px`;
 
     document.body.removeChild(menu);
@@ -428,21 +459,19 @@ function switchTab(tabId) {
     if (newTab) {
         const contentDiv = document.getElementById(`tab-content-${tabId}`);
         if (contentDiv) {
-            contentDiv.style.display = "block"; // Show new tab
-
+            contentDiv.style.display = "block";
             if (newTab.type === "simplemde") {
                 const simplemde = tabInstances.get(tabId);
                 if (simplemde) {
                     simplemde.codemirror.refresh();
-                    // Only on page reload (initial load) restore preview state
-                    if (newTab.previewState && !simplemde.isPreviewActive()) {
+
+                    if (newTab.previewState !== simplemde.isPreviewActive()) {
                         simplemde.togglePreview();
                     }
                 }
             }
         }
     }
-    // Mark that the initial load has completed
     initialLoad = false;
 }
 
@@ -451,16 +480,25 @@ function switchTab(tabId) {
 // Add a new tab
 async function addNewTab(type, content = "") {
     const newTabId = String(Date.now());
-    const randomName = await getRandomTabName(); // Fetch a random name
+    const randomName = await getRandomTabName();
     tabs.push({
         id: newTabId,
-        name: randomName, // Use the random name instead of an empty string
+        name: randomName,
         type,
         content,
         previewState: false,
     });
     localStorage.setItem("tabs", JSON.stringify(tabs));
     renderTabs();
+
+    const newTab = tabs.find(tab => tab.id === newTabId);
+    if (newTab && newTab.previewState) {
+        const simplemde = tabInstances.get(newTabId);
+        if (simplemde && !simplemde.isPreviewActive()) {
+            simplemde.togglePreview();
+        }
+    }
+
     switchTab(newTabId);
 
     // scroll to tab when created
@@ -522,15 +560,15 @@ window.addEventListener("beforeunload", () => {
 
 function cleanupLocalStorage() {
     console.log('cleaning up localStorage...');
-    const tabIds = new Set(tabs.map(tab => tab.id)); 
+    const tabIds = new Set(tabs.map(tab => tab.id));
 
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key.startsWith("smde_tab")) {
-            const tabId = key.replace("smde_tab", ""); 
+            const tabId = key.replace("smde_tab", "");
             if (!tabIds.has(tabId)) {
                 console.log(`deleting orphaned localStorage entry: ${key}`);
-                localStorage.removeItem(key); 
+                localStorage.removeItem(key);
             }
         }
     }
