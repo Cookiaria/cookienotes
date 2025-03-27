@@ -161,7 +161,7 @@ let cachedTabNames = null;
     try {
         const response = await fetch('/assets/tabnames.json');
         cachedTabNames = await response.json();
-        console.log('downloaded tab names:', cachedTabNames);
+        console.log('preloaded tab names!', cachedTabNames);
     } catch (error) {
         console.error('failed to download tab names:', error);
         cachedTabNames = { tabfirst: ["stupid"], tablast: ["dingus"] };
@@ -283,6 +283,13 @@ function renderTabs() {
     const activeTabId = document.querySelector(".tab.active")?.getAttribute("data-tab") || tabs[0].id;
     if (tabs.length > 0) {
         switchTab(activeTabId); // Keep previously selected tab active
+        
+        // Make sure creature is in the active tab
+        const activeContent = document.getElementById(`tab-content-${activeTabId}`);
+        const creature = document.getElementById('creature');
+        if (activeContent && creature && !activeContent.contains(creature)) {
+            activeContent.appendChild(creature);
+        }
     }
 
     tabContainer.addEventListener("dragover", (e) => {
@@ -487,6 +494,13 @@ function switchTab(tabId) {
         const contentDiv = document.getElementById(`tab-content-${tabId}`);
         if (contentDiv) {
             contentDiv.style.display = "block";
+            
+            // Move the creature to this tab's content
+            const creature = document.getElementById('creature');
+            if (creature) {
+                contentDiv.appendChild(creature);
+            }
+            
             if (newTab.type === "simplemde") {
                 const simplemde = tabInstances.get(tabId);
                 if (simplemde) {

@@ -3,13 +3,12 @@
 	display: flex;
 	justify-content: flex-end;
 	align-items: flex-end;
-	bottom: 0;
-	right: 0;
+	bottom: 1px;
+	right: 1px;
 	width: 240px;
 	z-index: 500;
 	pointer-events: none;
-	margin-bottom: 29px;
-    border-bottom-right-radius: 8px;
+    border-bottom-right-radius: 6px;
 }
 
 .sero-blank {

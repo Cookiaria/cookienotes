@@ -1,12 +1,15 @@
 # CHANGELOG:
 
-### v12.5-watermelon-kaleidoscope - mar 26, 2025
+### v13.0-mini-tangerine - mar 26, 2025
 - made nerdfonts locally hosted because nerdfonts is blocked in some countries and at my job now (????)
 - tabnames.json and creatures.json now download before actually being used lol
 - made the cursor just a lil bit chubby
+- fixes for sfx to be more accurate to osu!lazer
 - cursor now smoothly fades in and out because Why Not
 - moved webamp to a command instead of having a button for it in simplemde
 - noclip command (real)
+- creature now correctly positions itself within the tab's content, without offset when zooming in
+  - still kinda offset for iframe tabs...
 
 ### v12.4-watermelon-kaleidoscope - mar 20, 2025
 - fixed an issue where if you had tabs with preview mode on, and create a new one, it would lose its preview state on reload

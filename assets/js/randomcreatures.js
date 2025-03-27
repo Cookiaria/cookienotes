@@ -10,7 +10,7 @@ let creatureListCache = null;
     try {
         const response = await fetch('/assets/creatures.json');
         creatureListCache = await response.json();
-        console.log('creatures preloaded');
+        console.log('preloaded creaturelist!', creatureListCache);
     } catch (error) {
         console.error('creature error:', error.message);
     }

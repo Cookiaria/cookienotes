@@ -455,9 +455,10 @@ span.CodeMirror-selectedtext {
 	border-radius: 8px;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
-	background: #0F0F0FBB;
+	background: #00000069;
 	padding: 10px;
 	z-index: 1;
+    backdrop-filter: blur(20px);
 }
 
 .CodeMirror-scroll {
