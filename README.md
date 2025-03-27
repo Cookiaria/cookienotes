@@ -33,10 +33,12 @@ im still mad about that. but if it weren't for that i wouldn't have started this
   - licensed under [MIT >](https://github.com/sparksuite/simplemde-markdown-editor?tab=MIT-1-ov-file)
 - [osu-resources](https://github.com/ppy/osu-resources) (for sound effects)
   - licensed under [CC BY-NC 4.0](https://github.com/ppy/osu-resources?tab=License-1-ov-file)
+- [nerdfonts](https://www.nerdfonts.com)
+  - licensed under... IDK but [here's the license](https://github.com/ryanoasis/nerd-fonts?tab=License-1-ov-file)
 - [alsoangle](https://bsky.app/profile/alsoangle.bsky.social) for ralsei art
 - [jadedholiday](https://x.com/jadedholiday) for ralsei art
 - [IcyMaxi](https://bsky.app/profile/maximaxi.cookiaria.lol) for art of my oc and themselves
-- merad01 - for ralsei art comm
+- merad01 - for ralsei art 
 - Chikn Nuggit - for Cheezborger asset
 - tobyfox - for ralsei assets 
 - nightmargin - for niko assets

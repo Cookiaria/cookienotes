@@ -6,6 +6,16 @@ document.addEventListener('mousemove', (e) => {
 
 let creatureListCache = null;
 
+(async function preloadCreatures() {
+    try {
+        const response = await fetch('/assets/creatures.json');
+        creatureListCache = await response.json();
+        console.log('creatures preloaded');
+    } catch (error) {
+        console.error('creature error:', error.message);
+    }
+})();
+
 async function fetchCreatureData() {
     if (creatureListCache) {
         return creatureListCache;
@@ -18,7 +28,7 @@ async function fetchCreatureData() {
         console.log('creatures are loaded:', creatureListCache);
         return creatureListCache;
     } catch (error) {
-        console.error('Error:', error.message);
+        console.error('creature error:', error.message);
         return null;
     }
 }
@@ -106,12 +116,6 @@ async function showCreatureList(event) {
     listContainer.style.top = `${y + 10}px`;
     listContainer.style.left = `${x}px`;
 
-    const loadingItem = document.createElement('div');
-    loadingItem.textContent = 'loading...';
-    loadingItem.classList.add('ca-creature-item', 'ca-loading');
-    loadingItem.style.pointerEvents = 'none';
-    listContainer.appendChild(loadingItem);
-    document.body.appendChild(listContainer);
 
     try {
         const data = await fetchCreatureData();

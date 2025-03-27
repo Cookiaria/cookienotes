@@ -80,14 +80,6 @@ function initializeSimpleMDE(elementId, tabId) {
                 title: "Insert clock",
             },
             {
-                name: "Winamp",
-                action: function () {
-                    showWinamp();
-                },
-                className: "nf nf-fa-music",
-                title: "Winamp (why?)",
-            },
-            {
                 name: "Commands",
                 action: function (editor) {
                     openCommandLine();
@@ -164,10 +156,33 @@ function showWinamp() {
 
 let cachedTabNames = null;
 
-async function getRandomTabName() {
-    if (!cachedTabNames) {
+// Load tab names immediately when the script runs
+(async function preloadTabNames() {
+    try {
         const response = await fetch('/assets/tabnames.json');
         cachedTabNames = await response.json();
+        console.log('downloaded tab names:', cachedTabNames);
+    } catch (error) {
+        console.error('failed to download tab names:', error);
+        cachedTabNames = { tabfirst: ["stupid"], tablast: ["dingus"] };
+    }
+})();
+
+async function getRandomTabName() {
+    if (!cachedTabNames) {
+        try {
+            const response = await fetch('/assets/tabnames.json');
+            cachedTabNames = await response.json();
+        } catch (error) {
+            console.error('Failed to load tab names:', error);
+            // default if for some reason the fetch fails
+            return `tab-${Math.floor(Math.random() * 1000)}`;
+        }
+    }
+
+    // If we still don't have tab names (fetch failed), use a fallback
+    if (!cachedTabNames || !cachedTabNames.tabfirst || !cachedTabNames.tablast) {
+        return `tab-${Math.floor(Math.random() * 1000)}`;
     }
 
     const first = cachedTabNames.tabfirst[Math.floor(Math.random() * cachedTabNames.tabfirst.length)];
@@ -385,7 +400,6 @@ function showTabTypeMenu(x, y) {
 
                 const blacklistedURLs = [
                     "https://www.google.com",
-                    "https://www.youtube.com",
                     "https://www.reddit.com",
                     "https://notes.cookiaria.lol",
                 ];
@@ -446,6 +460,19 @@ function showTabTypeMenu(x, y) {
 let initialLoad = true;
 
 function switchTab(tabId) {
+    // Save the current tab's state before switching
+    const currentActiveTab = document.querySelector('.tab.active');
+    if (currentActiveTab) {
+        const currentTabId = currentActiveTab.getAttribute('data-tab');
+        const currentTab = tabs.find(tab => tab.id === currentTabId);
+        if (currentTab && currentTab.type === "simplemde") {
+            const simplemde = tabInstances.get(currentTabId);
+            if (simplemde) {
+                currentTab.previewState = simplemde.isPreviewActive();
+            }
+        }
+    }
+
     // hide ALL tab content before showing the new one
     document.querySelectorAll("#ca-tab-content > div").forEach((content) => {
         content.style.display = "none";
@@ -474,8 +501,6 @@ function switchTab(tabId) {
     }
     initialLoad = false;
 }
-
-
 
 // Add a new tab
 async function addNewTab(type, content = "") {

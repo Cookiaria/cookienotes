@@ -33,7 +33,7 @@ function exportLocalStorage() {
         if (tab.type === "simplemde") {
             const editor = tabInstances.get(tab.id);
             if (editor) {
-                tab.content = editor.value(); // Save only the raw Markdown content
+                tab.content = editor.value(); 
                 tab.history = editor.codemirror.getHistory();
                 tab.previewState = editor.isPreviewActive();
             }
@@ -103,7 +103,7 @@ function importLocalStorage() {
                         id: String(Date.now()),
                         name: "cookinotes",
                         type: "simplemde",
-                        content: "", // Ensure content is initialized as an empty string
+                        content: "", 
                         history: null,
                         previewState: false,
                     }];
@@ -116,7 +116,7 @@ function importLocalStorage() {
                         if (tab.type === "simplemde") {
                             const editor = tabInstances.get(tab.id);
                             if (editor) {
-                                editor.value(tab.content); // Set the editor content
+                                editor.value(tab.content);
                             }
                         }
                     });
@@ -124,7 +124,7 @@ function importLocalStorage() {
                     setTimeout(() => window.location.reload(), 500); // delay to refresh so that it also loads the saved creatures and stuff
                 } catch (error) {
                     console.error('failed to import localstorage:', error);
-                    alert('Failed to import localstorage. The file might be corrupted or invalid.');
+                    alert('failed to import localstorage. The file might be corrupted or invalid.');
                 }
             };
             reader.readAsText(file);
@@ -203,7 +203,7 @@ function openCommandLine() {
                 if (commands[command]) {
                     commands[command](args);
                 } else {
-                    alert(`unknown command: "${command}". type "help" for a list`);
+                    alert(`unknown command: "${command}". type "help" for a list!`);
                 }
 
                 console.log('goodbye!');
@@ -222,7 +222,8 @@ const commands = {
     import: importLocalStorage, 
 
     help: () => {
-        alert('available commands: ' + Object.keys(commands).join(', '));
+        const sortedCommands = Object.keys(commands).sort((a, b) => b.length - a.length);
+        alert("> available commands: \n\n" + sortedCommands.join('\n') + "\n\n> it's all case-sensitive!");
     },
 
     clear: begone,
@@ -280,4 +281,28 @@ const commands = {
     },
 
     sfx: toggleSFX,
+
+    noclip: () => {
+        const currentState = localStorage.getItem('noclip') === 'true';
+        const newState = !currentState;
+        localStorage.setItem('noclip', newState);
+        if (Math.random() < 0.01) {
+            if (newState) {
+                alert('My reflection winked at me. I covered the mirror in the attic just to be safe. ');
+            } else {
+                alert("There's no good outcome from a house fire.");
+            }
+        } else {
+            alert(`noclip: ${newState ? 'on' : 'off'}`);
+        }
+    },
+
+    winamp: () => {
+        const currentState = localStorage.getItem('winamp') === 'true';
+        const newState = !currentState;
+        localStorage.setItem('winamp', newState);
+        if (newState) {
+            showWinamp();
+        }
+    },
 };

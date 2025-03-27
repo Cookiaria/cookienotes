@@ -1,12 +1,19 @@
 # CHANGELOG:
 
+### v12.5-watermelon-kaleidoscope - mar 26, 2025
+- made nerdfonts locally hosted because nerdfonts is blocked in some countries and at my job now (????)
+- tabnames.json and creatures.json now download before actually being used lol
+- made the cursor just a lil bit chubby
+- cursor now smoothly fades in and out because Why Not
+- moved webamp to a command instead of having a button for it in simplemde
+- noclip command (real)
+
 ### v12.4-watermelon-kaleidoscope - mar 20, 2025
 - fixed an issue where if you had tabs with preview mode on, and create a new one, it would lose its preview state on reload
 - creature list is now saved in memory, so that it doesn't fetch for the list every time you click the button (like a Normal Person)
 - created a blacklist of links you are not allowed to input on the custom tab selector (like the website itself, google, youtube, reddit)
 - importing now also refreshes the page after importing to also load the creatures and opacity state
 - copyable quotes now don't also copy the "copied!" text after copying them multiple times (i literally made it only copy stuff inside \<p> elements)
-
 
 ### v12.3-watermelon-kaleidoscope - mar 18, 2025
 - added an sfx toggle. use the command input and type `sfx`

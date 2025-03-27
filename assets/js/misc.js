@@ -94,5 +94,3 @@ document.addEventListener('click', e => {
     }
   }
 });
-
-console.error("tricked you into thinking.")

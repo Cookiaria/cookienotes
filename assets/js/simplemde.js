@@ -1927,9 +1927,9 @@
                         var t = e.display;
                         clearInterval(t.blinker);
                         var n = !0;
-                        t.cursorDiv.style.visibility = "", e.options.cursorBlinkRate > 0 ? t.blinker = setInterval(function() {
-                            t.cursorDiv.style.visibility = (n = !n) ? "" : "hidden"
-                        }, e.options.cursorBlinkRate) : e.options.cursorBlinkRate < 0 && (t.cursorDiv.style.visibility = "hidden")
+                        t.cursorDiv.style.opacity = "1", e.options.cursorBlinkRate > 0 ? t.blinker = setInterval(function() {
+                            t.cursorDiv.style.opacity = (n = !n) ? "1" : "0"
+                        }, e.options.cursorBlinkRate) : e.options.cursorBlinkRate < 0 && (t.cursorDiv.style.opacity = "0")
                     }
                 }
 

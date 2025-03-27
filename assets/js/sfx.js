@@ -37,7 +37,6 @@ function playSound(buffer) {
 document.addEventListener('keydown', (event) => {
     if (!sfxEnabled) return; 
     
-    const isCapsLockOn = event.getModifierState && event.getModifierState('CapsLock');
     if (event.ctrlKey && event.key === 'a') {
         playSound(soundBuffers[selectAll]);
         return;
@@ -46,6 +45,19 @@ document.addEventListener('keydown', (event) => {
         playSound(soundBuffers[keyDelete]);
         return;
     }
+    if (event.key === ' ') {
+        const randomSound = keyPresses[Math.floor(Math.random() * keyPresses.length)];
+        playSound(soundBuffers[randomSound]);
+        return;
+    }
+
+    if (event.ctrlKey && event.key === 'a') {
+        const randomSound = keyPresses[Math.floor(Math.random() * keyPresses.length)];
+        playSound(soundBuffers[randomSound]);
+        return;
+    } // there was an attempt
+    
+    const isCapsLockOn = event.getModifierState && event.getModifierState('CapsLock');
     if (isCapsLockOn) {
         playSound(soundBuffers[keyCaps]);
     } else {

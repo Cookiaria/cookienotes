@@ -40,9 +40,15 @@ ul {
 }
 
 .CodeMirror-cursor {
-    border-left: 1px solid white;
-    border-right: none;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    border-radius: 2px;
     width: 0
+}
+
+.CodeMirror-cursors {
+    transition-duration: 0.25s;
+    transition-timing-function: cubic-bezier(.79,.14,.15,.86);
 }
 
 .CodeMirror div.CodeMirror-secondarycursor {
@@ -65,7 +71,7 @@ ul {
     -webkit-animation: blink 1.06s steps(1) infinite;
     -moz-animation: blink 1.06s steps(1) infinite;
     animation: blink 1.06s steps(1) infinite;
-    background-color: #7e7
+    background-color: #7e7;
 }
 
 @-moz-keyframes blink {
@@ -429,7 +435,7 @@ div.CodeMirror-dragcursors {
 
 @media print {
     .CodeMirror div.CodeMirror-cursors {
-        visibility: hidden
+        opacity: 0;
     }
 }
 
@@ -444,7 +450,6 @@ span.CodeMirror-selectedtext {
 }
 
 .CodeMirror {
-	font-family: "Ubuntu Mono", serif;
 	font-size: 18px;
 	border: 1px solid #4f4f4f;
 	border-radius: 8px;
@@ -632,7 +637,6 @@ span.CodeMirror-selectedtext {
 }
 
 .editor-statusbar {
-	font-family: "Ubuntu Mono", serif;
 	position: absolute;
 	user-select: none;
 	font-size: 12px;
@@ -650,7 +654,7 @@ span.CodeMirror-selectedtext {
 
 .editor-preview,
 .editor-preview-side {
-    padding: 8px;
+    padding: 10px;
     background: rgb(18, 18, 18);
     overflow: auto;
     display: none;

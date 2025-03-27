@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
-@import url('https://www.nerdfonts.com/assets/css/webfont.css');
+
+@font-face {
+    font-family: "MSDOS";
+    src: url("/assets/fonts/DOS_vga.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
 
 .nf {
     font-size: 18px;
@@ -18,6 +24,7 @@
 
 html,
 body {
+    font-family: "Ubuntu Mono", serif;
     margin: 0;
     padding: 0;
     display: block;
@@ -54,15 +61,9 @@ a {
     margin: 0 auto;
 }
 
-a.fa:nth-child(13),
-a.fa:nth-child(14) {
-    display: none;
-}
 
-.tab-container {}
 
 .tab {
-    font-family: "Ubuntu Mono", serif;
     padding: 6px 8px;
     background-color: #1B1B1B;
     color: #fff;
@@ -109,7 +110,6 @@ a.fa:nth-child(14) {
 
 .notes-version {
     position: absolute;
-    font-family: "Ubuntu Mono", serif;
     color: #959694;
     user-select: none;
     bottom: 7px;
@@ -128,7 +128,7 @@ a.fa:nth-child(14) {
 }
 
 #command-line {
-    font-family: "Ubuntu Mono", serif;
+    font-family: "Ubuntu Mono", serif; /* why do i need to specify this here */
     font-weight: bold;
     font-size: 16px;
     position: absolute;
@@ -158,7 +158,6 @@ a.fa:nth-child(14) {
 }
 
 .ca-tab-renamer {
-    font-family: "Ubuntu Mono", serif;
     font-size: inherit;
     color: white;
     width: min-content;
@@ -218,7 +217,6 @@ a.fa:nth-child(14) {
     cursor: pointer;
     padding: 3px 8px;
     min-width: fit-content;
-    font-family: "Ubuntu Mono", serif;
     color: #c5c5c5;
 }
 
@@ -243,7 +241,6 @@ a.fa:nth-child(14) {
     cursor: pointer;
     padding: 3px 8px;
     min-width: fit-content;
-    font-family: "Ubuntu Mono", serif;
     color: #c5c5c5;
 }
 
@@ -301,7 +298,6 @@ a.fa:nth-child(14) {
 
     height: 22px;
     text-align: center;
-    font-family: "Ubuntu Mono", serif;
     padding: 4px 8px;
     cursor: pointer;
     font-weight: bold;
